@@ -22,3 +22,9 @@ yarn-error.log
 /.env.example
 /.artisan
 /.env.example
+composer.json
+composer.lock
+package-lock.json
+package.json
+phpunit.xml
+vite.config.js
