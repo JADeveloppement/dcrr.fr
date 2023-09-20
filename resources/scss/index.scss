@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    a {
+        @apply text-dcrr-green bg-white ;
+    }
+
+    .travel-bg {
+        @apply w-fit h-[100vh] fixed z-[-2] top-0 flex ;
+        left: 0px;
+        transition: left linear 300s;
+
+        > img {
+            @apply w-[100vw] ;
+        }
+    }
+
+    .container {
+        @apply min-w-full h-screen bg-black/50 flex items-center justify-center ;
+
+        > .box {
+            @apply min-w-[50vw] bg-white p-8 rounded-lg shadow-md flex flex-col items-center ;
+        }
+    }
+}
