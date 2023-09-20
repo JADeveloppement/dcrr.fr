@@ -3,8 +3,6 @@
 /public/build
 /public/hot
 /public/storage
-/public/json
-/public/css
 /storage/*.key
 /vendor
 .env
@@ -19,13 +17,3 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/.env.example
-/.artisan
-/.env.example
-composer.json
-composer.lock
-package-lock.json
-package.json
-phpunit.xml
-vite.config.js
-*.zip
