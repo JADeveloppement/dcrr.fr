@@ -6,16 +6,12 @@
 
 @section("content")
     <div class="travel-bg">
-        <img class="signin-img" src="/storage/img/bglogin.png" alt="">
+        <img class="signin-img" src="/storage/img/bglogin.jpg" alt="">
         <img class="signin-img" src="/storage/img/bglogin.jpg" alt="">
         <img class="signin-img" src="/storage/img/bglogin.jpg" alt="">
     </div>
-
-    <div class="container">
-        <div class="box">
-            <h2>Connection</h2>
-        </div>
-    </div>
+    
+    @include("components.login")
 
     <script>
         const travel_img = document.querySelector(".travel-bg");
