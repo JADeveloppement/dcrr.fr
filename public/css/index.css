@@ -610,11 +610,29 @@ a {
 .fixed {
   position: fixed;
 }
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
 .left-0 {
   left: 0px;
 }
 .top-0 {
   top: 0px;
+}
+.right-\[1rem\] {
+  right: 1rem;
+}
+.top-\[1rem\] {
+  top: 1rem;
+}
+.right-\[20px\] {
+  right: 20px;
+}
+.top-\[20px\] {
+  top: 20px;
 }
 .z-\[-2\] {
   z-index: -2;
@@ -635,6 +653,9 @@ a {
 }
 .mt-3 {
   margin-top: 0.75rem;
+}
+.mr-4 {
+  margin-right: 1rem;
 }
 .flex {
   display: flex;
@@ -697,8 +718,15 @@ a {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-\[\#70ad42\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(112 173 66 / var(--tw-bg-opacity));
+}
 .p-8 {
   padding: 2rem;
+}
+.p-4 {
+  padding: 1rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -715,6 +743,12 @@ a {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+.text-\[2rem\] {
+  font-size: 2rem;
+}
+.text-\[1rem\] {
+  font-size: 1rem;
+}
 .font-extrabold {
   font-weight: 800;
 }
@@ -728,6 +762,13 @@ a {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-\[1\.rem\] {
+  color: 1.rem;
+}
+.text-\[\#70ad42\] {
+  --tw-text-opacity: 1;
+  color: rgb(112 173 66 / var(--tw-text-opacity));
 }
 .shadow-md {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);

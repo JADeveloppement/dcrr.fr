@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function ():\Illuminate\View\View {
     return view('welcome');
 });
 
-Route::get("/signin", function(){
+Route::get("/signin", function():\Illuminate\View\View {
     return view("signin");
+});
+
+Route::get("/profil", function():\Illuminate\View\View {
+    return view("profil_client");
 });
