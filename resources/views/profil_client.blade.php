@@ -28,6 +28,9 @@
     @elseif($displayMenu == 2)
         <!-- TODO : EVERYTHING -->
         @include("profil_client_views.boutique")
+    @elseif($displayMenu == 3)
+        <!-- TODO : EVERYTHING -->
+        @include("profil_client_views.contact")
     @else
         <p>Autre menu</p>
     @endif
@@ -42,6 +45,12 @@
     <script>
         const nav_menu = document.querySelector(".nav")
         const btn_menu = document.querySelector("header > .right > .menu-nav");
+
+        const btn_logout = document.querySelector("a[data-target='4']")
+        btn_logout.addEventListener("click", function(e){
+            e.preventDefault();
+            window.location = "/signin";
+        })
 
         btn_menu.addEventListener("click", function(){
             nav_menu.style.top = "0";
