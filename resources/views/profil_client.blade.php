@@ -57,6 +57,7 @@
 
         btn_close_notif.addEventListener("click", function(){
             notif_container.style.left = "-500px";
+            //suite
         })
 
         const news_container = document.querySelector(".news-container");
