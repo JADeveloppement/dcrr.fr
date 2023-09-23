@@ -1,4 +1,4 @@
-<div class="nav" @if($requestMenu) style="top: -200vh;" @endif>
+<div class="nav" @if($requestMenu) style="top: -200vh;" @else style="top: 0vh;" @endif>
     <div class="close">
         <i class="bi bi-x-circle-fill"></i>
     </div>

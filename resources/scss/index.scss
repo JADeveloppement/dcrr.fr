@@ -5,14 +5,22 @@
 
 @layer components {
     h2 {
-        @apply font-extrabold text-[1.5rem] ;
+        @apply font-extrabold text-[1.5rem] my-2 ;
     }
 
     button {
-        @apply bg-dcrr-green text-white transition-all rounded-lg px-4 py-2 ;
+        @apply bg-dcrr-green text-white transition-all rounded-lg px-4 py-2 my-3 ;
 
         &:hover {
             @apply bg-white border-solid border-2 border-dcrr-green text-dcrr-green ;
+        }
+    }
+
+    .btn-cancel  {
+        @apply bg-slate-500 w-full my-0 ;
+
+        &:hover {
+            @apply bg-white border-slate-500 text-slate-500 ;
         }
     }
 
@@ -92,6 +100,41 @@
                     @apply bg-dcrr-green text-white shadow-md font-extrabold ;
                 }
             }
+        }
+    }
+
+    .profil-client-container {
+        @apply p-4 ;
+
+        > .messite-table {
+            @apply w-full text-center shadow-lg my-4 ;
+
+            > thead {
+                @apply bg-dcrr-green font-extrabold text-white ; 
+
+                th {
+                    @apply p-2 ;
+                }
+            }
+
+            > tbody {
+
+                > tr {
+                    @apply border-b-black border-b-[1px] ;
+
+                    > td {
+                        @apply p-2 ;
+                    }
+
+                    &:hover {
+                        @apply bg-dcrr-green/30 cursor-pointer ;
+                    }
+                }
+            }
+        }
+
+        > .ensemblesassocies {
+            @apply w-full p-4 border-solid border-2 border-black shadow-lg rounded-lg my-8 ;
         }
     }
     /** **/

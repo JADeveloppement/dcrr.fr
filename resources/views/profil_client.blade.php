@@ -16,6 +16,19 @@
 
 @section("content")
     @include("profil_client_views.components.header")
+
+    @if($displayMenu == 0)
+        <!-- TODO : SCRIPT -->
+        @include("profil_client_views.mes_infos")
+    @elseif($displayMenu == 1)
+        <!-- TODO : LISTE ENSEMBLE 
+                    LISTE SITE
+                    SCRIPTS -->
+        @include("profil_client_views.mes_sites")
+    @elseif($displayMenu == 2)
+        <!-- TODO : EVERYTHING -->
+        @include("profil_client_views.boutique")
+    @endif
     
     @include("profil_client_views.components.nav", [
         "displayMenu" => $displayMenu,
