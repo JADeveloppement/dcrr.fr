@@ -103,6 +103,18 @@
         }
     }
 
+    .sidebar-container {
+        @apply fixed z-[98] h-screen w-[400px] bg-slate-200/20 top-0 shadow-lg  transition-all ;
+
+        > .title {
+            @apply bg-slate-200 p-4 w-full relative flex items-center shadow-md ;
+
+            > .btn-close-notif, >.btn-close-news {
+                @apply text-[1.5rem] absolute right-[10px] text-slate-400 hover:text-slate-900 cursor-pointer ;
+            }
+        }
+    }
+
     .profil-client-container {
         @apply p-4 ;
 
