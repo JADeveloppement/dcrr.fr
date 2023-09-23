@@ -28,6 +28,8 @@
     @elseif($displayMenu == 2)
         <!-- TODO : EVERYTHING -->
         @include("profil_client_views.boutique")
+    @else
+        <p>Autre menu</p>
     @endif
     
     @include("profil_client_views.components.nav", [
