@@ -23,10 +23,15 @@
         @include("profil_entreprise_views.mes_infos")
     @elseif($displayMenu == 1)
         <!-- TODO : SCRIPT -->
-        @include("profil_entreprise_views.mes_sites")
+        @include("profil_entreprise_views.liste_sites", [
+            "displaySite" => "XXXX"
+        ])
     @elseif($displayMenu == 2)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.liste_users")
+    @elseif($displayMenu == 3)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_sites")
     @else 
         <p>Autre menu</p>
     @endif
