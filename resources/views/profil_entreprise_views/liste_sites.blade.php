@@ -1,10 +1,13 @@
 <div class="profil-entreprise-container">
-    <h2>Liste des sites</h2>
+    <h2>Liste des sites : 
+        @if(isset($displaySite))
+            <span class="badge bg-dcrr-green text-white font-extrabold ml-4">{{$displaySite}}</span>
+        @endif
+    </h2>
     <span class="italic">Cliquez sur une ligne pour afficher ses ensembles associés.</span>
     <table class="messite-table">
         <thead>
             <tr>
-                <!-- commentaire -->
                 <th>Action</th>
                 <th>Code Client</th>
                 <th>Nom Client</th>

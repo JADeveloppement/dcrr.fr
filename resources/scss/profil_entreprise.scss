@@ -104,5 +104,56 @@
         > .ensemblesassocies, .modelesassocies {
             @apply w-full p-4 border-solid border-2 border-black shadow-lg rounded-lg my-8 relative ;
         }
+
+        .liste-user-container {
+            @apply flex flex-wrap ;
+            .card-user {
+                @apply m-3 w-[300px] rounded-lg overflow-hidden shadow-md transition-all hover:shadow-xl cursor-pointer;
+                .title {
+                    @apply bg-dcrr-green p-3 font-extrabold text-white font-extrabold flex items-center justify-between ;
+                }
+
+                .body {
+                    @apply p-3 ;
+                }
+
+                .action {
+                    @apply w-full flex items-center justify-center text-[1.5rem] text-center border-t-slate-200 border-solid border-t-2 ;
+
+                    > i {
+                        @apply w-1/2 ;
+
+                        &:hover {
+                            @apply bg-slate-700 text-white cursor-pointer ;
+                        }
+                    }
+                }
+            }
+        }
+
+        .type-actions-container {
+            @apply flex flex-wrap ;
+            
+            .card-actions {
+                @apply w-[400px] m-3 border-solid rounded-lg shadow-lg bg-white p-2 border-[1px] border-slate-200 cursor-pointer transition-all flex items-center ;
+    
+                &:hover {
+                    @apply bg-dcrr-green text-white shadow-xl ;
+                }
+    
+                > .left {
+                    @apply p-2 text-[2rem] ;
+                }
+    
+                > .right {
+                    @apply p-2 ;
+    
+                    > .description {
+                        @apply italic text-sm ;
+                    }
+                }
+            }
+        }
+
     }
 }

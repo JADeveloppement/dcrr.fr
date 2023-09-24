@@ -23,9 +23,26 @@
         @include("profil_entreprise_views.mes_infos")
     @elseif($displayMenu == 1)
         <!-- TODO : SCRIPT -->
-        @include("profil_entreprise_views.mes_sites")
+        @include("profil_entreprise_views.liste_sites", [
+            "displaySite" => "XXXX"
+        ])
+    @elseif($displayMenu == 2)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_users")
+    @elseif($displayMenu == 3)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_sites")
+    @elseif($displayMenu == 4)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_actions")
+    @elseif($displayMenu == 5)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_donnees")
     @else 
-        <p>Autre menu</p>
+        @include("profil_entreprise_views.error", [
+            "title_error" => "Pas de page trouvée",
+            "description_error" => "ID page : ".$displayMenu
+        ])
     @endif
     
     @include("profil_entreprise_views.components.nav", [
