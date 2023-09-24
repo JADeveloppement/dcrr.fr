@@ -11,7 +11,8 @@
 @endphp
 
 @section('head')
-    <link rel='stylesheet' href="{{ asset('css/index.css') }}">
+    <link rel='stylesheet' href="{{ asset('css/profil_client.css') }}">
+    <link rel='stylesheet' href="{{ asset('css/global.css') }}">
 @endsection
 
 @section("content")
