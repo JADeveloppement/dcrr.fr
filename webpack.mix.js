@@ -8,7 +8,10 @@ mix
 .js('resources/js/index.js', 'public/js')
 
 .setPublicPath('public')
+.sass('resources/scss/global.scss', 'public/css')
 .sass('resources/scss/index.scss', 'public/css')
+.sass('resources/scss/profil_client.scss', 'public/css')
+.sass('resources/scss/profil_entreprise.scss', 'public/css')
 
 .tailwind('./tailwind.config.js')
 .browserSync({

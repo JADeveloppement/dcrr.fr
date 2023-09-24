@@ -24,3 +24,7 @@ Route::get("/signin", function():\Illuminate\View\View {
 Route::get("/profil", function():\Illuminate\View\View {
     return view("profil_client");
 });
+
+Route::get("/profil_entreprise", function():\Illuminate\View\View {
+    return view("profil_entreprise");
+});
