@@ -21,14 +21,17 @@
     @if($displayMenu == 0)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.mes_infos")
-    @else
+    @elseif($displayMenu == 1)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.mes_infos")
+    @else 
         <p>Autre menu</p>
     @endif
     
     @include("profil_entreprise_views.components.nav", [
         "displayMenu" => $displayMenu,
-        "navinfos" => array_combine(["person-circle", "buildings", "person", "buildings", "key", "cone-striped", "power"], 
-                                    ["Mon profil", "Mes sites", "Liste des utilisateurs", "Liste des sites", "Actions à valider", "Modifier les données", "Déconnexion"]),
+        "navinfos" => array_combine(["person-circle", "buildings empty", "person", "buildings", "key", "cone-striped", "power"], 
+                                    ["Mon profil", "Mes sites", "Liste des utilsiateurs", "Liste des sites", "Actions à valider", "Modifier les données", "Déconnexion"]),
         "requestMenu" => $requestMenu
     ])
 
