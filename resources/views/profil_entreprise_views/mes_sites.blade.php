@@ -4,6 +4,7 @@
     <table class="messite-table">
         <thead>
             <tr>
+                <!-- commentaire -->
                 <th>Action</th>
                 <th>Code Client</th>
                 <th>Nom Client</th>
