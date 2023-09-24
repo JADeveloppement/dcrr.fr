@@ -5,7 +5,7 @@
 
 @layer components {
     .nav {
-        @apply fixed w-full h-screen flex bg-dcrr-green text-white items-center justify-center left-0 z-[99] transition-all ;
+        @apply fixed w-full h-screen flex bg-dcrr-green-700 text-white items-center justify-center left-0 z-[99] transition-all ;
     
         .navmenus {
             @apply flex flex-wrap justify-center gap-y-4 ;
@@ -17,7 +17,7 @@
                     @apply flex flex-col items-center justify-center p-4 cursor-pointer transition-all rounded-lg mr-4 ;
     
                     &:hover {
-                        @apply bg-white text-dcrr-green font-extrabold shadow-md ;
+                        @apply bg-white text-dcrr-green-700 font-extrabold shadow-md ;
                     }
     
                     > i {
@@ -26,7 +26,7 @@
                 }
     
                 .navlinks-actif {
-                    @apply bg-white text-dcrr-green ;
+                    @apply bg-white text-dcrr-green-700 ;
                 }
             }
         }
@@ -38,9 +38,12 @@
     
     header {
         @apply p-4 w-full h-fit shadow-md flex justify-between items-center ;
-    
-        > .logo {
-            @apply h-[60px] object-cover ;
+
+        > .left {
+            @apply flex items-center ;
+            > .logo {
+                @apply h-[60px] object-cover mr-4 ;
+            }
         }
     
         > .right {
