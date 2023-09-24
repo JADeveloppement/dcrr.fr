@@ -131,5 +131,29 @@
             }
         }
 
+        .type-actions-container {
+            @apply flex flex-wrap ;
+            
+            .card-actions {
+                @apply w-[400px] m-3 border-solid rounded-lg shadow-lg bg-white p-2 border-[1px] border-slate-200 cursor-pointer transition-all flex items-center ;
+    
+                &:hover {
+                    @apply bg-dcrr-green text-white shadow-xl ;
+                }
+    
+                > .left {
+                    @apply p-2 text-[2rem] ;
+                }
+    
+                > .right {
+                    @apply p-2 ;
+    
+                    > .description {
+                        @apply italic text-sm ;
+                    }
+                }
+            }
+        }
+
     }
 }

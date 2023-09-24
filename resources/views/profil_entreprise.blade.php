@@ -32,6 +32,9 @@
     @elseif($displayMenu == 3)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.liste_sites")
+    @elseif($displayMenu == 4)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_actions")
     @else 
         <p>Autre menu</p>
     @endif
