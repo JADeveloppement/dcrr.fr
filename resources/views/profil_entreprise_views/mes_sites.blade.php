@@ -1,5 +1,5 @@
-<div class="profil-client-container">
-    <h2>Mes sites</h2>
+<div class="profil-entreprise-container">
+    <h2>Liste des sites</h2>
     <span class="italic">Cliquez sur une ligne pour afficher ses ensembles associés.</span>
     <table class="messite-table">
         <thead>

@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    h2 {
+        @apply font-extrabold text-[1.5rem] my-2 ;
+    }
+
+    button {
+        @apply bg-dcrr-green text-white transition-all rounded-lg px-4 py-2 my-3 ;
+
+        &:hover {
+            @apply bg-white border-solid border-2 border-dcrr-green text-dcrr-green ;
+        }
+    }
+
+    .btn-cancel  {
+        @apply bg-slate-500 w-full my-0 ;
+
+        &:hover {
+            @apply bg-white border-slate-500 text-slate-500 ;
+        }
+    }
+
+    .container {
+        @apply min-w-full h-screen bg-black/50 fixed left-0 z-[99] transition-all flex flex-col items-center justify-center ;
+
+        > .box {
+            @apply min-w-[50vw] bg-white p-8 rounded-lg shadow-md flex flex-col items-center ;
+
+            > .btn-signin, > .btn-login {
+                @apply text-dcrr-green hover:text-dcrr-green-700 font-extrabold italic my-3 cursor-pointer ;
+            }
+        }
+    }
+}
