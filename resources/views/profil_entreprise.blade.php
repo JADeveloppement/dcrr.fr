@@ -35,8 +35,14 @@
     @elseif($displayMenu == 4)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.liste_actions")
+    @elseif($displayMenu == 5)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_donnees")
     @else 
-        <p>Autre menu</p>
+        @include("profil_entreprise_views.error", [
+            "title_error" => "Pas de page trouvée",
+            "description_error" => "ID page : ".$displayMenu
+        ])
     @endif
     
     @include("profil_entreprise_views.components.nav", [
