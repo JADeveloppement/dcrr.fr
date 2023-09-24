@@ -803,11 +803,17 @@ header > .right > .menu:hover {
 .top-\[20px\] {
   top: 20px;
 }
+.right-\[10px\] {
+  right: 10px;
+}
 .z-\[-2\] {
   z-index: -2;
 }
 .z-\[99\] {
   z-index: 99;
+}
+.z-\[98\] {
+  z-index: 98;
 }
 .m-2 {
   margin: 0.5rem;
@@ -873,6 +879,9 @@ header > .right > .menu:hover {
 }
 .w-full {
   width: 100%;
+}
+.w-\[400px\] {
+  width: 400px;
 }
 .min-w-\[50vw\] {
   min-width: 50vw;
@@ -965,6 +974,13 @@ header > .right > .menu:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-dcrr-green-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(91 130 61 / var(--tw-bg-opacity));
+}
+.bg-slate-200\/20 {
+  background-color: rgb(226 232 240 / 0.2);
+}
 .bg-none {
   background-image: none;
 }
@@ -1030,6 +1046,14 @@ header > .right > .menu:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.text-dcrr-green-700 {
+  --tw-text-opacity: 1;
+  color: rgb(91 130 61 / var(--tw-text-opacity));
+}
+.text-slate-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+}
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
@@ -1059,6 +1083,10 @@ header > .right > .menu:hover {
 .hover\:text-dcrr-green-700:hover {
   --tw-text-opacity: 1;
   color: rgb(91 130 61 / var(--tw-text-opacity));
+}
+.hover\:text-slate-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity));
 }
 .hover\:underline:hover {
   text-decoration-line: underline;
