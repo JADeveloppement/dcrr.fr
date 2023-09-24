@@ -23,7 +23,7 @@
         @include("profil_entreprise_views.mes_infos")
     @elseif($displayMenu == 1)
         <!-- TODO : SCRIPT -->
-        @include("profil_entreprise_views.mes_infos")
+        @include("profil_entreprise_views.mes_sites")
     @else 
         <p>Autre menu</p>
     @endif
