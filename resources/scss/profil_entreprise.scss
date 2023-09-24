@@ -104,5 +104,32 @@
         > .ensemblesassocies, .modelesassocies {
             @apply w-full p-4 border-solid border-2 border-black shadow-lg rounded-lg my-8 relative ;
         }
+
+        .liste-user-container {
+            @apply flex flex-wrap ;
+            .card-user {
+                @apply m-3 w-[300px] rounded-lg overflow-hidden shadow-md transition-all hover:shadow-xl cursor-pointer;
+                .title {
+                    @apply bg-dcrr-green p-3 font-extrabold text-white font-extrabold flex items-center justify-between ;
+                }
+
+                .body {
+                    @apply p-3 ;
+                }
+
+                .action {
+                    @apply w-full flex items-center justify-center text-[1.5rem] text-center border-t-slate-200 border-solid border-t-2 ;
+
+                    > i {
+                        @apply w-1/2 ;
+
+                        &:hover {
+                            @apply bg-slate-700 text-white cursor-pointer ;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

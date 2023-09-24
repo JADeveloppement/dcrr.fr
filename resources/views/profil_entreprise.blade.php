@@ -24,6 +24,9 @@
     @elseif($displayMenu == 1)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.mes_sites")
+    @elseif($displayMenu == 2)
+        <!-- TODO : SCRIPT -->
+        @include("profil_entreprise_views.liste_users")
     @else 
         <p>Autre menu</p>
     @endif
