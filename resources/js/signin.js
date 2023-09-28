@@ -1,10 +1,5 @@
 import {fetch_result, toggleButtonClick, do_popup} from "./utils.js";
 
-
-setTimeout(() => {
-    do_popup ("bg-orange-500", "bi-info-circle", "Ceci est un essai from signin");
-}, 3000);
-
 /**
  * ONLY FRONT END
  */
@@ -93,11 +88,11 @@ btn_dosignin.addEventListener("click", async function(){
 
             const result = await fetch_result("/do_signin", data);                    
             if (result.r !== true){
-                if (result.r == -1) console.log("Email déjà utilisée.");
+                if (result.r == -1) do_popup ("bg-orange-500", "bi-info-circle", "E-mail déjà utilisée.");
             } 
-            else if (result.r) console.log("Inscription effectuée.");
+            else if (result.r) do_popup ("bg-dcrr-green", "bi-info-circle", "Inscription effectuée.");;
         } catch(error){
-            console.log(error);
+            do_popup ("bg-red-500", "bi-x-circle", "ERREUR : "+e);
         }
     }
 
@@ -128,23 +123,23 @@ btn_dologin.addEventListener("click", async function(){
 
             switch(result.r){
                 case -3:
-                    console.log("Mauvais utilisateur ou mot de passe");
+                    do_popup ("bg-orange-500", "bi-info-circle", "Mauvais identifiant ou mot de passe.");
                     break;
                 case -2:
-                    console.log("Compte non actif");
+                    do_popup ("bg-orange-500", "bi-info-circle", "Votre compte n'a pas encore été activé.");
                     break;
                 case -1:
-                    console.log("Mauvais utilisateur ou mot de passe");
+                    do_popup ("bg-orange-500", "bi-info-circle", "Mauvais identifiant ou mot de passe.");
                     break;
                 case 0:
-                    console.log("Une erreur est survenue, veuillez réessayer.");
+                    do_popup ("bg-red-500", "bi-x-circle", "Une erreur est survenue, veuillez réessayer.");
                     break;
                 default:
-                    console.log(result.r);
+                    do_popup ("bg-dcrr-green", "bi-info-circle", "Bienvenue  "+result.r);
                     break;
             }
         } catch(error){
-            console.log(error);
+            do_popup ("bg-red-500", "bi-x-circle", "ERREUR : "+error);
         }
     }
 })
