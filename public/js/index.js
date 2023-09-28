@@ -6277,6 +6277,20 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var loading = document.querySelector(".loading");
+var logo_loading = document.querySelector(".logo-first-loading");
+var barre_horizontale = document.querySelector(".barre-horizontale");
+var screen_loading = document.querySelector(".screen-loading ");
+window.addEventListener("DOMContentLoaded", function () {
+  loading.remove();
+  logo_loading.style.opacity = "1";
+  setTimeout(function () {
+    barre_horizontale.style.width = "100vw";
+  }, 1500);
+  setTimeout(function () {
+    if (window.innerHeight > window.innerWidth) screen_loading.style.top = "-100vh";else screen_loading.style.left = "-100vw";
+  }, 3500);
+});
 })();
 
 /******/ })()
