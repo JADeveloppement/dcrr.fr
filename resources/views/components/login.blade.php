@@ -41,6 +41,14 @@
             "placeholder" => "NOM et Prénom",
             "classparent" => "w-full mt-3"
         ])
+
+        @include("components.floatinginput", [
+            "id" => "field_signintelephone",
+            "type" => "name",
+            "placeholder" => "Telephone",
+            "classparent" => "w-full mt-3"
+        ])
+
         @include("components.floatinginput", [
             "id" => "field_signinentreprise",
             "type" => "text",
@@ -64,7 +72,7 @@
             "classparent" => "w-full mt-3"
         ])
         <span class="btn-login">Vous avez déjà un compte ? Connectez-vous.</span>
-        <button>S'inscrire</button>
+        <button class="btn-dosignin">S'inscrire</button>
     </div>
 </div>
 

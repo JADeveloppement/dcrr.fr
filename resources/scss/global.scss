@@ -32,7 +32,7 @@
         @apply min-w-full h-screen bg-black/50 fixed left-0 z-[99] transition-all flex flex-col items-center justify-center ;
 
         > .box {
-            @apply min-w-[50vw] bg-white p-8 rounded-lg shadow-md flex flex-col items-center ;
+            @apply min-w-[50vw] bg-white p-8 rounded-lg shadow-md flex flex-col items-center overflow-y-auto ;
 
             > .btn-signin, > .btn-login {
                 @apply text-dcrr-green hover:text-dcrr-green-700 font-extrabold italic my-3 cursor-pointer ;
