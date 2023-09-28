@@ -28,6 +28,18 @@
         }
     }
 
+    .popup-container {
+        @apply fixed right-[10px] transition-all z-[100] ;
+
+        > .popup {
+            @apply rounded-lg w-fit p-4 text-white font-extrabold flex items-center ;
+
+            >.popup-icon {
+                @apply text-[1.2rem] mr-4 ;
+            }
+        }
+    }
+
     .container {
         @apply min-w-full h-screen bg-black/50 fixed left-0 z-[99] transition-all flex flex-col items-center justify-center ;
 

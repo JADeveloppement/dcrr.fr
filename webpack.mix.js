@@ -5,7 +5,9 @@ require ('mix-tailwindcss');
 require('browser-sync');
 
 mix
+.js('resources/js/utils.js', 'public/js')
 .js('resources/js/index.js', 'public/js')
+.js('resources/js/signin.js', 'public/js')
 
 .setPublicPath('public')
 .sass('resources/scss/global.scss', 'public/css')
