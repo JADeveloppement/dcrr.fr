@@ -131,7 +131,7 @@
             }
         }
 
-        .type-actions-container {
+        .type-actions-container, .type-donnees-container {
             @apply flex flex-wrap ;
             
             .card-actions {
