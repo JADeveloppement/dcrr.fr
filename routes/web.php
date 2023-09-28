@@ -98,3 +98,23 @@ Route::post("/do_signin", function(Request $r) : String{
         "r" => $user->save()
     ]);
 });
+
+Route::post("/do_login", function(Request $r): String{
+    $login = request()->login;
+    $password = request()->password;
+
+    $user = User::where("email", $login);
+
+    $res = 0;
+    if ($user->exists()){
+        $user_infos = $user->first();
+        if ($user_infos->active == 1){
+            if ($user_infos->password == $password) $res = $user_infos->nomprenom;
+            else $res = -1; // bad password
+        } else $res = -2; // not active
+    } else $res = -3; // bad credentials
+
+    return json_encode([
+        "r" => $res
+    ]);
+});

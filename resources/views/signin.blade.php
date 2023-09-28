@@ -37,6 +37,33 @@
 
         /** INSCRIPTION */
         const _token = document.querySelector("meta[name='_token']").getAttribute("content");
+        const badge_spinner = "<span class='spinner spinner-border'></span>";
+
+        function fetch_result(url, d){
+            return fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify(d)
+            }).then(response => {
+                return response.json();
+            }).then(result => {
+                return result;
+            }).catch(error => {
+                return error;
+            });
+        }
+
+        function toggleButtonClick(target, c, initialContent){
+            if (c == 1){
+                target.innerHTML = badge_spinner;
+                target.style.opacity = "0.7";
+            } else if (c == -1){
+                target.innerHTML = initialContent;
+                target.style.opacity = "1";
+            }
+        }
 
         const field_signinemail = document.querySelector("#field_signinemail");
         const field_signinpassword = document.querySelector("#field_signinpassword");
@@ -49,7 +76,7 @@
 
         const btn_dosignin = document.querySelector(".btn-dosignin");
 
-        btn_dosignin.addEventListener("click", function(){
+        btn_dosignin.addEventListener("click", async function(){
             const signinemail = field_signinemail.value;
             const signinpassword = field_signinpassword.value;
             const signinnomprenom = field_signinnomprenom.value;
@@ -58,6 +85,7 @@
             const signtermes = field_signtermes.checked;
             const signnewsletter = field_signnewsletter.checked;
             const signintelephone = field_signintelephone.value;
+            const initialContent = this.innerText;
 
             signinemail.length == 0 ? field_signinemail.classList.add("is-invalid") : field_signinemail.classList.remove("is-invalid");
             signinpassword.length < 6 ? field_signinpassword.classList.add("is-invalid") : field_signinpassword.classList.remove("is-invalid");
@@ -90,26 +118,69 @@
                     telephone: signintelephone
                 }
 
-                fetch("/do_signin", {
-                    method: "POST",
-                    headers: {
-                        "Content-type" : "application/json"
-                    },
-                    body: JSON.stringify(data)
-                }).then(response => {
-                    return response.json();
-                }).then(result => {
-                    const res = result.r ;
-                    console.log(res, typeof(res));
-                    if (res !== true){
-                        if (res == -1) console.log("Email déjà utilisée.");
+                toggleButtonClick(this, 1, "");
+
+                try {
+                    toggleButtonClick(this, -1, initialContent);
+
+                    const result = await fetch_result("/do_signin", data);                    
+                    if (result.r !== true){
+                        if (result.r == -1) console.log("Email déjà utilisée.");
                     } 
-                    else if (res) console.log("Inscription effectuée.");
-                }).catch(error => {
+                    else if (result.r) console.log("Inscription effectuée.");
+                } catch(error){
                     console.log(error);
-                })
+                }
             }
 
+        })
+
+        const btn_dologin = document.querySelector(".do-login");
+        const field_loginlogin = document.querySelector("#field_loginlogin");
+        const field_loginpassword = document.querySelector("#field_loginpassword");
+
+        btn_dologin.addEventListener("click", async function(){
+            const initialContent = this.innerText;
+            toggleButtonClick(this, 1, "");
+
+            const login = field_loginlogin.value;
+            const password = field_loginpassword.value;
+
+            login.length == 0 ? field_loginlogin.classList.add("is-invalid") : field_loginlogin.classList.remove("is-invalid");
+            password.length == 0 ? field_loginpassword.classList.add("is-invalid") : field_loginpassword.classList.remove("is-invalid");
+
+            if (!field_loginlogin.classList.contains("is-invalid") && !field_loginpassword.classList.contains("is-invalid")){
+                const data = {
+                    _token: _token,
+                    login: login,
+                    password: password
+                }
+
+                try {
+                    const result = await fetch_result("/do_login", data);
+                    toggleButtonClick(this, -1, initialContent);
+
+                    switch(result.r){
+                        case -3:
+                            console.log("Mauvais utilisateur ou mot de passe");
+                            break;
+                        case -2:
+                            console.log("Compte non actif");
+                            break;
+                        case -1:
+                            console.log("Mauvais utilisateur ou mot de passe");
+                            break;
+                        case 0:
+                            console.log("Une erreur est survenue, veuillez réessayer.");
+                            break;
+                        default:
+                            console.log(result.r);
+                            break;
+                    }
+                } catch(error){
+                    console.log(error);
+                }
+            }
         })
         /** */
     </script>
