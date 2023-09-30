@@ -23,4 +23,9 @@ class ListeSites extends Model
         'conforme',
         'proprietaire',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id', 'proprietaire');
+    }
 }
