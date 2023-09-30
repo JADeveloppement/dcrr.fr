@@ -135,7 +135,7 @@ btn_dologin.addEventListener("click", async function(){
                     do_popup ("bg-red-500", "bi-x-circle", "Une erreur est survenue, veuillez réessayer.");
                     break;
                 default:
-                    do_popup ("bg-dcrr-green", "bi-info-circle", "Bienvenue  "+result.r);
+                    window.location = "/profil";
                     break;
             }
         } catch(error){

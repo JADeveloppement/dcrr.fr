@@ -22,11 +22,19 @@ Route::get('/', function ():\Illuminate\View\View {
 });
 
 Route::get("/signin", function():\Illuminate\View\View {
+    Cookie::queue("dcrr_login", "", -1);
     return view("signin");
 });
 
 Route::get("/profil", function():\Illuminate\View\View {
-    return view("profil_client");
+    if (Cookie::has("dcrr_login")){
+        $c = Cookie::get("dcrr_login");
+        $user = User::where("email", $c)->first();
+        if ($user){
+            if ($user->role == 2 || $user->role == 1) return view("profil_entreprise");
+            else if ($user->role == 0) return view("profil_client");
+        } else return redirect("/signin");
+    } else return view("signin");
 });
 
 Route::get("/profil_entreprise", function():\Illuminate\View\View {
@@ -109,7 +117,13 @@ Route::post("/do_login", function(Request $r): String{
     if ($user->exists()){
         $user_infos = $user->first();
         if ($user_infos->active == 1){
-            if ($user_infos->password == $password) $res = $user_infos->nomprenom;
+            if ($user_infos->password == $password){
+                $res = $user_infos->nomprenom;
+                Cookie::queue("dcrr_login", $user_infos->email, 600000);
+                if ($user_infos->role == 1 || $user_infos->role == 2)
+                    $res = "/profil_entreprise";
+                else $res = "/profil_client";
+            }
             else $res = -1; // bad password
         } else $res = -2; // not active
     } else $res = -3; // bad credentials

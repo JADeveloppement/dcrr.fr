@@ -7,14 +7,14 @@
 
 @section("content")
 
-    <div class="screen-loading flex w-full h-screen fixed z-[100] items-center justify-center bg-black" style="left: 0; top: 0; transition: all 1.5s ease-out;">
-        <span class="spinner spinner-border text-light w-[100px] h-[100px] loading absolute z-[101]"></span>
-        <img class="logo-first-loading absolute z-[102] bg-black" src="{{ asset('storage/img/logo_white.png') }}" style="opacity: 0; transition: opacity 2s ease-out;">
-        <div class="absolute z-[101] h-[4px] left-0 bg-dcrr-green barre-horizontale" style="width: 0px; transition: width 2s ease-out;"></div>
+    <div class="screen-loading">
+        <span class="spinner spinner-border text-light loading"></span>
+        <img class="logo-first-loading" src="{{ asset('storage/img/logo_white.png') }}">
+        <div class="barre-horizontale" style=""></div>
     </div>
 
-    <div class="flex flex-col items-center justify-center w-full h-screen relative bg-black/10">
-        <img class="w-full h-screen object-cover fixed z-[-1] top-0 left-0" src="{{ asset('storage/img/bg_fond.png') }}" alt="">
+    <div class="index-screen">
+        <img class="bg-fond" src="{{ asset('storage/img/bg_fond.png') }}" alt="">
         <img src="{{ asset('storage/img/logo_white.png') }}" alt="">
 
         <a href="/signin">
