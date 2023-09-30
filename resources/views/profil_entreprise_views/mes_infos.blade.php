@@ -75,9 +75,14 @@
 
 <script>
     const btn_save_infos = document.querySelector(".save-mesinfos-infos");
+    const btn_save_infospasword = document.querySelector(".save-mesinfos-password");
     const popup_save_infos = document.querySelector(".saveinfos-container");
 
     btn_save_infos.addEventListener("click", function(){
+        popup_save_infos.style.top = 0;
+    })
+
+    btn_save_infospasword.addEventListener("click", function(){
         popup_save_infos.style.top = 0;
     })
 </script>
