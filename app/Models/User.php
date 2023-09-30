@@ -34,7 +34,8 @@ class User extends Authenticatable
         'createdAt'
     ];
 
-    public function site(): HasMany {
-        return $this->hasMAny(ListeSites::class, "proprietaire");
+    public function listeSites()
+    {
+        return $this->hasMany(ListeSites::class, 'proprietaire');
     }
 }

@@ -1,3 +1,11 @@
+@php
+    use App\Models\User;
+
+    $user = User::find(User::where("email", Cookie::get("dcrr_login"))->first()->id);
+
+    $listeSites = $user->listeSites;
+@endphp
+
 <div class="profil-entreprise-container">
     <h2>Liste des sites : 
         @if(isset($displaySite))
@@ -19,22 +27,22 @@
             </tr>
         </thead>
         <tbody>
-            @for($i = 0; $i < 10; $i++)
+            @foreach($listeSites as $l)
                 <tr>
                     <td>
                         <div class="flex items-center justify-center">
                             <i class="bi bi-search hover:text-dcrr-green cursor-pointer"></i>
                         </div>
                     </td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
-                    <td>Lorem</td>
+                    <td>{{ $l->code_client }}</td>
+                    <td>{{ $l->nom_client }}</td>
+                    <td>{{ $l->code_site }}</td>
+                    <td>{{ $l->nom_site }}</td>
+                    <td>{{ $l->marque->marque }}</td>
+                    <td>{{ $l->date_mise_en_service }}</td>
+                    <td>{{ $l->conforme }}</td>
                 </tr>
-            @endfor
+            @endforeach
         </tbody>
     </table>
 

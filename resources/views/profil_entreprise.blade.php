@@ -1,6 +1,8 @@
 @extends("master")
 
 @php
+    use App\Models\User;
+
     $displayMenu = 0;
     $requestMenu = false;
     if (request()->has('displayMenu')){
@@ -24,7 +26,7 @@
     @elseif($displayMenu == 1)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.liste_sites", [
-            "displaySite" => "XXXX"
+            "displaySite" => User::where("email", Cookie::get('dcrr_login'))->first()->id,
         ])
     @elseif($displayMenu == 2)
         <!-- TODO : SCRIPT -->
