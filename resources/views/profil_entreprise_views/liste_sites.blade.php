@@ -46,6 +46,7 @@
         </tbody>
     </table>
 
+    @if (request()->has('displaySite'))
     <div class="ensemblesassocies">
         <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
             <button class="btn-cancel text-sm">Réduire</button>
@@ -111,7 +112,9 @@
             </tbody>
         </table>
     </div>
+    @endif
     
+    @if (request()->has('displayEnsemble'))
     <div class="modelesassocies">
         <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
             <button class="btn-cancel text-sm">Réduire</button>
@@ -178,4 +181,5 @@
             </tbody>
         </table>
     </div>
+    @endif
 </div>
