@@ -37,7 +37,7 @@
     }
     
     header {
-        @apply p-4 w-full h-fit shadow-md flex justify-between items-center ;
+        @apply p-4 w-full h-fit shadow-md flex justify-between items-center sticky top-0 left-0 bg-white z-[98];
 
         > .left {
             @apply flex items-center ;
@@ -81,7 +81,7 @@
                 @apply bg-dcrr-green font-extrabold text-white ; 
     
                 th {
-                    @apply p-2 ;
+                    @apply p-4 ;
                 }
             }
     
@@ -91,7 +91,7 @@
                     @apply border-b-black border-b-[1px] ;
     
                     > td {
-                        @apply p-2 ;
+                        @apply p-4 ;
                     }
     
                     &:hover {

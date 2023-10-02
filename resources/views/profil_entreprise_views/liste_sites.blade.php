@@ -28,10 +28,11 @@
         </thead>
         <tbody>
             @foreach($listeSites as $l)
-                <tr>
+                <tr data-target="site" data-site="{{$l->id}}" @if(request()->has('displaySite') && request()->displaySite == $l->id) class="font-extrabold bg-dcrr-green/50" @endif>
                     <td>
-                        <div class="flex items-center justify-center">
-                            <i class="bi bi-search hover:text-dcrr-green cursor-pointer"></i>
+                        <div class="flex items-center justify-center text-[1.5rem]">
+                            <i class="site-action bi bi-pen mr-3 hover:text-dcrr-green cursor-pointer" data-toggle="edit" data-id="{{$l->id}}"></i>
+                            <i class="site-action bi bi-trash hover:text-dcrr-green cursor-pointer" data-toggle="delete" data-id="{{$l->id}}"></i>
                         </div>
                     </td>
                     <td>{{ $l->code_client }}</td>
@@ -45,8 +46,35 @@
             @endforeach
         </tbody>
     </table>
+    <script>
+        const row_site = document.querySelectorAll("tr[data-target='site']");
+        const row_site_action = document.querySelectorAll(".site-action");
+
+        row_site_action.forEach((t) => {
+            t.addEventListener("click", function(){
+                const id = this.getAttribute("data-id");
+                const action = this.getAttribute("data-toggle");
+
+                if (action == "delete"){
+                    console.log("delete");
+                } else if (action == "edit"){
+                    console.log("edit");
+                }
+            })
+        })
+        row_site.forEach((t) =>  {
+            t.addEventListener("click", function(e){
+                const id = this.getAttribute("data-site");
+                if (e.target.classList.contains("site-action")) e.preventDefault();
+                else window.location="?displayMenu=1&displaySite="+id; 
+            })
+        })
+    </script>
 
     @if (request()->has('displaySite'))
+    @php
+        
+    @endphp
     <div class="ensemblesassocies">
         <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
             <button class="btn-cancel text-sm">Réduire</button>
@@ -94,7 +122,7 @@
             </thead>
             <tbody>
                 @for($i = 0; $i < 10; $i++)
-                    <tr>
+                    <tr data-target="ensemble" data-ensemble="" data-id="" @if(request()->has('displayEnsemble') && request()->displayEnsemble == $l->id) class="font-extrabold bg-dcrr-green/50" @endif>
                         <td>
                             <div class="flex items-center justify-center">
                                 <i class="bi bi-search hover:text-dcrr-green cursor-pointer"></i>
