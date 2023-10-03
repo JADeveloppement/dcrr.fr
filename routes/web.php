@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Fluides;
 use App\Models\Marques;
 use App\Models\ListeSites;
+use App\Models\DataModele;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,14 @@ use App\Models\ListeSites;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get("/test_commande", function(Request $r){
+    $fab = DataModele::take(150)->get();
+
+    foreach($fab as $f){
+        echo "<b>ID : </b>".$f->id."<b> TYPE : </b>".$f->modele_type->modele_type."<b> DESIGNATION : </b>".$f->modele_designation->modele_designation."<br>";
+    }
+});
 
 Route::get('/', function ():\Illuminate\View\View {
     return view('welcome');
@@ -44,24 +53,6 @@ Route::get("/profil_entreprise", function():\Illuminate\View\View {
     return view("profil_entreprise");
 });
 
-Route::get("/test_commande", function(Request $r){
-    $site = ListeSites::with(["fluide", "marque"])->get();
-
-    foreach ($site as $s) {
-        $siteM = optional($s->marque)->marque;
-        $siteF = optional($s->fluide)->nom_fluide;
-
-        echo "<p>
-            <b>Fluide : </b> $siteF
-            <b>Marque : </b> $siteM
-        </p>";
-    }
-
-    // $siteFluide = $site->fluide;
-    // $siteMarque = $site->marque;
-
-    // return "<p>Marque : ".$siteMarque."</p>";
-});
 
 Route::post("/do_signin", function(Request $r) : String{
     $nomprenom = request()->nomprenom;
