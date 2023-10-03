@@ -1,51 +1,63 @@
 @php
     use App\Models\User;
 
-    $user = User::find(User::where("email", Cookie::get("dcrr_login"))->first()->id);
+
+    $user = User::where("email", Cookie::get("dcrr_login"))->first();
+
+    if (request()->has('userId')){
+        $user = User::where("id", request()->userId)->first();
+    }
 
     $listeSites = $user->listeSites;
+
 @endphp
 
 <div class="profil-entreprise-container">
-    <h2>Liste des sites : 
-        @if(isset($displaySite))
-            <span class="badge bg-dcrr-green text-white font-extrabold ml-4">{{$displaySite}}</span>
-        @endif
-    </h2>
-    <span class="italic">Cliquez sur une ligne pour afficher ses ensembles associés.</span>
-    <table class="messite-table">
-        <thead>
-            <tr>
-                <th>Action</th>
-                <th>Code Client</th>
-                <th>Nom Client</th>
-                <th>Code Site</th>
-                <th>Nom Site</th>
-                <th>Marque</th>
-                <th>Date de Mise en service</th>
-                <th>Conformité</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($listeSites as $l)
-                <tr data-target="site" data-site="{{$l->id}}" @if(request()->has('displaySite') && request()->displaySite == $l->id) class="font-extrabold bg-dcrr-green/50" @endif>
-                    <td>
-                        <div class="flex items-center justify-center text-[1.5rem]">
-                            <i class="site-action bi bi-pen mr-3 hover:text-dcrr-green cursor-pointer" data-toggle="edit" data-id="{{$l->id}}"></i>
-                            <i class="site-action bi bi-trash hover:text-dcrr-green cursor-pointer" data-toggle="delete" data-id="{{$l->id}}"></i>
-                        </div>
-                    </td>
-                    <td>{{ $l->code_client }}</td>
-                    <td>{{ $l->nom_client }}</td>
-                    <td>{{ $l->code_site }}</td>
-                    <td>{{ $l->nom_site }}</td>
-                    <td>{{ $l->marque->marque }}</td>
-                    <td>{{ $l->date_mise_en_service }}</td>
-                    <td>{{ $l->conforme }}</td>
+    @if(request()->has('userId'))
+        <div class="card text-center">
+            <h2>Liste des sites de
+                <span class="badge bg-dcrr-green text-white font-extrabold ml-4">{{(User::where("id", request()->userId)->first())->nomprenom}}</span>
+            </h2>
+        </div>
+    @endif
+
+    <div class="card">
+        <span class="italic">Cliquez sur une ligne pour afficher ses ensembles associés.</span>
+        <table class="messite-table">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Code Client</th>
+                    <th>Nom Client</th>
+                    <th>Code Site</th>
+                    <th>Nom Site</th>
+                    <th>Marque</th>
+                    <th>Date de Mise en service</th>
+                    <th>Conformité</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($listeSites as $l)
+                    <tr data-target="site" data-site="{{$l->id}}" @if(request()->has('displaySite') && request()->displaySite == $l->id) class="font-extrabold bg-dcrr-green/50" @endif>
+                        <td>
+                            <div class="flex items-center justify-center text-[1.5rem]">
+                                <i class="site-action bi bi-pen mr-3 hover:text-dcrr-green cursor-pointer" data-toggle="edit" data-id="{{$l->id}}"></i>
+                                <i class="site-action bi bi-trash hover:text-dcrr-green cursor-pointer" data-toggle="delete" data-id="{{$l->id}}"></i>
+                            </div>
+                        </td>
+                        <td>{{ $l->code_client }}</td>
+                        <td>{{ $l->nom_client }}</td>
+                        <td>{{ $l->code_site }}</td>
+                        <td>{{ $l->nom_site }}</td>
+                        <td>{{ $l->marque->marque }}</td>
+                        <td>{{ $l->date_mise_en_service }}</td>
+                        <td>{{ $l->conforme }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    
     <script>
         const row_site = document.querySelectorAll("tr[data-target='site']");
         const row_site_action = document.querySelectorAll(".site-action");
@@ -64,81 +76,86 @@
         })
         row_site.forEach((t) =>  {
             t.addEventListener("click", function(e){
+                const urlParams = new URLSearchParams(window.location.search);
+                const params = {};
+
+                urlParams.forEach((value, key) => {
+                    params[key] = value;
+                });
+
                 const id = this.getAttribute("data-site");
                 if (e.target.classList.contains("site-action")) e.preventDefault();
-                else window.location="?displayMenu=1&displaySite="+id; 
+                else window.location="?displayMenu=1&userId"+params.userId+"&displaySite="+id; 
             })
         })
     </script>
 
     @if (request()->has('displaySite'))
-    @php
-        
-    @endphp
-    <div class="ensemblesassocies">
-        <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
-            <button class="btn-cancel text-sm">Réduire</button>
-        </div>
-        <div class="w-full flex items-center justify-center">
-            <table class="w-fit my-4 text-center">
-                <thead class="bg-slate-700 text-white font-extrabold">
+    <div class="card">
+        <div class="ensemblesassocies">
+            <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
+                <button class="btn-cancel text-sm">Réduire</button>
+            </div>
+            <div class="w-full flex items-center justify-center">
+                <table class="w-fit my-4 text-center">
+                    <thead class="bg-slate-700 text-white font-extrabold">
+                        <tr>
+                            <th class="p-4">Nom Client</th>
+                            <th class="p-4">Code Client</th>
+                            <th class="p-4">Nom Site</th>
+                            <th class="p-4">Code Site</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-slate-200">
+                            <td class="p-3 border-r-[1px] border-black">XXXX</td>
+                            <td class="p-3 border-r-[1px] border-black">XXXX</td>
+                            <td class="p-3 border-r-[1px] border-black">XXXX</td>
+                            <td class="p-3">XXXX</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="italic">Aucun ensemble disponible, veuillez en créer au moins un.</p>
+            @include("components.floatinginput", [
+                "id" => "field_messites_searchensemble",
+                "type" => "text",
+                "placeholder" => "Rechercher parmi les ensembles",
+                "classparent" => "mt-3"
+            ])
+            <table class="messite-table">
+                <thead>
                     <tr>
-                        <th class="p-4">Nom Client</th>
-                        <th class="p-4">Code Client</th>
-                        <th class="p-4">Nom Site</th>
-                        <th class="p-4">Code Site</th>
+                        <th>Action</th>
+                        <th>Code Client</th>
+                        <th>Nom Client</th>
+                        <th>Code Site</th>
+                        <th>Nom Site</th>
+                        <th>Marque</th>
+                        <th>Date de Mise en service</th>
+                        <th>Conformité</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-slate-200">
-                        <td class="p-3 border-r-[1px] border-black">XXXX</td>
-                        <td class="p-3 border-r-[1px] border-black">XXXX</td>
-                        <td class="p-3 border-r-[1px] border-black">XXXX</td>
-                        <td class="p-3">XXXX</td>
-                    </tr>
+                    @for($i = 0; $i < 10; $i++)
+                        <tr data-target="ensemble" data-ensemble="" data-id="" @if(request()->has('displayEnsemble') && request()->displayEnsemble == $l->id) class="font-extrabold bg-dcrr-green/50" @endif>
+                            <td>
+                                <div class="flex items-center justify-center">
+                                    <i class="bi bi-search hover:text-dcrr-green cursor-pointer"></i>
+                                </div>
+                            </td>
+                            <td>Lorem</td>
+                            <td>Lorem</td>
+                            <td>Lorem</td>
+                            <td>Lorem</td>
+                            <td>Lorem</td>
+                            <td>Lorem</td>
+                            <td>Lorem</td>
+                        </tr>
+                    @endfor
                 </tbody>
             </table>
         </div>
-        <h2>Liste des ensembles</h2>
-        <p class="italic">Aucun ensemble disponible, veuillez en créer au moins un.</p>
-        @include("components.floatinginput", [
-            "id" => "field_messites_searchensemble",
-            "type" => "text",
-            "placeholder" => "Rechercher parmi les ensembles",
-            "classparent" => "mt-3"
-        ])
-        <table class="messite-table">
-            <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>Code Client</th>
-                    <th>Nom Client</th>
-                    <th>Code Site</th>
-                    <th>Nom Site</th>
-                    <th>Marque</th>
-                    <th>Date de Mise en service</th>
-                    <th>Conformité</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for($i = 0; $i < 10; $i++)
-                    <tr data-target="ensemble" data-ensemble="" data-id="" @if(request()->has('displayEnsemble') && request()->displayEnsemble == $l->id) class="font-extrabold bg-dcrr-green/50" @endif>
-                        <td>
-                            <div class="flex items-center justify-center">
-                                <i class="bi bi-search hover:text-dcrr-green cursor-pointer"></i>
-                            </div>
-                        </td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                    </tr>
-                @endfor
-            </tbody>
-        </table>
     </div>
     @endif
     

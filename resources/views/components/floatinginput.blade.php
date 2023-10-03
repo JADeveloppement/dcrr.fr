@@ -1,4 +1,4 @@
-<div class="form-floating mb-3 @if (!empty($classparent)) {{ $classparent }} @endif" >
+<div class="form-floating @if (!empty($classparent)) {{ $classparent }} @endif" >
     <input 
         type="{{ $type }}" 
         class="form-control @if (!empty($class)) {{ $class }} @endif"

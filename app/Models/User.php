@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\ListeSites;
+use App\Models\DataRole;
 
 class User extends Authenticatable
 {
@@ -37,5 +38,9 @@ class User extends Authenticatable
     public function listeSites()
     {
         return $this->hasMany(ListeSites::class, 'proprietaire');
+    }
+
+    public function data_role(){
+        return $this->belongsTo(DataRole::class, "role");
     }
 }
