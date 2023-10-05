@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\ListeSites;
+use App\Models\DataRole;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -31,4 +34,13 @@ class User extends Authenticatable
         'active',
         'createdAt'
     ];
+
+    public function listeSites()
+    {
+        return $this->hasMany(ListeSites::class, 'proprietaire');
+    }
+
+    public function data_role(){
+        return $this->belongsTo(DataRole::class, "role");
+    }
 }

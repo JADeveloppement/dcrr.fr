@@ -1,5 +1,7 @@
 {
+    "/js/utils.js": "/js/utils.js",
     "/js/index.js": "/js/index.js",
+    "/js/signin.js": "/js/signin.js",
     "/css/profil_entreprise.css": "/css/profil_entreprise.css",
     "/css/profil_client.css": "/css/profil_client.css",
     "/css/index.css": "/css/index.css",

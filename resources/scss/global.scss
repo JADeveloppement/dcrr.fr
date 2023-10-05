@@ -4,6 +4,11 @@
 
 
 @layer components {
+
+    body {
+        @apply bg-dcrr-green/5; 
+    }
+
     h2 {
         @apply font-extrabold text-[1.5rem] my-2 ;
     }
@@ -28,6 +33,18 @@
         }
     }
 
+    .popup-container {
+        @apply fixed right-[10px] transition-all z-[100] ;
+
+        > .popup {
+            @apply rounded-lg w-fit p-4 text-white font-extrabold flex items-center ;
+
+            >.popup-icon {
+                @apply text-[1.2rem] mr-4 ;
+            }
+        }
+    }
+
     .container {
         @apply min-w-full h-screen bg-black/50 fixed left-0 z-[99] transition-all flex flex-col items-center justify-center ;
 
@@ -38,5 +55,27 @@
                 @apply text-dcrr-green hover:text-dcrr-green-700 font-extrabold italic my-3 cursor-pointer ;
             }
         }
+    }
+
+    .card {
+        @apply p-4 rounded-lg m-4 shadow-md ;
+    }
+
+    input {
+        @apply bg-slate-100 ;
+    }
+
+    table {
+        th {
+            @apply p-4 ;
+        }
+
+        td {
+            @apply p-4 ;
+        }
+    }
+
+    .sm-btn-active {
+        @apply bg-slate-700 text-white ;
     }
 }

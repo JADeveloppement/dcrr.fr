@@ -37,7 +37,7 @@
     }
     
     header {
-        @apply p-4 w-full h-fit shadow-md flex justify-between items-center ;
+        @apply p-4 w-full h-fit shadow-md flex justify-between items-center sticky top-0 left-0 bg-white z-[98];
 
         > .left {
             @apply flex items-center ;
@@ -81,7 +81,7 @@
                 @apply bg-dcrr-green font-extrabold text-white ; 
     
                 th {
-                    @apply p-2 ;
+                    @apply p-4 ;
                 }
             }
     
@@ -91,7 +91,7 @@
                     @apply border-b-black border-b-[1px] ;
     
                     > td {
-                        @apply p-2 ;
+                        @apply p-4 ;
                     }
     
                     &:hover {
@@ -108,20 +108,25 @@
         .liste-user-container {
             @apply flex flex-wrap ;
             .card-user {
-                @apply m-3 w-[300px] rounded-lg overflow-hidden shadow-md transition-all hover:shadow-xl cursor-pointer;
+                @apply m-3 h-[350px] w-[350px] rounded-lg overflow-hidden shadow-sm transition-all hover:shadow-xl flex flex-col justify-between;
+                
+                &:hover {
+                    @apply shadow-lg border-solid border-[1px] border-slate-200 bg-dcrr-green/10 ;
+                }
+
                 .title {
                     @apply bg-dcrr-green p-3 font-extrabold text-white font-extrabold flex items-center justify-between ;
                 }
 
                 .body {
-                    @apply p-3 ;
+                    @apply p-3 h-[100%] flex flex-col justify-between ;
                 }
 
                 .action {
                     @apply w-full flex items-center justify-center text-[1.5rem] text-center border-t-slate-200 border-solid border-t-2 ;
 
                     > i {
-                        @apply w-1/2 ;
+                        @apply w-1/2 p-2 ;
 
                         &:hover {
                             @apply bg-slate-700 text-white cursor-pointer ;
@@ -154,6 +159,5 @@
                 }
             }
         }
-
     }
 }

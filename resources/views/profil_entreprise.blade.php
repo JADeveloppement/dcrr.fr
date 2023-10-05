@@ -1,6 +1,8 @@
 @extends("master")
 
 @php
+    use App\Models\User;
+
     $displayMenu = 0;
     $requestMenu = false;
     if (request()->has('displayMenu')){
@@ -24,7 +26,7 @@
     @elseif($displayMenu == 1)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.liste_sites", [
-            "displaySite" => "XXXX"
+            "displaySite" => User::where("email", Cookie::get('dcrr_login'))->first()->id,
         ])
     @elseif($displayMenu == 2)
         <!-- TODO : SCRIPT -->
@@ -48,7 +50,7 @@
     @include("profil_entreprise_views.components.nav", [
         "displayMenu" => $displayMenu,
         "navinfos" => array_combine(["person-circle", "buildings empty", "person", "buildings", "key", "cone-striped", "power"], 
-                                    ["Mon profil", "Mes sites", "Liste des utilsiateurs", "Liste des sites", "Actions à valider", "Modifier les données", "Déconnexion"]),
+                                    ["Mon profil", "Mes sites", "Liste des utilisateurs", "Liste des sites", "Actions à valider", "Modifier les données", "Déconnexion"]),
         "requestMenu" => $requestMenu
     ])
 
@@ -59,5 +61,11 @@
         btn_menu.addEventListener("click", function(){
             nav_menu.style.top = "0";
         });
+
+        const btn_logout = document.querySelector("a[data-target='6']")
+        btn_logout.addEventListener("click", function(e){
+            e.preventDefault();
+            window.location = "/signin";
+        })
     </script>
 @endsection

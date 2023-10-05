@@ -7,8 +7,14 @@
 
 @section("content")
 
-    <div class="flex flex-col items-center justify-center w-full h-screen relative bg-black/10">
-        <img class="w-full h-screen object-cover fixed z-[-1] top-0 left-0" src="{{ asset('storage/img/bg_fond.png') }}" alt="">
+    <div class="screen-loading">
+        <span class="spinner spinner-border text-light loading"></span>
+        <img class="logo-first-loading" src="{{ asset('storage/img/logo_white.png') }}">
+        <div class="barre-horizontale" style=""></div>
+    </div>
+
+    <div class="index-screen">
+        <img class="bg-fond" src="{{ asset('storage/img/bg_fond.png') }}" alt="">
         <img src="{{ asset('storage/img/logo_white.png') }}" alt="">
 
         <a href="/signin">

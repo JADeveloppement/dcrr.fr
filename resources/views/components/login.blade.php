@@ -3,18 +3,18 @@
         <h2>Connexion</h2>
 
         @include("components.floatinginput", [
-            "id" => "field_signinlogin",
+            "id" => "field_loginlogin",
             "type" => "text",
             "placeholder" => "Identifiant",
             "classparent" => "mt-3"
         ])
         @include("components.floatinginput", [
-            "id" => "field_signinpassword",
+            "id" => "field_loginpassword",
             "type" => "password",
             "placeholder" => "Mot de passe"
         ])
         <span class="btn-signin">Vous n'avez pas de compte ? Inscrivez-vous.</span>
-        <button>Connexion</button>
+        <button class="do-login">Connexion</button>
     </div>
 </div>
 
