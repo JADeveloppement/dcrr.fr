@@ -14,6 +14,9 @@
 @endphp
 
 <div class="profil-entreprise-container">
+    @include("profil_entreprise_views.popup.addsite")
+
+
     @if (!$found)
         <div class="card items-center">
             <span class="badge bg-dcrr-green text-white font-extrabold ml-4 text-2xl w-fit">Mes sites</span>
@@ -34,6 +37,10 @@
     <div class="card">
         <h2>Liste des sites</h2>
         <span class="italic">Cliquez sur une ligne pour afficher ses ensembles associés.</span>
+        <div class="flex">
+            <button class="add-site">Ajouter un site</button>
+        </div>
+        <i class="@if($listeSites->count() > 0) hidden @endif">Liste des sites vide, veuillez en ajouter au moins un seul.</i>
         <table class="messite-table">
             <thead>
                 <tr>
@@ -70,6 +77,13 @@
     </div>
     
     <script>
+        const add_site = document.querySelector(".add-site");
+        const popup_add_site = document.querySelector(".popup-addsite");
+
+        add_site.addEventListener("click", function(){
+            popup_add_site.style.top = "0";
+        })
+
         const row_site = document.querySelectorAll("tr[data-target='site']");
         const row_site_action = document.querySelectorAll(".site-action");
 

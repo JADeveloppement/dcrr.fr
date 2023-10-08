@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\DataModeleNature;
 use App\Models\DataModeleType;
 use App\Models\DataModeleDesignation;
+use App\Models\DataModeleReference;
+use App\Models\DataModeleFabricant;
 
 class DataModele extends Model
 {
@@ -54,5 +56,13 @@ class DataModele extends Model
 
     public function modele_designation(){
         return $this->belongsTo(DataModeleDesignation::class, "designation");
+    }
+
+    public function modele_reference(){
+        return $this->belongsTo(DataModeleReference::class, "complement_reference");
+    }
+
+    public function modele_fabricant(){
+        return $this->belongsTo(DataModeleFabricant::class, "fabricant");
     }
 }

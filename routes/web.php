@@ -9,6 +9,7 @@ use App\Models\Fluides;
 use App\Models\Marques;
 use App\Models\ListeSites;
 use App\Models\DataModele;
+use App\Models\DataRole;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +23,29 @@ use App\Models\DataModele;
 */
 
 Route::get("/test_commande", function(Request $r){
-    $fab = DataModele::take(150)->get();
+    $login = request()->login;
+    $password = request()->password;
 
-    foreach($fab as $f){
-        echo "<b>ID : </b>".$f->id."<b> TYPE : </b>".$f->modele_type->modele_type."<b> DESIGNATION : </b>".$f->modele_designation->modele_designation."<br>";
-    }
+    $user = User::where("email", $login);
+
+    $res = 0;
+    if ($user->exists()){
+        $user_infos = $user->first();
+        if ($user_infos->active == 1){
+            if ($user_infos->password == $password){
+                $res = $user_infos->nomprenom;
+                Cookie::queue("dcrr_login", $user_infos->email, 600000);
+                if ($user_infos->data_role->value == intval(DataRole::where("value", "Administrateur")->first()->id) || $user_infos->data_role->value == intval(DataRole::where("value", "Employé")->first()->id))
+                    $res = "/profil_entreprise";
+                else $res = "/profil_client";
+            }
+            else $res = -1; // bad password
+        } else $res = -2; // not active
+    } else $res = -3; // bad credentials
+    
+    return json_encode([
+        "r" => $res
+    ]);
 });
 
 Route::get('/', function ():\Illuminate\View\View {
@@ -43,8 +62,8 @@ Route::get("/profil", function():\Illuminate\View\View {
         $c = Cookie::get("dcrr_login");
         $user = User::where("email", $c)->first();
         if ($user){
-            if ($user->role == 2 || $user->role == 1) return view("profil_entreprise");
-            else if ($user->role == 0) return view("profil_client");
+            if ($user->data_role->id == intval(DataRole::where('value', "Administrateur")->first()->id) || $user->data_role->id == intval(DataRole::where('value', "Employé")->first()->id)) return view("profil_entreprise");
+            else if ($user->data_role->id == intval(DataRole::where('value', "Client")->first()->id)) return view("profil_client");
         } else return redirect("/signin");
     } else return view("signin");
 });
@@ -78,7 +97,7 @@ Route::post("/do_signin", function(Request $r) : String{
     $user->entreprise = $entreprise;
     $user->poste = $poste;
     $user->newsletter = intval($newsletter);
-    $user->role = 0;
+    $user->role = intval(DataRole::where("value", "Client")->first()->id);
     $user->active = 0;
     $user->createdAt = Carbon::createFromTimestamp(time())->toDateTimeString();
 
@@ -100,7 +119,7 @@ Route::post("/do_login", function(Request $r): String{
             if ($user_infos->password == $password){
                 $res = $user_infos->nomprenom;
                 Cookie::queue("dcrr_login", $user_infos->email, 600000);
-                if ($user_infos->role == 1 || $user_infos->role == 2)
+                if ($user_infos->data_role->value == intval(DataRole::where("value", "Administrateur")->first()->id) || $user_infos->data_role->value == intval(DataRole::where("value", "Employé")->first()->id))
                     $res = "/profil_entreprise";
                 else $res = "/profil_client";
             }

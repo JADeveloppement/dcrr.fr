@@ -1,4 +1,6 @@
-<select class="form-select @if(!empty($class)) {{ $class }} @endif" name="{{ $name }}" id="{{ $id }}">
+<select class="form-select @if(!empty($class)) {{ $class }} @endif" 
+        name="@if(!empty($name)){{ $name }}@endif" 
+        id="@if(!empty($id)){{ $id }}@endif">
     <option value="0">
         @if (empty($first_value))
         --- Données ---
