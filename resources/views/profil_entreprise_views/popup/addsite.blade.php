@@ -16,7 +16,7 @@
 @endphp
 <div class="container justify-start popup-addsite" style="top: -100vh;">
     <div class="box relative">
-        <h2>Ajoute run site</h2>
+        <h2>Ajouter un site</h2>
         <div class="flex w-full justify-start mb-3">
             @include("components.floatinginput", [
                 "id" => "field_addsite_nomclient",
@@ -67,6 +67,13 @@
                 "id" => "field_addsite_date_mise_en_service",
                 "type" => "text",
                 "placeholder" => "Date de mise en service",
+                "classparent" => "w-full mr-3"
+            ])
+
+            @include("components.floatinginput", [
+                "id" => "field_addsite_designation",
+                "type" => "text",
+                "placeholder" => "Désignation",
                 "classparent" => "w-full"
             ])
         </div>
@@ -87,7 +94,7 @@
             "disabled" => "disabled"
         ])
 
-        <button class="btn-save-addsite w-full">Enregistrer</button>
+        <button class="btn-save-addsite w-full" data-target="{{$id_proprio}}">Enregistrer</button>
         <button class="btn-cancel btn-close-addsite">Annuler</button>
     </div>
 </div>
@@ -99,4 +106,5 @@
     btn_close_save_mesinfos.addEventListener("click", function(){
         popup_save_infos_container.style.top = "-100vh";
     })
+
 </script>

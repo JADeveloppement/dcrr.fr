@@ -115,6 +115,12 @@
                 } 
             })
         })
+
+        const btn_save_addsite = document.querySelector(".btn-save-addsite");
+
+        btn_save_addsite.addEventListener("click", function(){
+            const id = this.getAttribute("data-target");
+        })
     </script>
 
     @if (request()->has('displaySite'))

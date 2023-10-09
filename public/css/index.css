@@ -826,13 +826,13 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(226 232 240 / var(--tw-border-opacity));
 }
-.border-slate-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(100 116 139 / var(--tw-border-opacity));
-}
 .border-slate-300 {
   --tw-border-opacity: 1;
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
+}
+.border-slate-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(100 116 139 / var(--tw-border-opacity));
 }
 .border-b-black {
   --tw-border-opacity: 1;
