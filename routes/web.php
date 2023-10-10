@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Fluides;
 use App\Models\Marques;
 use App\Models\ListeSites;
+use App\Models\ListeModele;
 use App\Models\DataModele;
 use App\Models\DataRole;
 
@@ -23,12 +24,27 @@ use App\Models\DataRole;
 */
 
 Route::get("/test_commande", function(Request $r){
-    $marque = 6;
-    $fluide_frigorigène = 14;
-    return [
-        Marques::where("id", $marque)->first()->marque,
-        Fluides::where("id", $fluide_frigorigène)->first()->nom_fluide,
-    ];
+    $modele = DataModele::find(intval(request()->id));
+    $nature = $modele->modele_nature->modele_nature;
+    $fabricant = $modele->modele_fabricant->modele_fabricant;
+    $designation = $modele->modele_designation->modele_designation;
+    $reference = $modele->modele_reference->modele_reference;
+    $pminc = $modele->p_min_constructeur;
+    $pmaxc = $modele->p_max_constructeur;
+    $tminc = $modele->t_min_constructeur;
+    $tmaxc = $modele->t_max_constructeur;
+    $tarage = $modele->tarage;
+    return json_encode([
+        "nature" => $nature,
+        "fabricant" => $fabricant,
+        "designation" => $designation,
+        "reference" => $reference,
+        "pminc" => $pminc,
+        "pmaxc" => $pmaxc,
+        "tminc" => $tminc,
+        "tmaxc" => $tmaxc,
+        "tarage" => $tarage,
+    ]);
 });
 
 Route::get('/', function ():\Illuminate\View\View {
@@ -156,4 +172,28 @@ Route::post("/add_site", function(Request $r):Array {
         Marques::find(intval($marque))->marque,
         Fluides::find(intval($fluide_frigorigène))->nom_fluide,
     ];
+});
+
+Route::post("get_modele_detail", function(Request $r) {
+    $modele = DataModele::find(intval(request()->id));
+    $nature = $modele->modele_nature->modele_nature;
+    $fabricant = $modele->modele_fabricant->modele_fabricant;
+    $designation = $modele->modele_designation->modele_designation;
+    $reference = $modele->modele_reference->modele_reference;
+    $pminc = $modele->p_min_constructeur;
+    $pmaxc = $modele->p_max_constructeur;
+    $tminc = $modele->t_min_constructeur;
+    $tmaxc = $modele->t_max_constructeur;
+    $tarage = $modele->tarage;
+    return json_encode([
+        "nature" => $nature,
+        "fabricant" => $fabricant,
+        "designation" => $designation,
+        "reference" => $reference,
+        "pminc" => $pminc,
+        "pmaxc" => $pmaxc,
+        "tminc" => $tminc,
+        "tmaxc" => $tmaxc,
+        "tarage" => $tarage,
+    ]);
 });

@@ -1,3 +1,16 @@
+@php
+    use App\Models\User;
+    use App\Models\ListeSites;
+
+    $userId = User::where("email", Cookie::get("dcrr_login"))->first()->id;
+
+    if (request()->has('userId')){
+        $userId = request()->userId;
+    }
+
+    $listeSites = ListeSites::where("proprietaire", $userId)->get();
+    
+@endphp
 <div class="card">
     <h2>Liste des sites</h2>
     <span class="italic">Cliquez sur une ligne pour afficher ses ensembles associés.</span>

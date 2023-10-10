@@ -16,6 +16,7 @@
 
 <div class="profil-entreprise-container">
     @include("profil_entreprise_views.popup.addsite")
+    @include("profil_entreprise_views.popup.addensemble")
 
 
     @if (!$found)

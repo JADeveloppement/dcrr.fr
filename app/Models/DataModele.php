@@ -16,8 +16,7 @@ class DataModele extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $table = 'data_modele';
-
+    protected $table = 'data_generic_modele';
 
     protected $fillable = [
         'id',

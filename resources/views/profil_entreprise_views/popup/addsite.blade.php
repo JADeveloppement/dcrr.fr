@@ -100,11 +100,11 @@
 </div>
 
 <script>
-    const btn_close_save_mesinfos = document.querySelector(".btn-close-addsite");
-    const popup_save_infos_container = document.querySelector(".popup-addsite");
+    const btn_close_addsite = document.querySelector(".btn-close-addsite");
+    const popup_addsite = document.querySelector(".popup-addsite");
 
-    btn_close_save_mesinfos.addEventListener("click", function(){
-        popup_save_infos_container.style.top = "-100vh";
+    btn_close_addsite.addEventListener("click", function(){
+        popup_addsite.style.top = "-100vh";
     })
 
 </script>

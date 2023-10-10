@@ -160,4 +160,12 @@
             }
         }
     }
+
+    .addensemble-table {
+        @apply w-full shadow-md text-center ;
+        
+        > thead {
+            @apply bg-dcrr-green text-white ;
+        }
+    }
 }

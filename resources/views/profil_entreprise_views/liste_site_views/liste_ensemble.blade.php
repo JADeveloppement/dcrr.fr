@@ -37,7 +37,7 @@
             </table>
         </div>
         <h2>Liste des ensembles</h2>
-        <button>Ajouter un ensemble</button>
+        <button class="btn-add-ensemble">Ajouter un ensemble</button>
         @include("components.floatinginput", [
             "id" => "field_messites_searchensemble",
             "type" => "text",
@@ -50,13 +50,13 @@
             <thead>
                 <tr>
                     <th>Action</th>
-                    <th>Code Client</th>
-                    <th>Nom Client</th>
-                    <th>Code Site</th>
-                    <th>Nom Site</th>
-                    <th>Marque</th>
-                    <th>Date de Mise en service</th>
-                    <th>Conformité</th>
+                    <th>Nature</th>
+                    <th>Designation</th>
+                    <th>Référence</th>
+                    <th>Fabricant</th>
+                    <th>Date de mise en service</th>
+                    <th>Catégorie fluide frigorigène</th>
+                    <th>Numéro de série</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,10 +64,17 @@
                     <tr>
                         <td>
                             <div class="flex items-center justify-center">
-                                <i class="bi bi-pen mr-3"></i>
-                                <i class="bi bi-trash mr-3"></i>
+                                <i class="text-[1.5rem] bi bi-pen mr-3"></i>
+                                <i class="text-[1.5rem] bi bi-trash mr-3"></i>
                             </div>
                         </td>
+                        <td>{{$i->data_nature->modele_nature}}</td>
+                        <td>{{$i->data_designation->modele_designation}}</td>
+                        <td>{{$i->data_reference->modele_reference}}</td>
+                        <td>{{$i->data_fabricant->modele_fabricant}}</td>
+                        <td>{{$i->date_mes}}</td>
+                        <td>{{$i->categorie_fluide_frigorigene}}</td>
+                        <td>{{$i->numero_de_serie}}</td>
                     </tr>
                 @endforeach
             </tbody>

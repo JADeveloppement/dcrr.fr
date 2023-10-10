@@ -88,7 +88,7 @@
                                 <span class="badge text-sm bg-warning mr-3">{{$user->data_role->value}}</span></td>
                             <td class="text-center">{{$user->email}}</td>
                             <td class="text-center">
-                                <a href="?displayMenu=1&displaySite={{$user->id}}">
+                                <a href="?displayMenu=1&userId={{$user->id}}">
                                     <button class="bi bi-buildings"></button>
                                 </a>
                             </td>

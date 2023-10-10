@@ -45,4 +45,24 @@ class ListeModele extends Model
     public function userParent(){
         return $this->hasOne(User::class, "user_parent");
     }
+
+    public function data_nature(){
+        return $this->belongsTo(DataModeleNature::class, "nature");
+    }
+
+    public function data_type(){
+        return $this->belongsTo(DataModeleType::class, "type");
+    }
+
+    public function data_designation(){
+        return $this->belongsTo(DataModeleDesignation::class, "designation");
+    }
+
+    public function data_fabricant(){
+        return $this->belongsTo(DataModeleFabricant::class, "fabricant");
+    }
+
+    public function data_reference(){
+        return $this->belongsTo(DataModeleReference::class, "complement_reference");
+    }
 }
