@@ -103,7 +103,22 @@
             ])
         </div>
 
-        <button class="btn-save-addensemble w-full" data-userparent="{{$user_parent}}">Enregistrer</button>
+        <div class="flex justify-start w-full mb-3">
+            @include("components.floatinginput", [
+                "id" => "field_addensemble_annee",
+                "type" => "text",
+                "placeholder" => "Année",
+                "classparent" => "w-full mr-3"
+            ])
+            @include("components.floatinginput", [
+                "id" => "field_addensemble_numerodeserie",
+                "type" => "text",
+                "placeholder" => "Numéro de série",
+                "classparent" => "w-full"
+            ])
+        </div>
+
+        <button class="btn-save-addensemble w-full" data-userparent="{{$user_parent}}" data-siteparent="{{request()->displaySite}}" data-modeleparent="0">Enregistrer</button>
         <button class="btn-cancel btn-close-addensemble">Annuler</button>
     </div>
 </div>
@@ -190,10 +205,4 @@
             console.log(error);
         }
     })
-
-
-    btn_save_addensemble.addEventListener("click", function(){
-
-    })
-
 </script>
