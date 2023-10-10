@@ -3,6 +3,7 @@
     "/js/index.js": "/js/index.js",
     "/js/signin.js": "/js/signin.js",
     "/js/profil_entreprise_scripts/liste_site.js": "/js/profil_entreprise_scripts/liste_site.js",
+    "/js/profil_entreprise_scripts/liste_ensemble.js": "/js/profil_entreprise_scripts/liste_ensemble.js",
     "/css/profil_entreprise.css": "/css/profil_entreprise.css",
     "/css/profil_client.css": "/css/profil_client.css",
     "/css/index.css": "/css/index.css",
