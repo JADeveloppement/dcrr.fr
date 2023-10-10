@@ -15,12 +15,14 @@
 @section('head')
     <link rel='stylesheet' href="{{ asset('css/profil_entreprise.css') }}">
     <link rel='stylesheet' href="{{ asset('css/global.css') }}">
+
 @endsection
 
 @section("content")
     @include("profil_entreprise_views.components.header")
     @include("components.popup")
-
+    @include("components.loading_screen")
+    <script src="{{asset('js/utils.js')}}"></script>
     @if($displayMenu == 0)
         <!-- TODO : SCRIPT -->
         @include("profil_entreprise_views.mes_infos")
