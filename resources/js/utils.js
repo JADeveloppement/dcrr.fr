@@ -5,6 +5,32 @@ const popup_body = document.querySelector(".popup");
 const popup_icon = document.querySelector(".popup-icon > i");
 const popup_msg = document.querySelector(".popup-message");
 
+const loadingscreen = document.querySelector(".loadingscreen-container");
+const span = document.querySelector(".loadingscreen_points");
+let utils_compteur = 0, utils_loadingscreen_interval;
+
+function utils_Interval(){
+    utils_loadingscreen_interval = setInterval(function(){
+        span.innerText += ".";
+        utils_compteur++;
+        if (utils_compteur == 4){
+            utils_compteur = 0;
+            span.innerText = "";
+        }
+    }, 1000)
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+    loadingscreen.classList.add("hidden");
+    span.innerText = "";
+    clearInterval(utils_loadingscreen_interval);
+})
+window.addEventListener("beforeunload", function(){
+    loadingscreen.classList.remove("hidden");
+    span.innerText = "";
+    utils_Interval();
+})
+
 function fetch_result(url, d){
     return fetch(url, {
         method: "POST",

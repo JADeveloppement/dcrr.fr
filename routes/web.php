@@ -8,7 +8,13 @@ use App\Models\User;
 use App\Models\Fluides;
 use App\Models\Marques;
 use App\Models\ListeSites;
+use App\Models\ListeModele;
 use App\Models\DataModele;
+use App\Models\DataRole;
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LandingpageController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,93 +28,86 @@ use App\Models\DataModele;
 */
 
 Route::get("/test_commande", function(Request $r){
-    $fab = DataModele::take(150)->get();
+    $user_parent = request()->user_parent;
+    $site_parent = request()->site_parent;
+    $modele_parent = request()->modele_parent;
+    $modele_to_add = request()->modele_to_add;
+    $annee = request()->annee;
+    $numerodeserie = request()->numerodeserie;
 
-    foreach($fab as $f){
-        echo "<b>ID : </b>".$f->id."<b> TYPE : </b>".$f->modele_type->modele_type."<b> DESIGNATION : </b>".$f->modele_designation->modele_designation."<br>";
-    }
+    $model_generic = DataModele::where("id", intval($modele_to_add))->first();
+    $model = new ListeModele;
+    $model->type = intval($model_generic->type);
+    $model->nature = intval($model_generic->nature);
+    $model->designation = intval($model_generic->designation);
+    $model->complement_reference = intval($model_generic->complement_reference);
+    $model->fabricant = intval($model_generic->fabricant);
+    $model->volume = intval($model_generic->volume);
+    $model->p_max_constructeur = intval($model_generic->p_max_constructeur);
+    $model->p_min_constructeur = intval($model_generic->p_min_constructeur);
+    $model->p_test = intval($model_generic->p_test);
+    $model->tarage = intval($model_generic->tarage);
+    $model->t_min_constructeur = intval($model_generic->t_min_constructeur);
+    $model->t_max_constructeur = intval($model_generic->t_max_constructeur);
+    $model->p_min_reel = 0;
+    $model->p_max_reel = 0;
+    $model->t_min_reel = 0;
+    $model->t_max_reel = 0;
+    $model->annee = $annee;
+    $model->chapitre = 0;
+    $model->categorie_de_risque = 0;
+    $model->periodicite_inspection = 0;
+    $model->date_mes = 0;
+    $model->numero_de_serie = $numerodeserie;
+    $model->modele_parent = $modele_parent;
+    $model->user_parent = $user_parent;
+    $model->site_parent = $site_parent;
+
+    if ($model->save())
+        return json_encode(["r" => 1]);
+    else return json_encode(["r" => 0]);
 });
 
-Route::get('/', function ():\Illuminate\View\View {
-    return view('welcome');
+Route::get("/test", [AdminController::class, "test"]);
+
+Route::controller(LandingpageController::class)->group(function(){
+    Route::get("/signin", "signin");
+    Route::post("/do_login", "do_login");
+    Route::post("/do_signin", "do_signin");
+    Route::view('/', 'welcome');
 });
 
-Route::get("/signin", function():\Illuminate\View\View {
-    Cookie::queue("dcrr_login", "", -1);
-    return view("signin");
+Route::controller(UserController::class)->group(function(){
+    Route::get("/profil", "profil");
+    Route::view("/profil_entreprise", "profil_entreprise");
 });
 
-Route::get("/profil", function():\Illuminate\View\View {
-    if (Cookie::has("dcrr_login")){
-        $c = Cookie::get("dcrr_login");
-        $user = User::where("email", $c)->first();
-        if ($user){
-            if ($user->role == 2 || $user->role == 1) return view("profil_entreprise");
-            else if ($user->role == 0) return view("profil_client");
-        } else return redirect("/signin");
-    } else return view("signin");
+Route::controller(AdminController::class)->group(function(){
+    Route::post("/add_site", "add_site");
+    Route::post("/add_ensemble", "add_ensemble");
 });
 
-Route::get("/profil_entreprise", function():\Illuminate\View\View {
-    return view("profil_entreprise");
-});
-
-
-Route::post("/do_signin", function(Request $r) : String{
-    $nomprenom = request()->nomprenom;
-    $email = request()->email;
-    $password = request()->password;
-    $telephone = request()->telephone;
-    $entreprise = request()->entreprise;
-    $poste = request()->poste;
-    $newsletter = request()->newsletter;
-
-    $user = new User;
-
-    if (User::where("email", $email)->exists()){
-        return json_encode(
-            ["r" => -1]
-        );
-    }
-
-    $user->nomprenom = $nomprenom;
-    $user->email = $email;
-    $user->password = $password;
-    $user->telephone = $telephone;
-    $user->entreprise = $entreprise;
-    $user->poste = $poste;
-    $user->newsletter = intval($newsletter);
-    $user->role = 0;
-    $user->active = 0;
-    $user->createdAt = Carbon::createFromTimestamp(time())->toDateTimeString();
-
+Route::post("get_modele_detail", function(Request $r):String
+{
+    $modele = DataModele::find(intval(request()->id));
+    $nature = $modele->modele_nature->modele_nature;
+    $fabricant = $modele->modele_fabricant->modele_fabricant;
+    $designation = $modele->modele_designation->modele_designation;
+    $reference = $modele->modele_reference->modele_reference;
+    $pminc = $modele->p_min_constructeur;
+    $pmaxc = $modele->p_max_constructeur;
+    $tminc = $modele->t_min_constructeur;
+    $tmaxc = $modele->t_max_constructeur;
+    $tarage = $modele->tarage;
     return json_encode([
-        "r" => $user->save()
-    ]);
-});
-
-Route::post("/do_login", function(Request $r): String{
-    $login = request()->login;
-    $password = request()->password;
-
-    $user = User::where("email", $login);
-
-    $res = 0;
-    if ($user->exists()){
-        $user_infos = $user->first();
-        if ($user_infos->active == 1){
-            if ($user_infos->password == $password){
-                $res = $user_infos->nomprenom;
-                Cookie::queue("dcrr_login", $user_infos->email, 600000);
-                if ($user_infos->role == 1 || $user_infos->role == 2)
-                    $res = "/profil_entreprise";
-                else $res = "/profil_client";
-            }
-            else $res = -1; // bad password
-        } else $res = -2; // not active
-    } else $res = -3; // bad credentials
-
-    return json_encode([
-        "r" => $res
+        "nature" => $nature,
+        "fabricant" => $fabricant,
+        "designation" => $designation,
+        "reference" => $reference,
+        "pminc" => $pminc,
+        "pmaxc" => $pmaxc,
+        "tminc" => $tminc,
+        "tmaxc" => $tmaxc,
+        "tarage" => $tarage,
     ]);
 });

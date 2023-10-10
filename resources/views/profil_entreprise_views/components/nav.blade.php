@@ -27,4 +27,8 @@
     close_nav.addEventListener("click", function(){
         nav.style.top = "-200vh";
     })
+
+    window.addEventListener("beforeunload", function(){
+        nav.style.top = "-200vh";
+    })
 </script>

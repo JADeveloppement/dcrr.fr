@@ -78,4 +78,14 @@
     .sm-btn-active {
         @apply bg-slate-700 text-white ;
     }
+
+    .loadingscreen-container {
+        @apply w-full h-screen fixed z-[999] bg-white/60 flex items-center justify-center flex-col top-0 left-0 ;
+        > span{
+            @apply m-3 ;
+        }
+        > p {
+            @apply text-[1.5rem] my-3 font-extrabold text-slate-600 animate-pulse ;
+        }
+    }
 }

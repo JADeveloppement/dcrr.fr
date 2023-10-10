@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\ListeSite;
+
 class DataModeleNature extends Model
 {
     use HasFactory;
@@ -18,4 +20,8 @@ class DataModeleNature extends Model
         'modele_nature',
         'srvDelete',
     ];
+
+    public function data_nature(){
+        return $this->belongsTo(ListeSites::class, "nature");
+    }
 }

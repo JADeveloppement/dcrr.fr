@@ -44,7 +44,7 @@
                 <div class="card-user @if($user->active == 0) opacity-50 cursor-not-allowed @else cursor-pointer @endif">
                     <div class="title">
                         <h3>{{ $user->nomprenom }}</h3>
-                        <span class="badge text-sm bg-warning mr-3">{{$user->data_role->value}}</span>
+                        <span class="badge text-sm bg-warning mr-3"> {{$user->data_role->value}}</span>
                     </div>
                     <div class="body">
                         <div>
@@ -84,10 +84,11 @@
                     @foreach ($list_user as $user)
                         <tr class="p-2 border-solid border-[1px] border-b-slate-700 @if($user->active == 0) opacity-50 bg-red-200 @endif">
                             <td class="text-left">{{$user->nomprenom}}</td>
-                            <td class="text-center"><span class="badge text-sm bg-warning mr-3">{{$user->data_role->value}}</span></td>
+                            <td class="text-center">
+                                <span class="badge text-sm bg-warning mr-3">{{$user->data_role->value}}</span></td>
                             <td class="text-center">{{$user->email}}</td>
                             <td class="text-center">
-                                <a href="?displayMenu=1&displaySite={{$user->id}}">
+                                <a href="?displayMenu=1&userId={{$user->id}}">
                                     <button class="bi bi-buildings"></button>
                                 </a>
                             </td>
