@@ -14,6 +14,7 @@ class ListeModele extends Model
 
     protected $fillable = [
         'id',
+        'type',
         'nature',
         'designation',
         'complement_reference',

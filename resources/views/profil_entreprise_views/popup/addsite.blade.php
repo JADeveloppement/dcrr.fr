@@ -47,14 +47,14 @@
         </div>
 
         <div class="flex w-full justify-start mb-3">
-            <select class="form-select mr-3" class="mb-3" name="" id="">
+            <select class="form-select mr-3" class="mb-3" name="" id="field_addsite_marque">
                 <option value="0">-- Choisissez une marque --</option>
                 @foreach (Marques::get() as $m)
                     <option value="{{$m->id}}">{{$m->marque}}</option>
                 @endforeach
             </select>
     
-            <select class="form-select" name="" id="">
+            <select class="form-select" name="" id="field_addsite_fluide">
                 <option value="0">-- Choisissez un fluide frigorigène --</option>
                 @foreach (Fluides::get() as $f)
                     <option value="{{$f->id}}">{{$f->nom_fluide}}</option>
@@ -85,7 +85,7 @@
                 "classparent" => "w-full"
             ])
         </div>
-        
+         
         @include("components.floatinginput", [
             "id" => "field_addsite_proprietaire",
             "type" => "text",

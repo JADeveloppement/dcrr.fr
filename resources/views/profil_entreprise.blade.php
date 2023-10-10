@@ -19,6 +19,7 @@
 
 @section("content")
     @include("profil_entreprise_views.components.header")
+    @include("components.popup")
 
     @if($displayMenu == 0)
         <!-- TODO : SCRIPT -->

@@ -1,5 +1,9 @@
 @php
     use App\Models\User;
+    use App\Models\ListeSites;
+    use App\Models\ListeModele;
+    
+    use App\Models\DataModeleType;
 
     $user = User::where("email", Cookie::get("dcrr_login"))->first();
     $found = true;
@@ -75,55 +79,18 @@
             </tbody>
         </table>
     </div>
-    
-    <script>
-        const add_site = document.querySelector(".add-site");
-        const popup_add_site = document.querySelector(".popup-addsite");
-
-        add_site.addEventListener("click", function(){
-            popup_add_site.style.top = "0";
-        })
-
-        const row_site = document.querySelectorAll("tr[data-target='site']");
-        const row_site_action = document.querySelectorAll(".site-action");
-
-        row_site_action.forEach((t) => {
-            t.addEventListener("click", function(){
-                const id = this.getAttribute("data-id");
-                const action = this.getAttribute("data-toggle");
-
-                if (action == "delete"){
-                    console.log("delete");
-                } else if (action == "edit"){
-                    console.log("edit");
-                }
-            })
-        })
-        row_site.forEach((t) =>  {
-            t.addEventListener("click", function(e){
-                const urlParams = new URLSearchParams(window.location.search);
-                const params = {};
-
-                urlParams.forEach((value, key) => {
-                    params[key] = value;
-                });
-
-                const id = this.getAttribute("data-site");
-                if (e.target.classList.contains("site-action")) e.preventDefault();
-                else {
-                    window.location="?displayMenu=1&userId="+params.userId+"&displaySite="+id;
-                } 
-            })
-        })
-
-        const btn_save_addsite = document.querySelector(".btn-save-addsite");
-
-        btn_save_addsite.addEventListener("click", function(){
-            const id = this.getAttribute("data-target");
-        })
-    </script>
+    <script src="{{asset('js/profil_entreprise_scripts/liste_site.js')}}"></script>
 
     @if (request()->has('displaySite'))
+    @php
+        $liste_ensemble = ListeModele::where("user_parent", intval($user->id))
+                                    ->where("site_parent", intval(request()->displaySite))
+                                    ->where("type", DataModeleType::where("modele_type", "Ensemble")->first()->id)
+                                    ->get();
+
+        $site_selected = ListeSites::where("id", intval(request()->displaySite))
+                            ->get();
+    @endphp
     <div class="card">
         <div class="ensemblesassocies">
             <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
@@ -141,22 +108,24 @@
                     </thead>
                     <tbody>
                         <tr class="bg-slate-200">
-                            <td class="p-3 border-r-[1px] border-black">XXXX</td>
-                            <td class="p-3 border-r-[1px] border-black">XXXX</td>
-                            <td class="p-3 border-r-[1px] border-black">XXXX</td>
-                            <td class="p-3">XXXX</td>
+                            <td class="p-3 border-r-[1px] border-black">{{$site_selected->first()->nom_client}}</td>
+                            <td class="p-3 border-r-[1px] border-black">{{$site_selected->first()->code_client}}</td>
+                            <td class="p-3 border-r-[1px] border-black">{{$site_selected->first()->nom_site}}</td>
+                            <td class="p-3">{{$site_selected->first()->code_site}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <h2>Liste des ensembles</h2>
-            <p class="italic">Aucun ensemble disponible, veuillez en créer au moins un.</p>
+            <button>Ajouter un ensemble</button>
             @include("components.floatinginput", [
                 "id" => "field_messites_searchensemble",
                 "type" => "text",
                 "placeholder" => "Rechercher parmi les ensembles",
                 "classparent" => "mt-3"
-            ])
+                ])
+            <p class="italic @if($liste_ensemble->count() > 0) hidden @endif">Aucun ensemble disponible, veuillez en créer au moins un.</p>
+            <span class="italic @if($liste_ensemble->count() == 0) hidden @endif">Cliquez sur une ligne pour afficher ses ensembles associés.</span>
             <table class="messite-table">
                 <thead>
                     <tr>
@@ -171,22 +140,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for($i = 0; $i < 10; $i++)
-                        <tr data-target="ensemble" data-ensemble="{{$i}}" data-id="" @if(request()->has('displayEnsemble') && request()->displayEnsemble == $l->id) class="font-extrabold bg-dcrr-green/50" @endif>
+                    @foreach ($liste_ensemble as $i)
+                        <tr>
                             <td>
                                 <div class="flex items-center justify-center">
-                                    <i class="bi bi-search hover:text-dcrr-green cursor-pointer"></i>
+                                    <i class="bi bi-pen mr-3"></i>
+                                    <i class="bi bi-trash mr-3"></i>
                                 </div>
                             </td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
                         </tr>
-                    @endfor
+                    @endforeach
                 </tbody>
             </table>
         </div>
