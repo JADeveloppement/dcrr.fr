@@ -10,6 +10,9 @@
 
     $site_selected = ListeSites::where("id", intval(request()->displaySite))
                         ->get();
+    
+    $ensemble_selected = 0;
+    if (request()->has('displayEnsemble')) $ensemble_selected = request()->displayEnsemble;
 @endphp
 <div class="card">
     <div class="ensemblesassocies">
@@ -61,11 +64,11 @@
             </thead>
             <tbody>
                 @foreach ($liste_ensemble as $i)
-                    <tr>
-                        <td>
-                            <div class="flex items-center justify-center">
-                                <i class="text-[1.5rem] bi bi-pen mr-3"></i>
-                                <i class="text-[1.5rem] bi bi-trash mr-3"></i>
+                    <tr class="@if($i->id == $ensemble_selected) bg-dcrr-green/50 font-extrabold @endif" data-toggle="ensemble" data-id="{{$i->id}}" data-userparent="{{$i->user_parent}}" data-siteparent="{{$i->site_parent}}">
+                        <td data-toggle="action" class="data-action">
+                            <div class="data-action flex items-center justify-center">
+                                <i class="data-action text-[1.5rem] bi bi-pen mr-3"></i>
+                                <i class="data-action text-[1.5rem] bi bi-trash mr-3"></i>
                             </div>
                         </td>
                         <td>{{$i->data_nature->modele_nature}}</td>

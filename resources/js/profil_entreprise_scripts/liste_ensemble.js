@@ -2,20 +2,18 @@ import {fetch_result, toggleButtonClick, do_popup} from "./../utils.js";
 const _token = document.querySelector("meta[name='_token']").getAttribute("content");
 const loading_spinner = "<span class='spinner spinner-border'></span>";
 
-const row_ensemble = document.querySelectorAll("tr[data-target='ensemble']");
+const row_ensemble = document.querySelectorAll("tr[data-toggle='ensemble']");
 
 row_ensemble.forEach((r) => {
     r.addEventListener("click", function(e){
-        const urlParams = new URLSearchParams(window.location.search);
-        const params = {};
-
-        urlParams.forEach((value, key) => {
-            params[key] = value;
-        });
-
-        const id = this.getAttribute("data-ensemble");
-        if (e.target.classList.contains("site-action")) e.preventDefault();
-        else window.location="?displayMenu=1&userId"+params.userId+"&displaySite="+params.displaySite+"&displayEnsemble="+id;
+        const id = this.getAttribute("data-id");
+        const user_parent = this.getAttribute("data-userparent");
+        const site_parent = this.getAttribute("data-siteparent");
+        if (e.target.classList.contains("data-action")) e.preventDefault();
+        else {
+            const link = "?displayMenu=1&userId="+user_parent+"&displaySite="+site_parent+"&displayEnsemble="+id;
+            window.location = link;
+        }
     })
 })
 
@@ -77,5 +75,4 @@ btn_save_addensemble.addEventListener("click", async function(){
     } else{
         do_popup("bg-red-600", "bi-x-octagon", "Veuillez remplir les champs obligatoires avant d'enregistrer.");
     }
-    console.log(user_parent);
 })

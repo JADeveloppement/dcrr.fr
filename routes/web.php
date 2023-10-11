@@ -10,6 +10,7 @@ use App\Models\Marques;
 use App\Models\ListeSites;
 use App\Models\ListeModele;
 use App\Models\DataModele;
+use App\Models\DataModeleType;
 use App\Models\DataRole;
 
 use App\Http\Controllers\AdminController;
@@ -28,44 +29,24 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get("/test_commande", function(Request $r){
-    $user_parent = request()->user_parent;
-    $site_parent = request()->site_parent;
-    $modele_parent = request()->modele_parent;
-    $modele_to_add = request()->modele_to_add;
-    $annee = request()->annee;
-    $numerodeserie = request()->numerodeserie;
+    $id = DataModeleType::where("modele_type", request()->type)->first()->id;
+    return json_encode([
+        "id" => $id,
+        "r" => DataModele::join("data_modele_type", "data_modele_type.id", "=", "data_generic_modele.type")
+                        ->select("data_generic_modele.id", "data_modele_type.modele_type", "data_generic_modele.designation")->where("type", $id)->get(),
+    ]);
+});
 
-    $model_generic = DataModele::where("id", intval($modele_to_add))->first();
-    $model = new ListeModele;
-    $model->type = intval($model_generic->type);
-    $model->nature = intval($model_generic->nature);
-    $model->designation = intval($model_generic->designation);
-    $model->complement_reference = intval($model_generic->complement_reference);
-    $model->fabricant = intval($model_generic->fabricant);
-    $model->volume = intval($model_generic->volume);
-    $model->p_max_constructeur = intval($model_generic->p_max_constructeur);
-    $model->p_min_constructeur = intval($model_generic->p_min_constructeur);
-    $model->p_test = intval($model_generic->p_test);
-    $model->tarage = intval($model_generic->tarage);
-    $model->t_min_constructeur = intval($model_generic->t_min_constructeur);
-    $model->t_max_constructeur = intval($model_generic->t_max_constructeur);
-    $model->p_min_reel = 0;
-    $model->p_max_reel = 0;
-    $model->t_min_reel = 0;
-    $model->t_max_reel = 0;
-    $model->annee = $annee;
-    $model->chapitre = 0;
-    $model->categorie_de_risque = 0;
-    $model->periodicite_inspection = 0;
-    $model->date_mes = 0;
-    $model->numero_de_serie = $numerodeserie;
-    $model->modele_parent = $modele_parent;
-    $model->user_parent = $user_parent;
-    $model->site_parent = $site_parent;
-
-    if ($model->save())
-        return json_encode(["r" => 1]);
-    else return json_encode(["r" => 0]);
+Route::post("/get_liste_modele", function(Request $r)
+{
+    $id = DataModeleType::where("modele_type", request()->type)->first()->id;
+    return json_encode([
+        "id" => $id,
+        "r" => DataModele::join("data_modele_type", "data_modele_type.id", "=", "data_generic_modele.type")
+                        ->join("data_modele_designation", "data_modele_designation.id", "=", "data_generic_modele.designation")
+                        ->join("data_modele_reference", "data_modele_reference.id", "=", "data_generic_modele.complement_reference")
+                        ->select("data_generic_modele.id", "data_modele_type.modele_type", "data_modele_designation.modele_designation", "data_modele_reference.modele_reference")->where("type", $id)->get(),
+    ]);
 });
 
 Route::get("/test", [AdminController::class, "test"]);

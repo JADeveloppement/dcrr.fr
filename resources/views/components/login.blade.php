@@ -6,12 +6,13 @@
             "id" => "field_loginlogin",
             "type" => "text",
             "placeholder" => "Identifiant",
-            "classparent" => "mt-3"
+            "classparent" => "my-3 w-full"
         ])
         @include("components.floatinginput", [
             "id" => "field_loginpassword",
             "type" => "password",
-            "placeholder" => "Mot de passe"
+            "placeholder" => "Mot de passe",
+            "classparent" => "w-full"
         ])
         <span class="btn-signin">Vous n'avez pas de compte ? Inscrivez-vous.</span>
         <button class="do-login">Connexion</button>

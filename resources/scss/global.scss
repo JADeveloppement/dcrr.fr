@@ -23,6 +23,14 @@
         &:hover {
             @apply bg-white border-solid border-2 border-dcrr-green text-dcrr-green ;
         }
+
+        &:is(:disabled){
+            @apply bg-dcrr-green/50 ;
+
+            &:hover {
+                @apply bg-dcrr-green/50 cursor-not-allowed bg-white ;
+            }
+        }
     }
 
     .btn-cancel  {
