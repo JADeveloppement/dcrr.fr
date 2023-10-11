@@ -10,15 +10,20 @@
             $user = User::where("id", intval(request()->userId))->first();
         else $found = false;
     }
-
-    $listeSites = $user->listeSites;
+    $listeSites = ListeSites::select("listeSites.id as id", 
+                                    "listeSites.code_client as code_client", 
+                                    "listeSites.nom_client as nom_client", 
+                                    "listeSites.code_site as code_site", 
+                                    "listeSites.nom_site as nom_site", 
+                                    "liste_marques.marque as marque", 
+                                    "listeSites.date_mise_en_service as date_de_mise_en_service", 
+                                    "listeSites.conforme as conforme")
+                            ->join("liste_marques", "liste_marques.id", "=", "listeSites.marquename")
+                            ->where("proprietaire", $user->id)
+                            ->get();
 @endphp
 
 <div class="profil-entreprise-container">
-    @include("profil_entreprise_views.popup.addsite")
-    @include("profil_entreprise_views.popup.addensemble")
-    @include("profil_entreprise_views.popup.addmodele")
-
 
     @if (!$found)
         <div class="card items-center">
@@ -37,12 +42,14 @@
         </div>
     @endif
 
-    @include("profil_entreprise_views.liste_site_views.liste_site")
+    @include("profil_entreprise_views.liste_site_views.liste_site", [
+        "listeSites" => $listeSites
+    ])
 
     @if (request()->has('displaySite'))
         @include("profil_entreprise_views.liste_site_views.liste_ensemble")
     @endif
-    
+
     @if (request()->has('displayEnsemble'))
         @include("profil_entreprise_views.liste_site_views.liste_modele")
     @endif

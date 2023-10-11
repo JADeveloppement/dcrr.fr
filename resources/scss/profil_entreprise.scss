@@ -187,21 +187,23 @@
                     > .etape {
                         @apply w-full p-3 ;
 
-                        &[data-toggle='etape1']{
-                            > .addmodele_listetype {
-                                @apply w-full border-solid border-[1px] border-slate-500 ;
+                        > .addmodele_listetype, .addmodele_listemodele {
+                            @apply w-full border-solid border-[1px] border-slate-500 relative p-2 ;
 
-                                > p {
-                                    @apply px-3 ;
+                            > input {
+                                @apply border-solid border-[1px] border-slate-500 bg-white m-1 ;
+                            }
 
-                                    &:hover {
-                                        @apply bg-dcrr-green cursor-pointer text-white ;
-                                    }
+                            > p {
+                                @apply px-3 ;
+
+                                &:hover {
+                                    @apply bg-dcrr-green cursor-pointer text-white ;
                                 }
+                            }
 
-                                > .actif {
-                                    @apply bg-dcrr-green text-white ;
-                                }
+                            > .actif {
+                                @apply bg-dcrr-green text-white ;
                             }
                         }
                     }

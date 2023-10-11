@@ -5,7 +5,10 @@
     use App\Models\DataModele;
     use App\Models\DataModeleType;
 
-    $addensemble_liste = DataModele::where("type", DataModeleType::where("modele_type", "Ensemble")->first()->id)->get();
+    $addensemble_liste = DataModele::join("data_modele_designation", "data_modele_designation.id", "=", "data_generic_modele.designation")
+                            ->join("data_modele_reference", "data_modele_reference.id", "=", "data_generic_modele.complement_reference")
+                            ->select("data_generic_modele.id", "data_modele_designation.modele_designation", "data_modele_reference.modele_reference")
+                            ->where("type", DataModeleType::where("modele_type", "Ensemble")->first()->id)->get();
     $user_parent = User::where("email", Cookie::get("dcrr_login"))->first()->id;
 
     if (request()->has('userId') && User::find(intval(request()->userId)))
@@ -31,7 +34,7 @@
             <select class="form-select" id="field_addensemble_ensemble">
                 <option value="0">-- Choisir un ensemble --</option>
                 @foreach ($addensemble_liste as $item)
-                    <option value="{{$item->id}}">{{$item->modele_designation->modele_designation}} ({{$item->modele_reference->modele_reference}})</option>
+                    <option value="{{$item->id}}">{{$item->modele_designation}} ({{$item->modele_reference}})</option>
                 @endforeach
             </select>
         </div>

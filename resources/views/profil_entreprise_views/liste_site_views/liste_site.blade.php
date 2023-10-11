@@ -1,16 +1,4 @@
-@php
-    use App\Models\User;
-    use App\Models\ListeSites;
-
-    $userId = User::where("email", Cookie::get("dcrr_login"))->first()->id;
-
-    if (request()->has('userId')){
-        $userId = request()->userId;
-    }
-
-    $listeSites = ListeSites::where("proprietaire", $userId)->get();
-    
-@endphp
+@include("profil_entreprise_views.popup.addsite")
 <div class="card">
     <h2>Liste des sites</h2>
     <span class="italic">Cliquez sur une ligne pour afficher ses ensembles associés.</span>
@@ -44,8 +32,8 @@
                     <td>{{ $l->nom_client }}</td>
                     <td>{{ $l->code_site }}</td>
                     <td>{{ $l->nom_site }}</td>
-                    <td>{{ $l->marque->marque }}</td>
-                    <td>{{ $l->date_mise_en_service }}</td>
+                    <td>{{ $l->marque }}</td>
+                    <td>{{ $l->date_de_mise_en_service }}</td>
                     <td>{{ $l->conforme }}</td>
                 </tr>
             @endforeach

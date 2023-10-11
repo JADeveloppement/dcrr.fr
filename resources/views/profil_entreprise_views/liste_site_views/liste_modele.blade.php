@@ -18,6 +18,7 @@
                                 ->where("user_parent", $userId)
                                 ->where("modele_parent", $ensemble)->get();
 @endphp
+@include("profil_entreprise_views.popup.addmodele")
 <div class="modelesassocies">
     <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
         <button class="btn-cancel text-sm">Réduire</button>
