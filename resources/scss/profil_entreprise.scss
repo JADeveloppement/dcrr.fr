@@ -190,6 +190,10 @@
                         > .addmodele_listetype, .addmodele_listemodele {
                             @apply w-full border-solid border-[1px] border-slate-500 relative p-2 ;
 
+                            > .loading_addmodele_modele {
+                                @apply absolute top-0 left-0 w-full h-full bg-white/50 items-center justify-center ;
+                            }
+
                             > input {
                                 @apply border-solid border-[1px] border-slate-500 bg-white m-1 ;
                             }

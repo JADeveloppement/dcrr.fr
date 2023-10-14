@@ -21,6 +21,7 @@
                             ->join("liste_marques", "liste_marques.id", "=", "listeSites.marquename")
                             ->where("proprietaire", $user->id)
                             ->get();
+    $userId = $user->id;
 @endphp
 
 <div class="profil-entreprise-container">
@@ -43,14 +44,19 @@
     @endif
 
     @include("profil_entreprise_views.liste_site_views.liste_site", [
-        "listeSites" => $listeSites
+        "listeSites" => $listeSites,
+        "userId" => $userId,
     ])
 
     @if (request()->has('displaySite'))
-        @include("profil_entreprise_views.liste_site_views.liste_ensemble")
+        @include("profil_entreprise_views.liste_site_views.liste_ensemble", [
+            "userId" => $userId,
+        ])
     @endif
 
     @if (request()->has('displayEnsemble'))
-        @include("profil_entreprise_views.liste_site_views.liste_modele")
+        @include("profil_entreprise_views.liste_site_views.liste_modele", [
+            "userId" => $userId,
+        ])
     @endif
 </div>

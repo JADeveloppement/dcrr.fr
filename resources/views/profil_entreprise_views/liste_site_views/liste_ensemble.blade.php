@@ -17,14 +17,14 @@
                                 ->join("data_modele_reference","data_modele_reference.id", "=", "listeModele.complement_reference")
                                 ->join("data_modele_designation","data_modele_designation.id", "=", "listeModele.designation")
                                 ->join("data_modele_fabricant","data_modele_fabricant.id", "=", "listeModele.fabricant")
-                                ->where("user_parent", intval(request()->userId))
+                                ->where("user_parent", intval($userId))
                                 ->where("site_parent", intval(request()->displaySite))
                                 ->where("type", DataModeleType::where("modele_type", "Ensemble")->first()->id)
                                 ->get();
 
     $site_selected = ListeSites::select("id", "nom_client", "code_client", "nom_site", "code_site")
                         ->where("id", intval(request()->displaySite))
-                        ->where("proprietaire", intval(request()->userId))
+                        ->where("proprietaire", intval($userId))
                         ->get();
     
     $ensemble_selected = 0;

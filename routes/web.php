@@ -71,6 +71,7 @@ Route::controller(AdminController::class)->group(function(){
 Route::post("get_modele_detail", function(Request $r):String
 {
     $modele = DataModele::find(intval(request()->id));
+    $type = $modele->modele_type->modele_type;
     $nature = $modele->modele_nature->modele_nature;
     $fabricant = $modele->modele_fabricant->modele_fabricant;
     $designation = $modele->modele_designation->modele_designation;
@@ -81,10 +82,11 @@ Route::post("get_modele_detail", function(Request $r):String
     $tmaxc = $modele->t_max_constructeur;
     $tarage = $modele->tarage;
     return json_encode([
+        "type" => $type,
         "nature" => $nature,
         "fabricant" => $fabricant,
         "designation" => $designation,
-        "reference" => $reference,
+        "complement_reference" => $reference,
         "pminc" => $pminc,
         "pmaxc" => $pmaxc,
         "tminc" => $tminc,
