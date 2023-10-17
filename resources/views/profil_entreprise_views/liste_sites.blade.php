@@ -57,6 +57,8 @@
     @if (request()->has('displayEnsemble'))
         @include("profil_entreprise_views.liste_site_views.liste_modele", [
             "userId" => $userId,
+            "site_parent" => intval(request()->displaySite),
+            "ensemble_parent" => intval(request()->displayEnsemble)
         ])
     @endif
 </div>

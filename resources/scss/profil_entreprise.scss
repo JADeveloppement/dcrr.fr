@@ -190,10 +190,6 @@
                         > .addmodele_listetype, .addmodele_listemodele {
                             @apply w-full border-solid border-[1px] border-slate-500 relative p-2 ;
 
-                            > .loading_addmodele_modele {
-                                @apply fixed top-0 left-0 w-full h-full bg-white/50 items-center justify-center ;
-                            }
-
                             > input {
                                 @apply border-solid border-[1px] border-slate-500 bg-white m-1 ;
                             }
@@ -226,5 +222,9 @@
                 @apply absolute top-[10px] right-[10px] cursor-pointer w-fit ;
             }
         }
+    }
+
+    .loading_addmodele_modele {
+        @apply fixed top-0 left-0 w-full h-full bg-white/50 items-center justify-center z-[99] ;
     }
 }

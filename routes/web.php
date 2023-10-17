@@ -94,3 +94,41 @@ Route::post("get_modele_detail", function(Request $r):String
         "tarage" => $tarage,
     ]);
 });
+
+Route::post("/add_modele", function(Request $r): String
+{
+    $id = request()->id;
+    $categorie_ff = request()->categorie_ff;
+    $pmaxr = request()->pmaxr;
+    $pminr = request()->pminr;
+    $tmaxr = request()->tmaxr;
+    $tminr = request()->tminr;
+    $date_mes = request()->date_mes;
+    $numerodeserie = request()->numerodeserie;
+    $annee = request()->annee;
+    $user_parent = request()->user_parent;
+    $site_parent = request()->site_parent;
+    $ensemble_parent = request()->ensemble_parent;
+
+    $datasource = DataModele::select("data_generic_modele.id as id",
+                                    "data_modele_type.modele_type as type",
+                                    "data_modele_nature.modele_nature as nature",
+                                    "data_modele_fabricant.modele_fabricant as fabricant",
+                                    "data_modele_designation.modele_designation as designation",
+                                    "data_modele_reference.modele_reference as complement_reference",
+                                    "data_generic_modele.p_min_constructeur as pminc",
+                                    "data_generic_modele.p_max_constructeur as pmaxc",
+                                    "data_generic_modele.t_min_constructeur as tminc",
+                                    "data_generic_modele.t_max_constructeur as tmaxc",
+                                    "data_generic_modele.tarage as tarage")
+                            ->join("data_modele_type", "data_modele_type.id", "=", "data_generic_modele.type")
+                            ->join("data_modele_nature", "data_modele_nature.id", "=", "data_generic_modele.nature")
+                            ->join("data_modele_fabricant", "data_modele_fabricant.id", "=", "data_generic_modele.fabricant")
+                            ->join("data_modele_designation", "data_modele_designation.id", "=", "data_generic_modele.designation")
+                            ->join("data_modele_reference", "data_modele_reference.id", "=", "data_generic_modele.complement_reference")
+                            ->where("data_generic_modele.id", $id)->first();
+    return json_encode([
+        "r" => $datasource,
+        [$id,$categorie_ff,$pmaxr,$pminr,$tmaxr,$tminr,$date_mes,$numerodeserie,$annee,$user_parent,$site_parent,$ensemble_parent]
+    ]);
+});
