@@ -158,6 +158,10 @@
                     }
                 }
             }
+
+            .action-actif {
+                @apply bg-dcrr-green text-white ;
+            }
         }
     }
 

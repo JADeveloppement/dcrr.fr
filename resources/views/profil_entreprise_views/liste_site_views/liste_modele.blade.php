@@ -14,9 +14,21 @@
     $ensemblefound = ListeModele::where("id", $ensemble)
                                 ->where("site_parent", $site_parent)
                                 ->where("user_parent", $userId);
-    $listemodele = ListeModele::where("site_parent", $site_parent)
+    $listemodele = ListeModele::select("data_modele_nature.modele_nature as nature",
+                                        "data_modele_designation.modele_designation as designation",
+                                        "data_modele_reference.modele_reference as reference",
+                                        "data_modele_fabricant.modele_fabricant as fabricant",
+                                        "listeModele.date_mes as date_mes",
+                                        "listeModele.categorie_fluide_frigorigene as categorie_fluide_frigorigene",
+                                        "listeModele.annee as annee")
+                                ->join("data_modele_nature", "listeModele.nature", "=", "data_modele_nature.id")
+                                ->join("data_modele_designation", "listeModele.designation", "=", "data_modele_designation.id")
+                                ->join("data_modele_reference", "listeModele.complement_reference", "=", "data_modele_reference.id")
+                                ->join("data_modele_fabricant", "listeModele.fabricant", "=", "data_modele_fabricant.id")
+                                ->where("site_parent", $site_parent)
                                 ->where("user_parent", $userId)
-                                ->where("modele_parent", $ensemble)->get();
+                                ->where("modele_parent", $ensemble)
+                                ->get();
 @endphp
 @include("profil_entreprise_views.popup.addmodele")
 <div class="modelesassocies">
@@ -67,32 +79,34 @@
                 <thead>
                     <tr>
                         <th>Action</th>
-                        <th>Code Client</th>
-                        <th>Nom Client</th>
-                        <th>Code Site</th>
-                        <th>Nom Site</th>
-                        <th>Marque</th>
-                        <th>Date de Mise en service</th>
-                        <th>Conformité</th>
+                        <th>Nature</th>
+                        <th>Designation</th>
+                        <th>Référence</th>
+                        <th>Fabricant</th>
+                        <th>Date MES</th>
+                        <th>Catégorie fluide frigorigène</th>
+                        <th>Année</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @for($i = 0; $i < 10; $i++)
+                    @foreach ($listemodele as $item)
                         <tr>
                             <td>
                                 <div class="flex items-center justify-center">
-                                    <i class="bi bi-search hover:text-dcrr-green cursor-pointer"></i>
+                                    <i class="text-[1.5rem] mr-3 bi bi-search"></i>
+                                    <i class="text-[1.5rem] mr-3 bi bi-pen"></i>
+                                    <i class="text-[1.5rem] bi bi-trash"></i>
                                 </div>
                             </td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
-                            <td>Lorem</td>
+                            <td>{{ $item->nature }}</td>
+                            <td>{{ $item->designation }}</td>
+                            <td>{{ $item->reference }}</td>
+                            <td>{{ $item->fabricant }}</td>
+                            <td>{{ $item->date_mes }}</td>
+                            <td>{{ $item->categorie_fluide_frigorigene }}</td>
+                            <td>{{ $item->annee }}</td>
                         </tr>
-                    @endfor
+                    @endforeach
                 </tbody>
             </table>
         @endif
