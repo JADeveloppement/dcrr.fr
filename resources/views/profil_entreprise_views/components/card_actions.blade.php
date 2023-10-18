@@ -1,4 +1,4 @@
-<div class="card-actions">
+<div class="card-actions @if(isset($actif) && $actif) action-actif @endif">
     <div class="left">
         @if(isset($icon))
             <i class="bi {{$icon}}"></i>

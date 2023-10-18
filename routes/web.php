@@ -10,6 +10,7 @@ use App\Models\Marques;
 use App\Models\ListeSites;
 use App\Models\ListeModele;
 use App\Models\DataModele;
+use App\Models\DataModeleType;
 use App\Models\DataRole;
 
 use App\Http\Controllers\AdminController;
@@ -28,44 +29,19 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get("/test_commande", function(Request $r){
-    $user_parent = request()->user_parent;
-    $site_parent = request()->site_parent;
-    $modele_parent = request()->modele_parent;
-    $modele_to_add = request()->modele_to_add;
-    $annee = request()->annee;
-    $numerodeserie = request()->numerodeserie;
+    
+});
 
-    $model_generic = DataModele::where("id", intval($modele_to_add))->first();
-    $model = new ListeModele;
-    $model->type = intval($model_generic->type);
-    $model->nature = intval($model_generic->nature);
-    $model->designation = intval($model_generic->designation);
-    $model->complement_reference = intval($model_generic->complement_reference);
-    $model->fabricant = intval($model_generic->fabricant);
-    $model->volume = intval($model_generic->volume);
-    $model->p_max_constructeur = intval($model_generic->p_max_constructeur);
-    $model->p_min_constructeur = intval($model_generic->p_min_constructeur);
-    $model->p_test = intval($model_generic->p_test);
-    $model->tarage = intval($model_generic->tarage);
-    $model->t_min_constructeur = intval($model_generic->t_min_constructeur);
-    $model->t_max_constructeur = intval($model_generic->t_max_constructeur);
-    $model->p_min_reel = 0;
-    $model->p_max_reel = 0;
-    $model->t_min_reel = 0;
-    $model->t_max_reel = 0;
-    $model->annee = $annee;
-    $model->chapitre = 0;
-    $model->categorie_de_risque = 0;
-    $model->periodicite_inspection = 0;
-    $model->date_mes = 0;
-    $model->numero_de_serie = $numerodeserie;
-    $model->modele_parent = $modele_parent;
-    $model->user_parent = $user_parent;
-    $model->site_parent = $site_parent;
-
-    if ($model->save())
-        return json_encode(["r" => 1]);
-    else return json_encode(["r" => 0]);
+Route::post("/get_liste_modele", function(Request $r)
+{
+    $id = DataModeleType::where("modele_type", request()->type)->first()->id;
+    return json_encode([
+        "id" => $id,
+        "r" => DataModele::join("data_modele_type", "data_modele_type.id", "=", "data_generic_modele.type")
+                        ->join("data_modele_designation", "data_modele_designation.id", "=", "data_generic_modele.designation")
+                        ->join("data_modele_reference", "data_modele_reference.id", "=", "data_generic_modele.complement_reference")
+                        ->select("data_generic_modele.id", "data_modele_type.modele_type", "data_modele_designation.modele_designation", "data_modele_reference.modele_reference")->where("type", $id)->get(),
+    ]);
 });
 
 Route::get("/test", [AdminController::class, "test"]);
@@ -90,6 +66,7 @@ Route::controller(AdminController::class)->group(function(){
 Route::post("get_modele_detail", function(Request $r):String
 {
     $modele = DataModele::find(intval(request()->id));
+    $type = $modele->modele_type->modele_type;
     $nature = $modele->modele_nature->modele_nature;
     $fabricant = $modele->modele_fabricant->modele_fabricant;
     $designation = $modele->modele_designation->modele_designation;
@@ -100,14 +77,68 @@ Route::post("get_modele_detail", function(Request $r):String
     $tmaxc = $modele->t_max_constructeur;
     $tarage = $modele->tarage;
     return json_encode([
+        "type" => $type,
         "nature" => $nature,
         "fabricant" => $fabricant,
         "designation" => $designation,
-        "reference" => $reference,
+        "complement_reference" => $reference,
         "pminc" => $pminc,
         "pmaxc" => $pmaxc,
         "tminc" => $tminc,
         "tmaxc" => $tmaxc,
         "tarage" => $tarage,
+    ]);
+});
+
+Route::post("/add_modele", function(Request $r): String
+{
+    $id = request()->id;
+    $categorie_ff = request()->categorie_ff;
+    $pmaxr = request()->pmaxr;
+    $pminr = request()->pminr;
+    $tmaxr = request()->tmaxr;
+    $tminr = request()->tminr;
+    $date_mes = request()->date_mes;
+    $numerodeserie = request()->numerodeserie;
+    $annee = request()->annee;
+    $user_parent = request()->user_parent;
+    $site_parent = request()->site_parent;
+    $ensemble_parent = request()->ensemble_parent;
+
+    $datasource = DataModele::find($id);
+    $listeModele = new ListeModele;
+    $listeModele->type = $datasource->type ? $datasource->type : null;
+    $listeModele->nature = $datasource->nature ? $datasource->nature : null;
+    $listeModele->designation = $datasource->designation ? $datasource->designation : null;
+    $listeModele->complement_reference = $datasource->complement_reference ? $datasource->complement_reference : null;
+    $listeModele->fabricant = $datasource->fabricant ? $datasource->fabricant : null;
+    $listeModele->volume = $datasource->volume ? $datasource->volume : null;
+    $listeModele->p_max_constructeur = $datasource->p_max_constructeur ? $datasource->p_max_constructeur : null;
+    $listeModele->p_min_constructeur = $datasource->p_min_constructeur ? $datasource->p_min_constructeur : null;
+    $listeModele->p_test = $datasource->p_test ? $datasource->p_test : null;
+    $listeModele->t_max_constructeur = $datasource->t_max_constructeur ? $datasource->t_max_constructeur : null;
+    $listeModele->t_min_constructeur = $datasource->t_min_constructeur ? $datasource->t_min_constructeur : null;
+    $listeModele->tarage = $datasource->tarage ? $datasource->tarage : null;
+    $listeModele->chapitre = $datasource->chapitre ? $datasource->chapitre : null;
+    $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
+    $listeModele->categorie_de_risque = $datasource->categorie_de_risque ? $datasource->categorie_de_risque : null;
+    $listeModele->periodicite_inspection = $datasource->periodicite_inspection ? $datasource->periodicite_inspection : null;
+    $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
+    $listeModele->date_mes = $date_mes ? $date_mes : null;
+    $listeModele->categorie_fluide_frigorigene = $categorie_ff ? $categorie_ff : null;
+    $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
+    $listeModele->p_min_reel = $pminr ? $pminr : null;
+    $listeModele->t_max_reel = $tmaxr ? $tmaxr : null;
+    $listeModele->t_min_reel = $tminr ? $tminr : null;
+    $listeModele->annee = $annee ? $annee : null;
+    $listeModele->user_parent = $user_parent;
+    $listeModele->site_parent = $site_parent;
+    $listeModele->modele_parent = $ensemble_parent;
+
+    $listeModele->save();
+
+    return json_encode([
+        "r" => $datasource,
+        [$id,$categorie_ff,$pmaxr,$pminr,$tmaxr,$tminr,$date_mes,$numerodeserie,$annee,$user_parent,$site_parent,$ensemble_parent]
     ]);
 });

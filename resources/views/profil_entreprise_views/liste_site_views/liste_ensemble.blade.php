@@ -2,15 +2,35 @@
     use App\Models\ListeModele;
     use App\Models\DataModeleType;
     use App\Models\ListeSites;
-
-    $liste_ensemble = ListeModele::where("user_parent", intval($user->id))
+    
+    $liste_ensemble = ListeModele::select("listeModele.id as id",
+                                            "data_modele_nature.modele_nature as nature",
+                                            "data_modele_reference.modele_reference as reference",
+                                            "data_modele_designation.modele_designation as designation",
+                                            "data_modele_fabricant.modele_fabricant as fabricant",
+                                            "listeModele.date_mes as date_mes",
+                                            "listeModele.categorie_fluide_frigorigene as categorie_fluide_frigorigene",
+                                            "listeModele.numero_de_serie as numero_de_serie",
+                                            "listeModele.user_parent as user_parent",
+                                            "listeModele.site_parent as site_parent")
+                                ->join("data_modele_nature","data_modele_nature.id", "=", "listeModele.nature")
+                                ->join("data_modele_reference","data_modele_reference.id", "=", "listeModele.complement_reference")
+                                ->join("data_modele_designation","data_modele_designation.id", "=", "listeModele.designation")
+                                ->join("data_modele_fabricant","data_modele_fabricant.id", "=", "listeModele.fabricant")
+                                ->where("user_parent", intval($userId))
                                 ->where("site_parent", intval(request()->displaySite))
                                 ->where("type", DataModeleType::where("modele_type", "Ensemble")->first()->id)
                                 ->get();
 
-    $site_selected = ListeSites::where("id", intval(request()->displaySite))
+    $site_selected = ListeSites::select("id", "nom_client", "code_client", "nom_site", "code_site")
+                        ->where("id", intval(request()->displaySite))
+                        ->where("proprietaire", intval($userId))
                         ->get();
+    
+    $ensemble_selected = 0;
+    if (request()->has('displayEnsemble')) $ensemble_selected = request()->displayEnsemble;
 @endphp
+@include("profil_entreprise_views.popup.addensemble")
 <div class="card">
     <div class="ensemblesassocies">
         <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
@@ -61,17 +81,17 @@
             </thead>
             <tbody>
                 @foreach ($liste_ensemble as $i)
-                    <tr>
-                        <td>
-                            <div class="flex items-center justify-center">
-                                <i class="text-[1.5rem] bi bi-pen mr-3"></i>
-                                <i class="text-[1.5rem] bi bi-trash mr-3"></i>
+                    <tr class="@if($i->id == $ensemble_selected) bg-dcrr-green/50 font-extrabold @endif" data-toggle="ensemble" data-id="{{$i->id}}" data-userparent="{{$i->user_parent}}" data-siteparent="{{$i->site_parent}}">
+                        <td data-toggle="action" class="data-action">
+                            <div class="data-action flex items-center justify-center">
+                                <i class="data-action text-[1.5rem] bi bi-pen mr-3"></i>
+                                <i class="data-action text-[1.5rem] bi bi-trash mr-3"></i>
                             </div>
                         </td>
-                        <td>{{$i->data_nature->modele_nature}}</td>
-                        <td>{{$i->data_designation->modele_designation}}</td>
-                        <td>{{$i->data_reference->modele_reference}}</td>
-                        <td>{{$i->data_fabricant->modele_fabricant}}</td>
+                        <td>{{$i->nature}}</td>
+                        <td>{{$i->designation}}</td>
+                        <td>{{$i->reference}}</td>
+                        <td>{{$i->fabricant}}</td>
                         <td>{{$i->date_mes}}</td>
                         <td>{{$i->categorie_fluide_frigorigene}}</td>
                         <td>{{$i->numero_de_serie}}</td>

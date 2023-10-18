@@ -23,6 +23,14 @@
         &:hover {
             @apply bg-white border-solid border-2 border-dcrr-green text-dcrr-green ;
         }
+
+        &:is(:disabled){
+            @apply bg-dcrr-green/50 ;
+
+            &:hover {
+                @apply bg-dcrr-green/50 cursor-not-allowed bg-white ;
+            }
+        }
     }
 
     .btn-cancel  {
@@ -87,5 +95,13 @@
         > p {
             @apply text-[1.5rem] my-3 font-extrabold text-slate-600 animate-pulse ;
         }
+    }
+
+    .addmodele_etape_actif {
+        @apply font-extrabold ;
+    }
+
+    p[data-chosen='false']{
+        @apply hidden ;
     }
 }
