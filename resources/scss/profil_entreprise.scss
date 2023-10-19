@@ -231,4 +231,52 @@
     .loading_addmodele_modele {
         @apply fixed top-0 left-0 w-full h-full bg-white/50 items-center justify-center z-[99] ;
     }
+
+    .actions-table {
+        @apply w-full shadow-md my-3 ;
+
+        > thead {
+            @apply bg-dcrr-green text-white text-center font-extrabold ;
+        }
+
+        > tbody {
+            @apply text-center ;
+
+            > tr {
+                &:hover {
+                    @apply bg-dcrr-green/30 cursor-pointer font-extrabold ;
+                }
+            }
+        }
+    }
+
+    .actionuser-table{
+        @apply w-full my-3 shadow-lg ;
+
+        > thead {
+            @apply bg-dcrr-green text-white font-extrabold ;
+
+            > tr {
+                > th {
+                    @apply text-center;
+
+                    &:first-child {
+                        @apply text-left ;
+                    }
+                }
+            }
+        }
+
+        > tbody {
+            > tr {
+                > td {
+                    @apply text-center;
+
+                    &:first-child {
+                        @apply font-extrabold text-left ;
+                    }
+                }
+            }
+        }
+    }
 }

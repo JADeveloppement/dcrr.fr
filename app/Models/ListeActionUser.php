@@ -13,6 +13,8 @@ class ListeActionUser extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     public $timestamps = false;
 
+    protected $table = 'listeActionUsers';
+
     /**
      * The attributes that are mass assignable.
      *

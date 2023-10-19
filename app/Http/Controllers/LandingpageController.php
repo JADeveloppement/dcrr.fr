@@ -11,6 +11,7 @@ use App\Models\ListeModele;
 use App\Models\DataModele;
 use App\Models\DataRole;
 use Cookie;
+use Carbon\Carbon;
 
 class LandingpageController extends Controller
 {
@@ -56,8 +57,8 @@ class LandingpageController extends Controller
         $entreprise = request()->entreprise;
         $poste = request()->poste;
         $newsletter = request()->newsletter;
-    
-        $user = new User;
+
+        $user = new User;    
     
         if (User::where("email", $email)->exists()){
             return json_encode(

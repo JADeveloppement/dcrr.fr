@@ -13,9 +13,13 @@ use App\Models\DataModele;
 use App\Models\DataModeleType;
 use App\Models\DataRole;
 
+use App\Models\ListeActionUser;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LandingpageController;
 use App\Http\Controllers\UserController;
+
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -141,4 +145,30 @@ Route::post("/add_modele", function(Request $r): String
         "r" => $datasource,
         [$id,$categorie_ff,$pmaxr,$pminr,$tmaxr,$tminr,$date_mes,$numerodeserie,$annee,$user_parent,$site_parent,$ensemble_parent]
     ]);
+});
+
+Route::post("/activate_user", function(Request $r):String {
+    return json_encode([
+        "r" => User::find($r->input("id"))->update([
+            "active" => 1
+        ])
+    ]);
+});
+
+Route::post("/get_user", function(Request $r):String {
+    $from = $r->input("table");
+
+    if ($from == "users") {
+        return json_encode([
+            "r" => User::find($r->input("id")),
+            "action" => 1
+        ]);
+    } else if ($from == "listeactionusers") {
+        $listeaction = ListeActionUser::find($r->input("id"));
+        return json_encode([
+            "r" => $listeaction,
+            "origin" => User::find($listeaction->parentId),
+            "action" => 2
+        ]);
+    }
 });
