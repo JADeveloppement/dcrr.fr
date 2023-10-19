@@ -1,4 +1,5 @@
 import {fetch_result, toggleButtonClick, do_popup} from "./../utils.js";
+
 const _token = document.querySelector("meta[name='_token']").getAttribute("content");
 
 const actionuser_role = ["NC", "Client", "Employé", "Administrateur"];
@@ -124,7 +125,6 @@ row_action_user.forEach((t) => {
 btn_accept_actionuser.forEach((btn) => {
     btn.addEventListener("click", async function() {
         const id = this.getAttribute("data-id");
-        console.log("ACTION accept :", id);
 
         try {
             const result = await fetch_result("activate_user", {
