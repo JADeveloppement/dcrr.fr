@@ -84,10 +84,10 @@
         @else
             @switch(request()->action)
                 @case(1)
-                    <h2>Liste des marques</h2>
+                    @include('profil_entreprise_views.liste_donnees_views.liste_marque')
                 @break
                 @case(2)
-                    <h2>Liste des fluides frigorigènes</h2>
+                    @include('profil_entreprise_views.liste_donnees_views.liste_fluides')
                 @break
                 @case(3)
                     <h2>Liste des Types</h2>

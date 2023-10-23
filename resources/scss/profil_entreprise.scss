@@ -250,7 +250,7 @@
         }
     }
 
-    .actionuser-table{
+    .actionuser-table, .actiondonnees-table{
         @apply w-full my-3 shadow-lg ;
 
         > thead {
@@ -274,6 +274,32 @@
 
                     &:first-child {
                         @apply font-extrabold text-left ;
+                    }
+                }
+            }
+        }
+    }
+
+    .actiondonnees-table {
+        > thead {
+          > tr {
+            > th{
+                @apply text-center ;
+                
+                &:first-child {
+                    @apply w-fit text-left ;
+                }
+            }
+          }  
+        }
+
+        > tbody {
+            > tr {
+                @apply border-solid border-b-slate-400 border-b-[1px] ;
+
+                > td{
+                    &:first-child{
+                        @apply w-fit ;
                     }
                 }
             }

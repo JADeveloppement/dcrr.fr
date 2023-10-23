@@ -13,10 +13,12 @@
         @endif
     >
     <label for="{{ $id }}">
-        @if (empty($placeholder))
-            Champs
-        @else
+        @if (!empty($label))
+            {{ $label }}
+        @elseif (!empty($placeholder))
             {{ $placeholder }}
+        @else
+            Champs
         @endif
      </label>
 </div>

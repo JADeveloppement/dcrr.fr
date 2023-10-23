@@ -57,6 +57,10 @@
                 </tr>
             </tbody>
         </table>
+        <div class="flex w-full items-center justify-center">
+            <button class="w-full user-accept-action mr-3">Valider la demande</button>
+            <button class="w-full user-delete-action bg-red-600">Supprimer la demande</button>
+        </div>
         <button class="btn-cancel btn-close-detailaction">Fermer</button>
     </div>
 </div>
