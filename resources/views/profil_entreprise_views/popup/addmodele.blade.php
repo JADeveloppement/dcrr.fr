@@ -115,8 +115,8 @@
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_categorie_ff",
                         "type" => "text",
-                        "placeholder" => "Catégorie fluide frigorigène",
-                        "disabled" => "disabeld",
+                        "placeholder" => "Catégorie",
+                        "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
                     ])
 

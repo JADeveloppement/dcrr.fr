@@ -32,10 +32,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get("/test_commande", function(Request $r){
-    
-});
-
 Route::post("/get_liste_modele", function(Request $r)
 {
     $id = DataModeleType::where("modele_type", request()->type)->first()->id;
@@ -65,6 +61,8 @@ Route::controller(UserController::class)->group(function(){
 Route::controller(AdminController::class)->group(function(){
     Route::post("/add_site", "add_site");
     Route::post("/add_ensemble", "add_ensemble");
+    Route::post("/add_modele", "add_modele");
+    Route::get("/test_commande", "test_commande");
 });
 
 Route::post("get_modele_detail", function(Request $r):String
@@ -91,59 +89,6 @@ Route::post("get_modele_detail", function(Request $r):String
         "tminc" => $tminc,
         "tmaxc" => $tmaxc,
         "tarage" => $tarage,
-    ]);
-});
-
-Route::post("/add_modele", function(Request $r): String
-{
-    $id = request()->id;
-    $categorie_ff = request()->categorie_ff;
-    $pmaxr = request()->pmaxr;
-    $pminr = request()->pminr;
-    $tmaxr = request()->tmaxr;
-    $tminr = request()->tminr;
-    $date_mes = request()->date_mes;
-    $numerodeserie = request()->numerodeserie;
-    $annee = request()->annee;
-    $user_parent = request()->user_parent;
-    $site_parent = request()->site_parent;
-    $ensemble_parent = request()->ensemble_parent;
-
-    $datasource = DataModele::find($id);
-    $listeModele = new ListeModele;
-    $listeModele->type = $datasource->type ? $datasource->type : null;
-    $listeModele->nature = $datasource->nature ? $datasource->nature : null;
-    $listeModele->designation = $datasource->designation ? $datasource->designation : null;
-    $listeModele->complement_reference = $datasource->complement_reference ? $datasource->complement_reference : null;
-    $listeModele->fabricant = $datasource->fabricant ? $datasource->fabricant : null;
-    $listeModele->volume = $datasource->volume ? $datasource->volume : null;
-    $listeModele->p_max_constructeur = $datasource->p_max_constructeur ? $datasource->p_max_constructeur : null;
-    $listeModele->p_min_constructeur = $datasource->p_min_constructeur ? $datasource->p_min_constructeur : null;
-    $listeModele->p_test = $datasource->p_test ? $datasource->p_test : null;
-    $listeModele->t_max_constructeur = $datasource->t_max_constructeur ? $datasource->t_max_constructeur : null;
-    $listeModele->t_min_constructeur = $datasource->t_min_constructeur ? $datasource->t_min_constructeur : null;
-    $listeModele->tarage = $datasource->tarage ? $datasource->tarage : null;
-    $listeModele->chapitre = $datasource->chapitre ? $datasource->chapitre : null;
-    $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
-    $listeModele->categorie_de_risque = $datasource->categorie_de_risque ? $datasource->categorie_de_risque : null;
-    $listeModele->periodicite_inspection = $datasource->periodicite_inspection ? $datasource->periodicite_inspection : null;
-    $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
-    $listeModele->date_mes = $date_mes ? $date_mes : null;
-    $listeModele->categorie_fluide_frigorigene = $categorie_ff ? $categorie_ff : null;
-    $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
-    $listeModele->p_min_reel = $pminr ? $pminr : null;
-    $listeModele->t_max_reel = $tmaxr ? $tmaxr : null;
-    $listeModele->t_min_reel = $tminr ? $tminr : null;
-    $listeModele->annee = $annee ? $annee : null;
-    $listeModele->user_parent = $user_parent;
-    $listeModele->site_parent = $site_parent;
-    $listeModele->modele_parent = $ensemble_parent;
-
-    $listeModele->save();
-
-    return json_encode([
-        "r" => $datasource,
-        [$id,$categorie_ff,$pmaxr,$pminr,$tmaxr,$tminr,$date_mes,$numerodeserie,$annee,$user_parent,$site_parent,$ensemble_parent]
     ]);
 });
 

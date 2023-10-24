@@ -193,6 +193,8 @@ etape1_choice.forEach((item) => {
     })
 })
 
+let CATEGORIE = "";
+
 btn_nextetape_to2.addEventListener("click", function(){
     etape1_container.classList.add("hidden");
     etape2_container.classList.remove("hidden");
