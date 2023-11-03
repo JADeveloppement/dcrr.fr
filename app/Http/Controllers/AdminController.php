@@ -15,7 +15,7 @@ use Cookie;
 
 class AdminController extends Controller
 {
-    private function get_cat($categorie_ff, $dn, $v, $p, $type)
+    private function get_cat($categorie_ff, $dn, $v, $p, $type):String
     {
         if ($type == 2)
             return "";
@@ -44,17 +44,19 @@ class AdminController extends Controller
         }
     }
 
-    private function get_chap($type, $pmax, $ptest){
+    protected function get_chap($type, $pmax, $ptest):String
+    {
         if ($type == "Ensemble" || $type == "Accessoires de Sécurité")
             return "";
         else if ($type == "Tuyauterie")
             return "D";
-        else if ($p_test == 2 * $pmax)
+        else if (intval($ptest) == 2 * intval($pmax))
             return "B";
         else return "C";
     }
 
     public function test_commande(Request $r){
+        // EMPTY
     }
 
     public function add_site(Request $r){
@@ -199,11 +201,8 @@ class AdminController extends Controller
         $pmax = $datasource->p_max_constructeur ? intval($datasource->p_max_constructeur) : 0;
         $listeModele->chapitre = $this->get_chap($type, $pmax, $p);
 
-        $listeModele->save();
-
         return json_encode([
-            "r" => $datasource,
-            [$id,$categorie_ff,$pmaxr,$pminr,$tmaxr,$tminr,$date_mes,$numerodeserie,$annee,$user_parent,$site_parent,$ensemble_parent]
+            "r" => $listeModele->save(),
         ]);
     }
 }

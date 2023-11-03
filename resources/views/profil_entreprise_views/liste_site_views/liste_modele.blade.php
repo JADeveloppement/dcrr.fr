@@ -18,6 +18,7 @@
                                         "data_modele_designation.modele_designation as designation",
                                         "data_modele_reference.modele_reference as reference",
                                         "data_modele_fabricant.modele_fabricant as fabricant",
+                                        "listeModele.id as id",
                                         "listeModele.date_mes as date_mes",
                                         "listeModele.categorie_fluide_frigorigene as categorie_fluide_frigorigene",
                                         "listeModele.annee as annee")
@@ -31,6 +32,7 @@
                                 ->get();
 @endphp
 @include("profil_entreprise_views.popup.addmodele")
+@include("profil_entreprise_views.popup.detail_listemodele")
 <div class="modelesassocies">
     <div class="absolute top-[10px] right-[1rem] seemore_ensemble">
         <button class="btn-cancel text-sm">Réduire</button>
@@ -90,12 +92,12 @@
                 </thead>
                 <tbody>
                     @foreach ($listemodele as $item)
-                        <tr>
-                            <td>
-                                <div class="flex items-center justify-center">
-                                    <i class="text-[1.5rem] mr-3 bi bi-search"></i>
-                                    <i class="text-[1.5rem] mr-3 bi bi-pen"></i>
-                                    <i class="text-[1.5rem] bi bi-trash"></i>
+                        <tr data-toggle="listemodele" data-id="{{$item->id}}">
+                            <td data-toggle="actionlistemodele">
+                                <div data-toggle="actionlistemodele" class="flex items-center justify-center">
+                                    <i data-toggle="actionlistemodele" data-action="listemodele_seemore" class="text-[1.5rem] mr-3 bi bi-search"></i>
+                                    <i data-toggle="actionlistemodele" data-action="listemodele_edit" class="text-[1.5rem] mr-3 bi bi-pen"></i>
+                                    <i data-toggle="actionlistemodele" data-action="listemodele_delete" class="text-[1.5rem] bi bi-trash"></i>
                                 </div>
                             </td>
                             <td>{{ $item->nature }}</td>
@@ -112,12 +114,4 @@
         @endif
     @endif
 </div>
-
-<script>
-    const btn_add_modele = document.querySelector(".add-modele");
-    const popup_add_modele = document.querySelector(".popup-addmodele");
-
-    btn_add_modele.addEventListener("click", function(){
-        popup_add_modele.style.top = "0";
-    })
-</script>
+<script src="{{asset('js/profil_entreprise_scripts/liste_modele.js')}}"></script>

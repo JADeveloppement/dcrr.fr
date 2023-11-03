@@ -33,9 +33,14 @@ class ListeModele extends Model
         'date_mes',
         'categorie_fluide_frigorigene',
         'numero_de_serie',
+        'annee',
         'modele_parent',
         'user_parent',
-        'site_parent'
+        'site_parent',
+        'chapitre',
+        'diametre_nominal',
+        'categorie_de_risque',
+        'periodicite_inspection'
     ];
 
     public function siteParent(){

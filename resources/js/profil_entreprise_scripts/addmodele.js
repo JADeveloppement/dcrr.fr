@@ -261,37 +261,6 @@ async function get_modele_detail(id){
         do_popup("bg-red-600", "bi-x-octagon", "Erreur : "+error);
     }
 
-    /*fetch("/get_modele_detail", {
-        method: "POST",
-        headers : {
-            "Content-type" : "application/json"
-        },
-        body: JSON.stringify({
-            _token: _token,
-            id: id
-        })
-    }).then(response => {
-        return response.json();
-    }).then(result => {
-        addmodele_modele_loading.classList.add("hidden");
-        addmodele_modele_loading.classList.remove("flex");
-        addmodele_etape2_type.value = result.type;
-        addmodele_etape2_nature.value = result.nature;
-        addmodele_etape2_designation.value = result.designation;
-        addmodele_etape2_reference.value = result.complement_reference;
-        addmodele_pminc.innerHTML = result.pminc;
-        addmodele_pmaxc.innerHTML = result.pmaxc;
-        addmodele_tminc.innerHTML = result.tminc;
-        addmodele_tmaxc.innerHTML = result.tmaxc;
-        addmodele_etape2_tarage.value = result.tarage;
-
-        addmodele_etape2_type.classList.remove("animate-pulse");
-        addmodele_etape2_nature.classList.remove("animate-pulse");
-        addmodele_etape2_designation.classList.remove("animate-pulse");
-        addmodele_etape2_reference.classList.remove("animate-pulse");
-    }).catch(error => {
-        do_popup("bg-red-600", "bi-x-octagon", "Erreur : "+error);
-    })*/
 }
 
 etape2_choice.forEach((p) => {
@@ -320,11 +289,6 @@ etape2_choice.forEach((p) => {
 })
 
 btn_nextetape_to3.addEventListener("click", async function(){
-    // addmodele_etape2_date_mes.value.length == 0 ? addmodele_etape2_date_mes.classList.add("is-invalid") : addmodele_etape2_date_mes.classList.remove("is-invalid");
-    // addmodele_etape2_numerodeserie.value.length == 0 ? addmodele_etape2_numerodeserie.classList.add("is-invalid") : addmodele_etape2_numerodeserie.classList.remove("is-invalid");
-    // addmodele_etape2_annee.value.length == 0 ? addmodele_etape2_annee.classList.add("is-invalid") : addmodele_etape2_annee.classList.remove("is-invalid");
-
-    // if (!addmodele_etape2_date_mes.classList.contains("is-invalid") && !addmodele_etape2_numerodeserie.classList.contains("is-invalid") && !addmodele_etape2_annee.classList.contains("is-invalid")){
     etape2_container.classList.add("hidden");
     etape3_container.classList.remove("hidden");
 
@@ -367,43 +331,6 @@ btn_nextetape_to3.addEventListener("click", async function(){
     } catch(error){
         do_popup("bg-red-600", "bi-x-octagon", "Erreur : "+error);
     }
-
-    /*fetch("/get_modele_detail", {
-        method: "POST",
-        headers : {
-            "Content-type" : "application/json"
-        },
-        body: JSON.stringify({
-            _token: _token,
-            id: id
-        })
-    }).then(response => {
-        return response.json();
-    }).then(result => {
-        addmodele_recap_type.value = result.type;
-        addmodele_recap_nature.value = result.nature;
-        addmodele_recap_designation.value = result.designation;
-        addmodele_recap_reference.value = result.complement_reference;
-        addmodele_recap_fabricant.value = result.fabricant;
-        addmodele_recap_tarage.value = result.tarage;
-        addmodele_recap_pmaxc.innerHTML = result.pmaxc;
-        addmodele_recap_pminc.innerHTML = result.pminc;
-        addmodele_recap_tmaxc.innerHTML = result.tmaxc;
-        addmodele_recap_tminc.innerHTML = result.tminc;
-        addmodele_recap_categorie_ff.value = addmodele_etape2_categorie_ff.value;
-        addmodele_recap_pmaxr.innerHTML = addmodele_etape2_pminr.value;
-        addmodele_recap_pminr.innerHTML = addmodele_etape2_pmaxr.value;
-        addmodele_recap_tmaxr.innerHTML = addmodele_etape2_tminr.value;
-        addmodele_recap_tminr.innerHTML = addmodele_etape2_tmaxr.value;
-        addmodele_recap_date_mes.value = addmodele_etape2_date_mes.value;
-        addmodele_recap_numerodeserie.value = addmodele_etape2_numerodeserie.value;
-        addmodele_recap_annee.value = addmodele_etape2_annee.value;
-        
-        save_addmodele.setAttribute("data-id", id);
-    }).catch(error => {
-        do_popup("bg-red-600", "bi-x-octagon", "Erreur : "+error);
-    })*/
-    // }
 })
 
 save_addmodele.addEventListener("click", async function(){
@@ -440,35 +367,26 @@ save_addmodele.addEventListener("click", async function(){
         ensemble_parent: ensemble_parent,
     }
 
+    let url = "";
+    for (let item in data)
+     url += `${item}=${data[item]}&`;
+    console.log(url);
+
     addmodele_modele_loading.classList.remove("hidden");
     addmodele_modele_loading.classList.add("flex");
 
     try {
         const result = await fetch_result("/add_modele", data);
-        // addmodele_modele_loading.classList.remove("flex");
-        // addmodele_modele_loading.classList.add("hidden");
-        do_popup("bg-dcrr-green", "bi-info", "Modèle rajouté avec succès. La page va se rafraichir");
-        setTimeout(() => {
-            location.reload(true);
-        }, 2000);
+        console.log(result);
+        if (result.r){
+            do_popup("bg-dcrr-green", "bi-info-circle", "Modèle rajouté avec succès. La page va se rafraichir");
+            setTimeout(() => {
+                location.reload(true);
+            }, 2000);
+        } else {
+            do_popup("bg-orange-600", "bi-info-circle", "Une erreur est survenue, veuillez réessayer.");
+        }
     }catch(error){
         do_popup("bg-red-600", "bi-x-octagon", "Erreur : "+error);
     }
-
-    /*fetch("/add_modele", {
-        method: "POST",
-        headers : {
-            "Content-type" : "application/json"
-        },
-        body: JSON.stringify(data)
-    }).then(response => {
-        return response.json();
-    }).then(result => {
-        addmodele_modele_loading.classList.remove("flex");
-        addmodele_modele_loading.classList.add("hidden");
-        location.reload(true);
-        console.log(result);
-    }).catch(error => {
-        do_popup("bg-red-600", "bi-x-octagon", "Erreur : "+error);
-    })*/
 })

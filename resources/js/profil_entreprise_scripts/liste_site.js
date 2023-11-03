@@ -82,8 +82,11 @@ btn_save_addsite.addEventListener("click", async function(){
         
         try {
             const result = await fetch_result("/add_site", data);
-            do_popup("bg-dcrr-green", "bi-info", "Résultat : "+result[1]);
+            do_popup("bg-dcrr-green", "bi-info", "Site rajouté avec succès, la page va se rafraichir");
             popup_add_site.style.top = "-100vh";
+            setTimeout(function(){
+                location.reload(true)
+            }, 2000);
         } catch(error){
             console.log(e);
         }

@@ -65,6 +65,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get("/test_commande", "test_commande");
 });
 
+//get detail of generic modele
 Route::post("get_modele_detail", function(Request $r):String
 {
     $modele = DataModele::find(intval(request()->id));
@@ -90,6 +91,47 @@ Route::post("get_modele_detail", function(Request $r):String
         "tmaxc" => $tmaxc,
         "tarage" => $tarage,
     ]);
+});
+
+// get details of model created by user
+Route::post("/get_modele_data_detail", function(Request $r){
+    $id = request()->id;
+
+    $lmdetail = ListeModele::select('data_modele_type.modele_type as type',
+                                    'data_modele_nature.modele_nature as nature',
+                                    'data_modele_designation.modele_designation as designation',
+                                    'data_modele_reference.modele_reference as complement_reference',
+                                    'data_modele_fabricant.modele_fabricant as fabricant',
+                                    'listeModele.volume',
+                                    'listeModele.p_max_constructeur',
+                                    'listeModele.p_min_constructeur',
+                                    'listeModele.p_test',
+                                    'listeModele.p_max_reel',
+                                    'listeModele.p_min_reel',
+                                    'listeModele.t_max_constructeur',
+                                    'listeModele.t_min_constructeur',
+                                    'listeModele.t_max_reel',
+                                    'listeModele.t_min_reel',
+                                    'listeModele.tarage',
+                                    'listeModele.date_mes',
+                                    'listeModele.categorie_fluide_frigorigene',
+                                    'listeModele.numero_de_serie',
+                                    'listeModele.annee',
+                                    'listeModele.modele_parent',
+                                    'listeModele.user_parent',
+                                    'listeModele.site_parent',
+                                    'listeModele.chapitre',
+                                    'listeModele.diametre_nominal',
+                                    'listeModele.categorie_de_risque',
+                                    'listeModele.periodicite_inspection')
+                            ->join("data_modele_type", "data_modele_type.id", "=", "listeModele.type")
+                            ->join("data_modele_nature", "data_modele_nature.id", "=", "listeModele.nature")
+                            ->join("data_modele_designation", "data_modele_designation.id", "=", "listeModele.designation")
+                            ->join("data_modele_reference", "data_modele_reference.id", "=", "listeModele.complement_reference")
+                            ->join("data_modele_fabricant", "data_modele_fabricant.id", "=", "listeModele.fabricant")
+                            ->where("listeModele.id", $id)->first();
+
+    return $lmdetail;
 });
 
 Route::post("/activate_user", function(Request $r):String {
