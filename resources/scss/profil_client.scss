@@ -102,4 +102,8 @@
             @apply w-full p-4 border-solid border-2 border-black shadow-lg rounded-lg my-8 relative ;
         }
     }
+
+    .row-actif {
+        @apply bg-dcrr-green/50 font-extrabold ;
+    }
 }

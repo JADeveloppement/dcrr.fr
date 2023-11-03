@@ -3,18 +3,19 @@
         <h2>Connexion</h2>
 
         @include("components.floatinginput", [
-            "id" => "field_signinlogin",
+            "id" => "field_loginlogin",
             "type" => "text",
             "placeholder" => "Identifiant",
-            "classparent" => "mt-3"
+            "classparent" => "my-3 w-full"
         ])
         @include("components.floatinginput", [
-            "id" => "field_signinpassword",
+            "id" => "field_loginpassword",
             "type" => "password",
-            "placeholder" => "Mot de passe"
+            "placeholder" => "Mot de passe",
+            "classparent" => "w-full"
         ])
         <span class="btn-signin">Vous n'avez pas de compte ? Inscrivez-vous.</span>
-        <button>Connexion</button>
+        <button class="do-login">Connexion</button>
     </div>
 </div>
 
@@ -41,6 +42,14 @@
             "placeholder" => "NOM et Prénom",
             "classparent" => "w-full mt-3"
         ])
+
+        @include("components.floatinginput", [
+            "id" => "field_signintelephone",
+            "type" => "name",
+            "placeholder" => "Telephone",
+            "classparent" => "w-full mt-3"
+        ])
+
         @include("components.floatinginput", [
             "id" => "field_signinentreprise",
             "type" => "text",
@@ -64,7 +73,7 @@
             "classparent" => "w-full mt-3"
         ])
         <span class="btn-login">Vous avez déjà un compte ? Connectez-vous.</span>
-        <button>S'inscrire</button>
+        <button class="btn-dosignin">S'inscrire</button>
     </div>
 </div>
 

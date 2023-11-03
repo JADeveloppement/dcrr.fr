@@ -4,8 +4,17 @@
 
 
 @layer components {
+
+    body {
+        @apply bg-dcrr-green/5; 
+    }
+
     h2 {
         @apply font-extrabold text-[1.5rem] my-2 ;
+    }
+
+    h3 {
+        @apply font-extrabold text-[1.2rem] my-2 ;
     }
 
     button {
@@ -13,6 +22,14 @@
 
         &:hover {
             @apply bg-white border-solid border-2 border-dcrr-green text-dcrr-green ;
+        }
+
+        &:is(:disabled){
+            @apply bg-dcrr-green/50 ;
+
+            &:hover {
+                @apply bg-dcrr-green/50 cursor-not-allowed bg-white ;
+            }
         }
     }
 
@@ -24,15 +41,67 @@
         }
     }
 
+    .popup-container {
+        @apply fixed right-[10px] transition-all z-[100] ;
+
+        > .popup {
+            @apply rounded-lg w-fit p-4 text-white font-extrabold flex items-center ;
+
+            >.popup-icon {
+                @apply text-[1.2rem] mr-4 ;
+            }
+        }
+    }
+
     .container {
         @apply min-w-full h-screen bg-black/50 fixed left-0 z-[99] transition-all flex flex-col items-center justify-center ;
 
         > .box {
-            @apply min-w-[50vw] bg-white p-8 rounded-lg shadow-md flex flex-col items-center ;
+            @apply min-w-[50vw] bg-white p-8 rounded-lg shadow-md flex flex-col items-center overflow-y-auto ;
 
             > .btn-signin, > .btn-login {
                 @apply text-dcrr-green hover:text-dcrr-green-700 font-extrabold italic my-3 cursor-pointer ;
             }
         }
+    }
+
+    .card {
+        @apply p-4 rounded-lg m-4 shadow-md ;
+    }
+
+    input {
+        @apply bg-slate-100 ;
+    }
+
+    table {
+        th {
+            @apply p-4 ;
+        }
+
+        td {
+            @apply p-4 ;
+        }
+    }
+
+    .sm-btn-active {
+        @apply bg-slate-700 text-white ;
+    }
+
+    .loadingscreen-container {
+        @apply w-full h-screen fixed z-[999] bg-white/60 flex items-center justify-center flex-col top-0 left-0 ;
+        > span{
+            @apply m-3 ;
+        }
+        > p {
+            @apply text-[1.5rem] my-3 font-extrabold text-slate-600 animate-pulse ;
+        }
+    }
+
+    .addmodele_etape_actif {
+        @apply font-extrabold ;
+    }
+
+    p[data-chosen='false']{
+        @apply hidden ;
     }
 }
