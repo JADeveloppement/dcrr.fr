@@ -26,18 +26,19 @@ function utils_Interval(){
     }, 1000)
 }
 
-
-window.addEventListener("DOMContentLoaded", function(){
-    loadingscreen.classList.add("hidden");
-    span.innerText = "";
-    clearInterval(utils_loadingscreen_interval);
-})
-
-window.addEventListener("beforeunload", function(){
-    loadingscreen.classList.remove("hidden");
-    span.innerText = "";
-    utils_Interval();
-})
+if (loadingscreen){
+    window.addEventListener("DOMContentLoaded", function(){
+        loadingscreen.classList.add("hidden");
+        span.innerText = "";
+        clearInterval(utils_loadingscreen_interval);
+    })
+    
+    window.addEventListener("beforeunload", function(){
+        loadingscreen.classList.remove("hidden");
+        span.innerText = "";
+        utils_Interval();
+    })
+}
 
 /**
  * Sends a POST request to the specified URL with the given data and returns the response as JSON.

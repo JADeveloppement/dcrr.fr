@@ -10,10 +10,54 @@ use App\Models\ListeSites;
 use App\Models\ListeModele;
 use App\Models\DataModele;
 use App\Models\DataRole;
+use App\Models\DataModeleType;
 use Cookie;
 
 class AdminController extends Controller
 {
+    private function get_cat($categorie_ff, $dn, $v, $p, $type):String
+    {
+        if ($type == 2)
+            return "";
+        else if ($type == 1)
+            return "IV";
+        else {
+            if ($categorie_ff == 1){
+                if ($p*$dn < 1000 || $dn < 25 || $p*$v < 50)
+                    return "Art4.3 ou I";
+                else if ($p*$dn < 3500 && $p*$dn > 1000 && $dn > 25 || $p*$v >= 50 && $p*$v < 200)
+                    return "II";
+                else if ($p*$dn > 3500 && $dn > 25 || $p*$v >= 200 && $p*$v < 1000)
+                    return "III";
+                else if ($p*$v >= 1000)
+                    return "IV";
+            } else if ($categorie_ff == 2){
+                if ($p*$dn < 3500 || $dn < 100 || $p*$v < 200)
+                    return "Art4.3 ou I";
+                else if ($p*$dn < 5000 && $p*$dn > 3500 && $dn > 100 || $p*$v >= 200 && $p*$v < 1000)
+                    return "II";
+                else if ($p*$dn > 5000 && $dn > 100 || $p*$v >= 1000 && $p*$v < 3000)
+                    return "III";
+                else if ($p*$v > 3000)
+                    return "IV";
+            }
+        }
+    }
+
+    protected function get_chap($type, $pmax, $ptest):String
+    {
+        if ($type == "Ensemble" || $type == "Accessoires de Sécurité")
+            return "";
+        else if ($type == "Tuyauterie")
+            return "D";
+        else if (intval($ptest) == 2 * intval($pmax))
+            return "B";
+        else return "C";
+    }
+
+    public function test_commande(Request $r){
+        // EMPTY
+    }
 
     public function add_site(Request $r){
         $proprietaire = request()->id;
@@ -57,7 +101,7 @@ class AdminController extends Controller
             Fluides::find(intval($fluide_frigorigène))->nom_fluide,
         ];
     }
-
+       
     public function add_ensemble(Request $r){
         $user_parent = request()->user_parent;
         $site_parent = request()->site_parent;
@@ -97,5 +141,68 @@ class AdminController extends Controller
         if ($model->save())
             return json_encode(["r" => 1]);
         else return json_encode(["r" => 0]);
+    }
+
+    public function add_modele(Request $r){
+        $id = request()->id;
+        $pmaxr = request()->pmaxr;
+        $pminr = request()->pminr;
+        $tmaxr = request()->tmaxr;
+        $tminr = request()->tminr;
+        $date_mes = request()->date_mes;
+        $numerodeserie = request()->numerodeserie;
+        $annee = request()->annee;
+        $user_parent = request()->user_parent;
+        $site_parent = request()->site_parent;
+        $ensemble_parent = request()->ensemble_parent;
+                
+        $type = (DataModeleType::find(DataModele::find(request()->id)->type))->id;
+        
+        $categorie_ff = intval((ListeSites::select("listeSites.id as id",
+                                            "liste_fluides.categorie as cat")
+                                    ->join("liste_fluides", "liste_fluides.id", "=", "listeSites.fluide_frigorigène")
+                                    ->where("listeSites.id", request()->site_parent)->first())->cat);
+
+        $dn = intval(DataModele::find(request()->id)->diametre_nominal);
+        $v = intval(DataModele::find(request()->id)->volume);
+        $p = intval(DataModele::find(request()->id)->p_test);
+
+        $categorie_equipement = $this->get_cat($categorie_ff, $dn, $v, $p, $type);
+
+        $datasource = DataModele::find($id);
+        $listeModele = new ListeModele;
+        $listeModele->type = $datasource->type ? $datasource->type : null;
+        $listeModele->nature = $datasource->nature ? $datasource->nature : null;
+        $listeModele->designation = $datasource->designation ? $datasource->designation : null;
+        $listeModele->complement_reference = $datasource->complement_reference ? $datasource->complement_reference : null;
+        $listeModele->fabricant = $datasource->fabricant ? $datasource->fabricant : null;
+        $listeModele->volume = $datasource->volume ? $datasource->volume : null;
+        $listeModele->p_max_constructeur = $datasource->p_max_constructeur ? $datasource->p_max_constructeur : null;
+        $listeModele->p_min_constructeur = $datasource->p_min_constructeur ? $datasource->p_min_constructeur : null;
+        $listeModele->p_test = $datasource->p_test ? $datasource->p_test : null;
+        $listeModele->t_max_constructeur = $datasource->t_max_constructeur ? $datasource->t_max_constructeur : null;
+        $listeModele->t_min_constructeur = $datasource->t_min_constructeur ? $datasource->t_min_constructeur : null;
+        $listeModele->tarage = $datasource->tarage ? $datasource->tarage : null;
+        $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
+        $listeModele->categorie_de_risque = $datasource->categorie_de_risque ? $datasource->categorie_de_risque : null;
+        $listeModele->periodicite_inspection = $datasource->periodicite_inspection ? $datasource->periodicite_inspection : null;
+        $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
+        $listeModele->date_mes = $date_mes ? $date_mes : null;
+        $listeModele->categorie_fluide_frigorigene = $categorie_equipement;
+        $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
+        $listeModele->p_min_reel = $pminr ? $pminr : null;
+        $listeModele->t_max_reel = $tmaxr ? $tmaxr : null;
+        $listeModele->t_min_reel = $tminr ? $tminr : null;
+        $listeModele->annee = $annee ? $annee : null;
+        $listeModele->user_parent = $user_parent;
+        $listeModele->site_parent = $site_parent;
+        $listeModele->modele_parent = $ensemble_parent;
+        
+        $pmax = $datasource->p_max_constructeur ? intval($datasource->p_max_constructeur) : 0;
+        $listeModele->chapitre = $this->get_chap($type, $pmax, $p);
+
+        return json_encode([
+            "r" => $listeModele->save(),
+        ]);
     }
 }
