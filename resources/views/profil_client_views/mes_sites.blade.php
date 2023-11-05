@@ -96,7 +96,7 @@
                 <tbody>
                     @foreach ($listeSites as $item)
                         <tr @if (request()->has('displaySite') && request()->displaySite == $item->id) class='row-actif' @endif data-toggle="listesites" data-id="{{$item->id}}">
-                            <td>{{$item->code_client}}</td>
+                            <td>{{$item->nom_client}}</td>
                             <td>{{$item->nom_client}}</td>
                             <td>{{$item->code_site}}</td>
                             <td>{{$item->nom_site}}</td>

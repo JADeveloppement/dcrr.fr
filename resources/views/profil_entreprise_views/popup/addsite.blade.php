@@ -23,12 +23,16 @@
                 "type" => "text",
                 "placeholder" => "Nom Client",
                 "classparent" => "w-full mr-3",
+                "value" => $proprio,
+                "disabled" => "disabled"
             ])
             @include("components.floatinginput", [
                 "id" => "field_addsite_codeclient",
                 "type" => "text",
                 "placeholder" => "Code client",
-                "classparent" => "w-full"
+                "classparent" => "w-full",
+                "value" => $id_proprio,
+                "disabled" => "disabled"
             ])
         </div>
         <div class="flex w-full justify-start mb-3">
@@ -85,14 +89,6 @@
                 "classparent" => "w-full"
             ])
         </div>
-         
-        @include("components.floatinginput", [
-            "id" => "field_addsite_proprietaire",
-            "type" => "text",
-            "placeholder" => $proprio." (".$id_proprio.")",
-            "classparent" => "w-full",
-            "disabled" => "disabled"
-        ])
 
         <button class="btn-save-addsite w-full" data-target="{{$id_proprio}}">Enregistrer</button>
         <button class="btn-cancel btn-close-addsite">Annuler</button>

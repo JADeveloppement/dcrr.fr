@@ -12,3 +12,11 @@
         <button class="btn-cancel btn-close-mesinfos">Annuler</button>
     </div>
 </div>
+
+<script>
+    const btn_cancel_saveinfos = document.querySelector(".btn-close-mesinfos")
+
+    btn_cancel_saveinfos.addEventListener("click", function(){
+        saveinfos_container.style.top = "-100vh";
+    })
+</script>
