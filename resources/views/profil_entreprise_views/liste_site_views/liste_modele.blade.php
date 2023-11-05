@@ -86,7 +86,7 @@
                         <th>Référence</th>
                         <th>Fabricant</th>
                         <th>Date MES</th>
-                        <th>Catégorie fluide frigorigène</th>
+                        <th>Catégorie de risque</th>
                         <th>Année</th>
                     </tr>
                 </thead>

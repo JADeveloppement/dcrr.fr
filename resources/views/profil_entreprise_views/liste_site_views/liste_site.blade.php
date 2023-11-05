@@ -14,9 +14,7 @@
                 <th>Nom Client</th>
                 <th>Code Site</th>
                 <th>Nom Site</th>
-                <th>Marque</th>
-                <th>Date de Mise en service</th>
-                <th>Conformité</th>
+                <th>Désignation</th>
             </tr>
         </thead>
         <tbody>
@@ -32,9 +30,7 @@
                     <td>{{ $l->nom_client }}</td>
                     <td>{{ $l->code_site }}</td>
                     <td>{{ $l->nom_site }}</td>
-                    <td>{{ $l->marque }}</td>
-                    <td>{{ $l->date_de_mise_en_service }}</td>
-                    <td>{{ $l->conforme }}</td>
+                    <td>{{ $l->designation }}</td>
                 </tr>
             @endforeach
         </tbody>

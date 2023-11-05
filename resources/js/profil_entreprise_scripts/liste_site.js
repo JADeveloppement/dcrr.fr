@@ -68,8 +68,8 @@ btn_save_addsite.addEventListener("click", async function(){
         const data = {
             _token: _token,
             id: id,
-            code_client : field_addsite_nomclient.value,
-            nom_client : field_addsite_codeclient.value,
+            code_client : field_addsite_codeclient.value,
+            nom_client : field_addsite_nomclient.value,
             nom_site : field_addsite_nomsite.value,
             code_site : field_addsite_codesite.value,
             fluide_frigorigène : field_addsite_fluide.value,

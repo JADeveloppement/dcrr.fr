@@ -16,7 +16,8 @@
                                     "listeSites.nom_site as nom_site", 
                                     "liste_marques.marque as marque", 
                                     "listeSites.date_mise_en_service as date_mise_en_service", 
-                                    "listeSites.conforme as conforme")
+                                    "listeSites.conforme as conforme",
+                                    "listeSites.designation_equipement as designation")
                             ->join("liste_marques", "liste_marques.id", "=", "listeSites.marquename")
                             ->where("proprietaire", $user->id)
                             ->get();
@@ -88,9 +89,10 @@
                         <th>Nom Client</th>
                         <th>Code Site</th>
                         <th>Nom Site</th>
-                        <th>Marque</th>
+                        <!--<th>Marque</th>
                         <th>Date de Mise en service</th>
-                        <th>Conformité</th>
+                        <th>Conformité</th>-->
+                        <th>Désignation</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,9 +102,10 @@
                             <td>{{$item->nom_client}}</td>
                             <td>{{$item->code_site}}</td>
                             <td>{{$item->nom_site}}</td>
-                            <td>{{$item->marque}}</td>
+                            <!--<td>{{$item->marque}}</td>
                             <td>{{$item->date_mise_en_service}}</td>
-                            <td>{{$item->conforme}}</td>
+                            <td>{{$item->conforme}}</td>-->
+                            <td>{{$item->designation}}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -156,24 +159,42 @@
             <table class="messite-table">
                 <thead>
                     <tr>
-                        <th>Désignation</th>
+                        <!--<th>Désignation</th>
                         <th>Référence</th>
                         <th>Fabricant</th>
                         <th>Date de mise en service</th>
                         <th>Catégorie FF</th>
-                        <th>Numéro de série</th>
+                        <th>Numéro de série</th>-->
+                        
+                        <th>Marque</th>
+                        <th>Désignation</th>
+                        <th>Date de mise en service</th>
+                        <th>Fluide frigorigène</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($liste_ensemble as $item)
                         <tr @if (request()->has('displayEnsemble') && request()->displayEnsemble == $item->id) class='row-actif' @endif 
                             data-toggle="listeensemble" data-id="{{$item->id}}">
-                            <td>{{$item->designation}}</td>
+                            <!--<td>{{$item->designation}}</td>
                             <td>{{$item->reference}}</td>
                             <td>{{$item->fabricant}}</td>
                             <td>{{$item->date_mes}}</td>
                             <td>{{$item->categorie_fluide_frigorigene}}</td>
-                            <td>{{$item->numero_de_serie}}</td>
+                            <td>{{$item->numero_de_serie}}</td>-->
+
+                            <td>
+                                <span class="badge bg-secondary">NC</span>
+                            </td>
+                            <td>{{$item->designation}}</td>
+                            <td>{{$item->date_mes}}</td>
+                            <td>{{$item->categorie_fluide_frigorigene}}</td>
+                            <td>
+                                <div class="flex items-center justify-center">
+                                    <i class="text-[1.5rem] bi bi-info"></i>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -195,42 +216,133 @@
     @endif
 
     @if (request()->has('displayEnsemble'))
-    <div class="card">
-        <h2>Modèles associés : </h2>
-        @if (count($listemodele) == 0)
-        <p class="italic">Aucun modèle disponible, veuillez en créer au moins un.</p>
-        @else
-        @include("components.floatinginput", [
-            "id" => "field_messites_searchmodele",
-            "type" => "text",
-            "placeholder" => "Rechercher parmi les ensembles",
-            "classparent" => "mt-3"
-        ])
-        <table class="messite-table">
-            <thead>
-                <tr>
-                    <th>Désignation</th>
-                    <th>Référence</th>
-                    <th>Fabricant</th>
-                    <th>DMES</th>
-                    <th>Catégorie fluide frigorigène</th>
-                    <th>Année</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($listemodele as $item)
+        @include("profil_client_views.popup.detail_listemodele");
+        <div class="card">
+            <h2>Modèles associés : </h2>
+            @if (count($listemodele) == 0)
+            <p class="italic">Aucun modèle disponible, veuillez en créer au moins un.</p>
+            @else
+            @include("components.floatinginput", [
+                "id" => "field_messites_searchmodele",
+                "type" => "text",
+                "placeholder" => "Rechercher parmi les ensembles",
+                "classparent" => "mt-3"
+            ])
+            <table class="messite-table">
+                <thead>
                     <tr>
-                        <td>{{$item->designation}}</td>
-                        <td>{{$item->reference}}</td>
-                        <td>{{$item->fabricant}}</td>
-                        <td>{{$item->date_mes}}</td>
-                        <td>{{$item->categorie_fluide_frigorigene}}</td>
-                        <td>{{$item->annee}}</td>
+                        <th>Désignation</th>
+                        <th>Référence</th>
+                        <th>Fabricant</th>
+                        <th>DMES</th>
+                        <th>Catégorie fluide frigorigène</th>
+                        <th>Année</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-        @endif
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($listemodele as $item)
+                        <tr data-toggle="listemodele" data-id="{{$item->id}}">
+                            <td>{{$item->designation}}</td>
+                            <td>{{$item->reference}}</td>
+                            <td>{{$item->fabricant}}</td>
+                            <td>{{$item->date_mes}}</td>
+                            <td>{{$item->categorie_fluide_frigorigene}}</td>
+                            <td>{{$item->annee}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
+        </div>
+
+        <script>
+            const _token = document.querySelector("meta[name='_token']").getAttribute("content");
+            const tr_modele = document.querySelectorAll("tr[data-toggle='listemodele']");
+            const detail_listemodele_container = document.querySelector(".detail-listemodele-container");
+
+            const detailistemodele_type = document.querySelector(".detailistemodele_type");
+            const detailistemodele_nature = document.querySelector(".detailistemodele_nature");
+            const detailistemodele_designation = document.querySelector(".detailistemodele_designation");
+            const detailistemodele_reference = document.querySelector(".detailistemodele_reference");
+            const detailistemodele_fabricant = document.querySelector(".detailistemodele_fabricant");
+            const detailistemodele_volume = document.querySelector(".detailistemodele_volume");
+            const detailistemodele_diametrenominal = document.querySelector(".detailistemodele_diametrenominal");
+            const detailistemodele_pmaxc = document.querySelector(".detailistemodele_pmaxc");
+            const detailistemodele_pminc = document.querySelector(".detailistemodele_pminc");
+            const detailistemodele_pmaxr = document.querySelector(".detailistemodele_pmaxr");
+            const detailistemodele_pminr = document.querySelector(".detailistemodele_pminr");
+            const detailistemodele_ptarage = document.querySelector(".detailistemodele_ptarage");
+            const detailistemodele_tmaxc = document.querySelector(".detailistemodele_tmaxc");
+            const detailistemodele_tminc = document.querySelector(".detailistemodele_tminc");
+            const detailistemodele_tmaxr = document.querySelector(".detailistemodele_tmaxr");
+            const detailistemodele_tminr = document.querySelector(".detailistemodele_tminr");
+            const detailistemodele_categorieff = document.querySelector(".detailistemodele_categorieff");
+            const detailistemodele_catderisque = document.querySelector(".detailistemodele_catderisque");
+            const detailistemodele_numerodeserie = document.querySelector(".detailistemodele_numerodeserie");
+            const detailistemodele_annee = document.querySelector(".detailistemodele_annee");
+            const detailistemodele_chapitre = document.querySelector(".detailistemodele_chapitre");
+            const detailistemodele_periodiciteinspection = document.querySelector(".detailistemodele_periodiciteinspection");
+
+
+            function fetch_result(url, d){
+                return fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-type" : "application/json"
+                    },
+                    body: JSON.stringify(d)
+                }).then(response => {
+                    return response.json();
+                }).then(result => {
+                    return result;
+                }).catch(error => {
+                    return error;
+                });
+            }
+
+            tr_modele.forEach((item) => {
+                item.addEventListener("click", async function(){
+                    const id = this.getAttribute("data-id");
+                    detail_listemodele_container.style.top = "0"
+
+                    popup_detail_listemodele.style.top = 0;
+
+                    const data = {
+                        _token: _token,
+                        id: id
+                    }
+
+                    const result = await fetch_result("/get_modele_data_detail", data);
+                    popup_listemodele_loading.classList.add("hidden");
+                    popup_listemodele_table.classList.remove("hidden");
+
+                    console.log(result);
+
+                    detailistemodele_type.innerText = result.type
+                    detailistemodele_nature.innerText = result.nature
+                    detailistemodele_designation.innerText = result.designation
+                    detailistemodele_reference.innerText = result.complement_reference
+                    detailistemodele_fabricant.innerText = result.fabricant
+
+                    result.volume ? detailistemodele_volume.innerText = result.volume : detailistemodele_volume.innerText = "";
+                    result.diametre_nominal ? detailistemodele_diametrenominal.innerText = result.diametre_nominal : detailistemodele_diametrenominal.innerText = "";
+                    result.p_max_constructeur ? detailistemodele_pmaxc.innerText = result.p_max_constructeur : detailistemodele_pmaxc.innerText = "";
+                    result.p_min_constructeur ? detailistemodele_pminc.innerText = result.p_min_constructeur : detailistemodele_pminc.innerText = "";
+                    result.p_max_reel ? detailistemodele_pmaxr.innerText = result.p_max_reel : detailistemodele_pmaxr.innerText = "";
+                    result.p_min_reel ? detailistemodele_pminr.innerText = result.p_min_reel : detailistemodele_pminr.innerText = "";
+                    result.p_test ? detailistemodele_ptarage.innerText = result.p_test : detailistemodele_ptarage.innerText = "";
+                    result.t_max_constructeur ? detailistemodele_tmaxc.innerText = result.t_max_constructeur : detailistemodele_tmaxc.innerText = "";
+                    result.t_min_constructeur ? detailistemodele_tminc.innerText = result.t_min_constructeur : detailistemodele_tminc.innerText = "";
+                    result.t_max_reel ? detailistemodele_tmaxr.innerText = result.t_max_reel : detailistemodele_tmaxr.innerText = "";
+                    result.t_min_reel ? detailistemodele_tminr.innerText = result.t_min_reel : detailistemodele_tminr.innerText = "";
+                    result.categorie_fluide_frigorigene ? detailistemodele_categorieff.innerText = result.categorie_fluide_frigorigene : detailistemodele_categorieff.innerText = "";
+                    result.categorie_de_risque ? detailistemodele_catderisque.innerText = result.categorie_de_risque : detailistemodele_catderisque.innerText = "";
+                    result.numero_de_serie ? detailistemodele_numerodeserie.innerText = result.numero_de_serie : detailistemodele_numerodeserie.innerText = "";
+                    result.annee ? detailistemodele_annee.innerText = result.annee : detailistemodele_annee.innerText = "";
+                    result.chapitre ? detailistemodele_chapitre.innerText = result.chapitre : detailistemodele_chapitre.innerText = "";
+                    result.periodicite_inspection ? detailistemodele_periodiciteinspection.innerText = result.periodicite_inspection : detailistemodele_periodiciteinspection.innerText = "";
+                })
+            })
+        </script>
     @endif
 </div>

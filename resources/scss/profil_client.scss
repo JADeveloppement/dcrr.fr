@@ -106,4 +106,28 @@
     .row-actif {
         @apply bg-dcrr-green/50 font-extrabold ;
     }
+
+    .popuplistemodele-table {
+        @apply w-full my-3 ;
+
+        > thead {
+            @apply font-extrabold text-white bg-dcrr-green text-center ;
+
+            > tr {
+                > th {
+                    &:first-child {
+                        @apply text-left ;
+                    }
+                }
+            }
+        }
+
+        > tbody {
+            > tr {
+                &:hover {
+                    @apply bg-dcrr-green/50 cursor-pointer font-extrabold ;
+                }
+            }
+        }
+    }
 }

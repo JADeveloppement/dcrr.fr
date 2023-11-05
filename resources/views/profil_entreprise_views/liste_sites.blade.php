@@ -17,7 +17,8 @@
                                     "listeSites.nom_site as nom_site", 
                                     "liste_marques.marque as marque", 
                                     "listeSites.date_mise_en_service as date_de_mise_en_service", 
-                                    "listeSites.conforme as conforme")
+                                    "listeSites.conforme as conforme",
+                                    "listeSites.designation_equipement as designation")
                             ->join("liste_marques", "liste_marques.id", "=", "listeSites.marquename")
                             ->where("proprietaire", $user->id)
                             ->get();

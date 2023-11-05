@@ -13,10 +13,12 @@
                                             "listeModele.numero_de_serie as numero_de_serie",
                                             "listeModele.user_parent as user_parent",
                                             "listeModele.site_parent as site_parent")
+                                            // "liste_marques.marque as marque")
                                 ->join("data_modele_nature","data_modele_nature.id", "=", "listeModele.nature")
                                 ->join("data_modele_reference","data_modele_reference.id", "=", "listeModele.complement_reference")
                                 ->join("data_modele_designation","data_modele_designation.id", "=", "listeModele.designation")
                                 ->join("data_modele_fabricant","data_modele_fabricant.id", "=", "listeModele.fabricant")
+                                // ->join("liste_marques","liste_marques.id", "=", "listeModele.marquename")
                                 ->where("user_parent", intval($userId))
                                 ->where("site_parent", intval(request()->displaySite))
                                 ->where("type", DataModeleType::where("modele_type", "Ensemble")->first()->id)
@@ -70,13 +72,18 @@
             <thead>
                 <tr>
                     <th>Action</th>
-                    <th>Nature</th>
+                    <!-- <th>Nature</th> 
                     <th>Designation</th>
                     <th>Référence</th>
                     <th>Fabricant</th>
                     <th>Date de mise en service</th>
                     <th>Catégorie fluide frigorigène</th>
-                    <th>Numéro de série</th>
+                    <th>Numéro de série</th>-->
+                    <th>Marque</th>
+                    <th>Désignation</th>
+                    <th>Date de mise en service</th>
+                    <th>Fluide frigorigène</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -88,13 +95,22 @@
                                 <i class="data-action text-[1.5rem] bi bi-trash mr-3"></i>
                             </div>
                         </td>
-                        <td>{{$i->nature}}</td>
+                        <!--<td>{{$i->nature}}</td>
                         <td>{{$i->designation}}</td>
                         <td>{{$i->reference}}</td>
                         <td>{{$i->fabricant}}</td>
                         <td>{{$i->date_mes}}</td>
                         <td>{{$i->categorie_fluide_frigorigene}}</td>
-                        <td>{{$i->numero_de_serie}}</td>
+                        <td>{{$i->numero_de_serie}}</td>-->
+                        <td><span class="badge bg-secondary">NC</span></td>
+                        <td>{{$i->designation}}</td>
+                        <td>{{$i->date_mes}}</td>
+                        <td>{{$i->categorie_fluide_frigorigene}}</td>
+                        <td>
+                            <div class="flex items-center justify-center">
+                                <i class="text-[1.5rem] bi bi-info-circle"></i>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -46,7 +46,7 @@ class AdminController extends Controller
 
     protected function get_chap($type, $pmax, $ptest):String
     {
-        if ($type == "Ensemble" || $type == "Accessoires de Sécurité")
+        if ($type == 1 || $type == 2)
             return "";
         else if ($type == "Tuyauterie")
             return "D";
