@@ -31,3 +31,5 @@ vite.config.js
 /tests
 *.zip
 artisan
+package-lock.json
+public/mix-manifest.json
