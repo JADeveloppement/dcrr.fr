@@ -50,7 +50,7 @@
             ])
         </div>
 
-        <div class="flex w-full justify-start mb-3">
+        <!-- <div class="flex w-full justify-start mb-3">
             <select class="form-select mr-3" class="mb-3" name="" id="field_addsite_marque">
                 <option value="0">-- Choisissez une marque --</option>
                 @foreach (Marques::get() as $m)
@@ -88,7 +88,7 @@
                 "label" => "Appareil conforme",
                 "classparent" => "w-full"
             ])
-        </div>
+        </div> -->
 
         <button class="btn-save-addsite w-full" data-target="{{$id_proprio}}">Enregistrer</button>
         <button class="btn-cancel btn-close-addsite">Annuler</button>

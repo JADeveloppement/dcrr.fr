@@ -9,19 +9,14 @@
 
     $user = User::where("email", Cookie::get("dcrr_login"))->first();
 
+    $userId = $user->id;
     $listeSites = ListeSites::select("listeSites.id as id", 
                                     "listeSites.code_client as code_client", 
                                     "listeSites.nom_client as nom_client", 
                                     "listeSites.code_site as code_site", 
-                                    "listeSites.nom_site as nom_site", 
-                                    "liste_marques.marque as marque", 
-                                    "listeSites.date_mise_en_service as date_mise_en_service", 
-                                    "listeSites.conforme as conforme",
-                                    "listeSites.designation_equipement as designation")
-                            ->join("liste_marques", "liste_marques.id", "=", "listeSites.marquename")
-                            ->where("proprietaire", $user->id)
+                                    "listeSites.nom_site as nom_site")
+                            ->where("proprietaire", $userId)
                             ->get();
-    $userId = $user->id;
 
     if (request()->has('displaySite')){
         $liste_ensemble = ListeModele::select("listeModele.id as id",
@@ -91,8 +86,8 @@
                         <th>Nom Site</th>
                         <!--<th>Marque</th>
                         <th>Date de Mise en service</th>
-                        <th>Conformité</th>-->
-                        <th>Désignation</th>
+                        <th>Conformité</th>
+                        <th>Désignation</th>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -104,8 +99,8 @@
                             <td>{{$item->nom_site}}</td>
                             <!--<td>{{$item->marque}}</td>
                             <td>{{$item->date_mise_en_service}}</td>
-                            <td>{{$item->conforme}}</td>-->
-                            <td>{{$item->designation}}</td>
+                            <td>{{$item->conforme}}</td>
+                            <td>{{$item->designation}}</td>-->
                         </tr>
                     @endforeach
                 </tbody>

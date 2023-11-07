@@ -65,11 +65,11 @@ class AdminController extends Controller
         $nom_client = request()->nom_client;
         $nom_site = request()->nom_site;
         $code_site = request()->code_site;
-        $marque = request()->marque;
-        $date_mise_en_service = request()->date_mise_en_service;
-        $fluide_frigorigène = request()->fluide_frigorigène;
-        $designation_equipement = request()->designation_equipement;
-        $conforme = 0;
+        // $marque = request()->marque;
+        // $date_mise_en_service = request()->date_mise_en_service;
+        // $fluide_frigorigène = request()->fluide_frigorigène;
+        // $designation_equipement = request()->designation_equipement;
+        // $conforme = 0;
     
         $user_role = User::where("email", Cookie::get("dcrr_login"))->first()->data_role->id;
     
@@ -83,11 +83,11 @@ class AdminController extends Controller
             $ls->nom_client = $nom_client;
             $ls->nom_site = $nom_site;
             $ls->code_site = $code_site;
-            $ls->marquename = $marque;
-            $ls->date_mise_en_service = $date_mise_en_service;
-            $ls->fluide_frigorigène = $fluide_frigorigène;
-            $ls->designation_equipement = $designation_equipement;
-            $ls->conforme = $conforme;
+            // $ls->marquename = $marque;
+            // $ls->date_mise_en_service = $date_mise_en_service;
+            // $ls->fluide_frigorigène = $fluide_frigorigène;
+            // $ls->designation_equipement = $designation_equipement;
+            // $ls->conforme = $conforme;
             $result = $ls->save();
         }
         else if ($user_role == DataRole::where("value", "Employé")->first()->id){
@@ -97,8 +97,8 @@ class AdminController extends Controller
         return [
             $auth,
             $result,
-            Marques::find(intval($marque))->marque,
-            Fluides::find(intval($fluide_frigorigène))->nom_fluide,
+            // Marques::find(intval($marque))->marque,
+            // Fluides::find(intval($fluide_frigorigène))->nom_fluide,
         ];
     }
        

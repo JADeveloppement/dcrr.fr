@@ -49,22 +49,23 @@ btn_save_addsite.addEventListener("click", async function(){
     const field_addsite_codeclient = document.querySelector("#field_addsite_codeclient");
     const field_addsite_nomsite = document.querySelector("#field_addsite_nomsite");
     const field_addsite_codesite = document.querySelector("#field_addsite_codesite");
-    const field_addsite_date_mise_en_service = document.querySelector("#field_addsite_date_mise_en_service");
-    const field_addsite_designation = document.querySelector("#field_addsite_designation");
-    const field_addsite_conforme = document.querySelector("#field_addsite_conforme");
-    const field_addsite_marque = document.querySelector("#field_addsite_marque");
-    const field_addsite_fluide = document.querySelector("#field_addsite_fluide");
+    // const field_addsite_date_mise_en_service = document.querySelector("#field_addsite_date_mise_en_service");
+    // const field_addsite_designation = document.querySelector("#field_addsite_designation");
+    // const field_addsite_conforme = document.querySelector("#field_addsite_conforme");
+    // const field_addsite_marque = document.querySelector("#field_addsite_marque");
+    // const field_addsite_fluide = document.querySelector("#field_addsite_fluide");
 
     field_addsite_nomclient.value.length < 3 ? field_addsite_nomclient.classList.add("is-invalid") : field_addsite_nomclient.classList.remove("is-invalid")
-    field_addsite_codeclient.value.length < 3 ? field_addsite_codeclient.classList.add("is-invalid") : field_addsite_codeclient.classList.remove("is-invalid")
+    field_addsite_codeclient.value.length == 0 ? field_addsite_codeclient.classList.add("is-invalid") : field_addsite_codeclient.classList.remove("is-invalid")
     field_addsite_nomsite.value.length < 3 ? field_addsite_nomsite.classList.add("is-invalid") : field_addsite_nomsite.classList.remove("is-invalid")
-    field_addsite_codesite.value.length < 3 ? field_addsite_codesite.classList.add("is-invalid") : field_addsite_codesite.classList.remove("is-invalid")
-    field_addsite_date_mise_en_service.value.length < 3 ? field_addsite_date_mise_en_service.classList.add("is-invalid") : field_addsite_date_mise_en_service.classList.remove("is-invalid")
-    field_addsite_designation.value.length < 3 ? field_addsite_designation.classList.add("is-invalid") : field_addsite_designation.classList.remove("is-invalid")
-    field_addsite_marque.value == 0 ? field_addsite_marque.classList.add("is-invalid") : field_addsite_marque.classList.remove("is-invalid") ;
-    field_addsite_fluide.value == 0 ? field_addsite_fluide.classList.add("is-invalid") : field_addsite_fluide.classList.remove("is-invalid") ;
+    field_addsite_codesite.value.length == 0 ? field_addsite_codesite.classList.add("is-invalid") : field_addsite_codesite.classList.remove("is-invalid")
+    // field_addsite_date_mise_en_service.value.length < 3 ? field_addsite_date_mise_en_service.classList.add("is-invalid") : field_addsite_date_mise_en_service.classList.remove("is-invalid")
+    // field_addsite_designation.value.length < 3 ? field_addsite_designation.classList.add("is-invalid") : field_addsite_designation.classList.remove("is-invalid")
+    // field_addsite_marque.value == 0 ? field_addsite_marque.classList.add("is-invalid") : field_addsite_marque.classList.remove("is-invalid") ;
+    // field_addsite_fluide.value == 0 ? field_addsite_fluide.classList.add("is-invalid") : field_addsite_fluide.classList.remove("is-invalid") ;
 
-    if (!field_addsite_nomclient.classList.contains("is-invalid") && !field_addsite_codeclient.classList.contains("is-invalid") && !field_addsite_nomsite.classList.contains("is-invalid") && !field_addsite_codesite.classList.contains("is-invalid") && !field_addsite_date_mise_en_service.classList.contains("is-invalid") && !field_addsite_designation.classList.contains("is-invalid") && !field_addsite_marque.classList.contains("is-invalid") && !field_addsite_fluide.classList.contains("is-invalid")){
+    // if (!field_addsite_nomclient.classList.contains("is-invalid") && !field_addsite_codeclient.classList.contains("is-invalid") && !field_addsite_nomsite.classList.contains("is-invalid") && !field_addsite_codesite.classList.contains("is-invalid") && !field_addsite_date_mise_en_service.classList.contains("is-invalid") && !field_addsite_designation.classList.contains("is-invalid") && !field_addsite_marque.classList.contains("is-invalid") && !field_addsite_fluide.classList.contains("is-invalid")){
+    if (!field_addsite_nomclient.classList.contains("is-invalid") && !field_addsite_codeclient.classList.contains("is-invalid") && !field_addsite_nomsite.classList.contains("is-invalid") && !field_addsite_codesite.classList.contains("is-invalid")){
         const data = {
             _token: _token,
             id: id,
@@ -72,10 +73,10 @@ btn_save_addsite.addEventListener("click", async function(){
             nom_client : field_addsite_nomclient.value,
             nom_site : field_addsite_nomsite.value,
             code_site : field_addsite_codesite.value,
-            fluide_frigorigène : field_addsite_fluide.value,
-            date_mise_en_service : field_addsite_date_mise_en_service.value,
-            marque : field_addsite_marque.value,
-            designation_equipement : field_addsite_designation.value,
+            // fluide_frigorigène : field_addsite_fluide.value,
+            // date_mise_en_service : field_addsite_date_mise_en_service.value,
+            // marque : field_addsite_marque.value,
+            // designation_equipement : field_addsite_designation.value,
         }
 
         console.log(data);

@@ -14,7 +14,7 @@
                 <th>Nom Client</th>
                 <th>Code Site</th>
                 <th>Nom Site</th>
-                <th>Désignation</th>
+                {{-- <th>Désignation</th>  --}}
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                     <td>{{ $l->nom_client }}</td>
                     <td>{{ $l->code_site }}</td>
                     <td>{{ $l->nom_site }}</td>
-                    <td>{{ $l->designation }}</td>
+                    <!-- <td>{{ $l->designation }}</td> -->
                 </tr>
             @endforeach
         </tbody>
