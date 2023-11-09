@@ -40,7 +40,24 @@ class ListeModele extends Model
         'chapitre',
         'diametre_nominal',
         'categorie_de_risque',
-        'periodicite_inspection'
+        'periodicite_inspection',
+        'pmax_hp',
+        'pmin_hp',
+        'pmax_mp',
+        'pmin_mp',
+        'pmax_bp',
+        'pmin_bp',
+        'tmax_hp',
+        'tmin_hp',
+        'tmax_mp',
+        'tmin_mp',
+        'tmax_bp',
+        'tmin_bp',
+        'annee_mes',
+        'fluide_frigorigene',
+        'designation_client',
+        'periodicite_ip',
+        'periodicite_rq'
     ];
 
     public function siteParent(){

@@ -37,16 +37,36 @@ btn_save_addensemble.addEventListener("click", async function(){
     const field_addensemble_annee = document.querySelector("#field_addensemble_annee");
     const field_addensemble_numerodeserie = document.querySelector("#field_addensemble_numerodeserie");
 
+    const addensemble_ff = document.querySelector("#addensemble_ff");
+
+    addensemble_ff.value == 0 ? addensemble_ff.classList.add("is-invalid") : addensemble_ff.classList.remove("is-invalid");
     modele_to_add == 0 ? addensemble_select.classList.add("is-invalid") : addensemble_select.classList.remove("is-invalid");
     field_addensemble_annee.value.length == 0 ? field_addensemble_annee.classList.add('is-invalid') : field_addensemble_annee.classList.remove("is-invalid");
     field_addensemble_numerodeserie.value.length == 0 ? field_addensemble_numerodeserie.classList.add('is-invalid') : field_addensemble_numerodeserie.classList.remove("is-invalid");
     
     if (!addensemble_select.classList.contains("is-invalid") 
     && !field_addensemble_annee.classList.contains("is-invalid")
-    && !field_addensemble_numerodeserie.classList.contains("is-invalid")){
+    && !field_addensemble_numerodeserie.classList.contains("is-invalid")
+    && !addensemble_ff.classList.contains("is-invalid")){
         btn_save_addensemble.setAttribute("disabled", true);
         const last_text = btn_save_addensemble.innerHTML;
         btn_save_addensemble.innerHTML = loading_spinner;
+
+        const addensemble_fieldpmaxhp = document.querySelector("#addensemble_fieldpmaxhp");
+        const addensemble_fieldpminhp = document.querySelector("#addensemble_fieldpminhp");
+        const addensemble_fieldpmaxmp = document.querySelector("#addensemble_fieldpmaxmp");
+        const addensemble_fieldpminmp = document.querySelector("#addensemble_fieldpminmp");
+        const addensemble_fieldpmaxbp = document.querySelector("#addensemble_fieldpmaxbp");
+        const addensemble_fieldpminbp = document.querySelector("#addensemble_fieldpminbp");
+        const addensemble_fieldtmaxhp = document.querySelector("#addensemble_fieldtmaxhp");
+        const addensemble_fieldtminhp = document.querySelector("#addensemble_fieldtminhp");
+        const addensemble_fieldtmaxmp = document.querySelector("#addensemble_fieldtmaxmp");
+        const addensemble_fieldtminmp = document.querySelector("#addensemble_fieldtminmp");
+        const addensemble_fieldtmaxbp = document.querySelector("#addensemble_fieldtmaxbp");
+        const addensemble_fieldtminbp = document.querySelector("#addensemble_fieldtminbp");
+        const addensemble_designationclient = document.querySelector("#addensemble_designationclient");
+
+        const ff = addensemble_ff.value;
         
         const data = {
             _token: _token,
@@ -55,8 +75,24 @@ btn_save_addensemble.addEventListener("click", async function(){
             modele_parent: modele_parent,
             modele_to_add: modele_to_add,
             annee: field_addensemble_annee.value, 
-            numerodeserie: field_addensemble_numerodeserie.value
+            numerodeserie: field_addensemble_numerodeserie.value,
+            pmaxhp: addensemble_fieldpmaxhp.value,
+            pminhp: addensemble_fieldpminhp.value,
+            pmaxmp: addensemble_fieldpmaxmp.value,
+            pminmp: addensemble_fieldpminmp.value,
+            pmaxbp: addensemble_fieldpmaxbp.value,
+            pminbp: addensemble_fieldpminbp.value,
+            tmaxhp: addensemble_fieldtmaxhp.value,
+            tminhp: addensemble_fieldtminhp.value,
+            tmaxmp: addensemble_fieldtmaxmp.value,
+            tminmp: addensemble_fieldtminmp.value,
+            tmaxbp: addensemble_fieldtmaxbp.value,
+            tminbp: addensemble_fieldtminbp.value,
+            ff: ff,
+            designation_client: addensemble_designationclient.value
         };
+
+        console.log("DATA : ", data);
 
         try {
             const r = await fetch_result("/add_ensemble", data);

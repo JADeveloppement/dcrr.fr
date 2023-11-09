@@ -109,6 +109,20 @@ class AdminController extends Controller
         $modele_to_add = request()->modele_to_add;
         $annee = request()->annee;
         $numerodeserie = request()->numerodeserie;
+        $pmaxhp = request()->pmaxhp;
+        $pminhp = request()->pminhp;
+        $pmaxmp = request()->pmaxmp;
+        $pminmp = request()->pminmp;
+        $pmaxbp = request()->pmaxbp;
+        $pminbp = request()->pminbp;
+        $tmaxhp = request()->tmaxhp;
+        $tminhp = request()->tminhp;
+        $tmaxmp = request()->tmaxmp;
+        $tminmp = request()->tminmp;
+        $tmaxbp = request()->tmaxbp;
+        $tminbp = request()->tminbp;
+        $ff = request()->ff;
+        $designation_client = request()->designation_client;
     
         $model_generic = DataModele::where("id", intval($modele_to_add))->first();
         $model = new ListeModele;
@@ -137,6 +151,21 @@ class AdminController extends Controller
         $model->modele_parent = $modele_parent;
         $model->user_parent = $user_parent;
         $model->site_parent = $site_parent;
+        $model->pmax_hp = $pmaxhp;
+        $model->pmin_hp = $pminhp;
+        $model->pmax_mp = $pmaxmp;
+        $model->pmin_mp = $pminmp;
+        $model->pmax_bp = $pmaxbp;
+        $model->pmin_bp = $pminbp;
+        $model->tmax_hp = $tmaxhp;
+        $model->tmin_hp = $tminhp;
+        $model->tmax_mp = $tmaxmp;
+        $model->tmin_mp = $tminmp;
+        $model->tmax_bp = $tmaxbp;
+        $model->tmin_bp = $tminbp;
+        $model->fluide_frigorigene = $ff;
+        $model->designation_client = $designation_client;
+        // MISS ANNEE_MES
     
         if ($model->save())
             return json_encode(["r" => 1]);
