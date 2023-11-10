@@ -27,6 +27,10 @@
                                             "listeModele.date_mes as date_mes",
                                             "listeModele.categorie_fluide_frigorigene as categorie_fluide_frigorigene",
                                             "listeModele.numero_de_serie as numero_de_serie",
+                                            "listeModele.designation_client as designation_client",
+                                            "listeModele.fluide_frigorigene as fluide_frigorigene",
+                                            "listeModele.periodicite_ip as periodicite_ip",
+                                            "listeModele.periodicite_rq as periodicite_rq",
                                             "listeModele.user_parent as user_parent",
                                             "listeModele.site_parent as site_parent")
                                 ->join("data_modele_nature","data_modele_nature.id", "=", "listeModele.nature")
@@ -160,12 +164,14 @@
                         <th>Date de mise en service</th>
                         <th>Catégorie FF</th>
                         <th>Numéro de série</th>-->
-                        
-                        <th>Marque</th>
-                        <th>Désignation</th>
-                        <th>Date de mise en service</th>
-                        <th>Fluide frigorigène</th>
                         <th></th>
+                        <th>Fabricant</th>
+                        <th>Désignation Client</th>
+                        <th>Désignation</th>
+                        <th>Date MES</th>
+                        <th>Fluide frigorigène</th>
+                        <th>Périodicité IP</th>
+                        <th>Périodicité RQ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -178,18 +184,18 @@
                             <td>{{$item->date_mes}}</td>
                             <td>{{$item->categorie_fluide_frigorigene}}</td>
                             <td>{{$item->numero_de_serie}}</td>-->
-
-                            <td>
-                                <span class="badge bg-secondary">NC</span>
-                            </td>
-                            <td>{{$item->designation}}</td>
-                            <td>{{$item->date_mes}}</td>
-                            <td>{{$item->categorie_fluide_frigorigene}}</td>
                             <td>
                                 <div class="flex items-center justify-center">
-                                    <i class="text-[1.5rem] bi bi-info"></i>
+                                    <i class="text-[1.5rem] bi bi-info-circle"></i>
                                 </div>
                             </td>
+                            <td>{{$item->fabricant}}</td>
+                            <td>{{$item->designation_client}}</td>
+                            <td>{{$item->designation}}</td>
+                            <td>{{$item->date_mes}}</td>
+                            <td>{{$item->fluide_frigorigene}}</td>
+                            <td>{{$item->periodicite_ip}}</td>
+                            <td>{{$item->periodicite_rq}}</td>
                         </tr>
                     @endforeach
                 </tbody>

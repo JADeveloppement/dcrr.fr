@@ -86,7 +86,7 @@
                         ])
                     </div>
 
-                    <table class="addmodele_table mb-3">
+                    <!--<table class="addmodele_table mb-3">
                         <thead>
                             <tr>
                                 <th>P_min Constructeur</th>
@@ -103,24 +103,24 @@
                                 <td class="addmodele_tmaxc"></td>
                             </tr>
                         </tbody>
-                    </table>
-                    @include("components.floatinginput", [
+                    </table>-->
+                    <!--@include("components.floatinginput", [
                         "id" => "addmodele_etape2_tarage",
                         "type" => "text",
                         "placeholder" => "Tarage",
                         "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
-                    ])
+                    ])-->
                     
-                    @include("components.floatinginput", [
+                    <!--@include("components.floatinginput", [
                         "id" => "addmodele_etape2_categorie_ff",
                         "type" => "text",
                         "placeholder" => "Catégorie",
                         "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
-                    ])
+                    ])-->
 
-                    <h3>Données terrain : </h3>
+                    <!--<h3>Données terrain : </h3>
                     <table class="addmodele_table mb-3">
                         <thead>
                             <tr>
@@ -166,11 +166,39 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
-                    @include("components.floatinginput", [
+                    </table>-->
+                    <!--@include("components.floatinginput", [
                         "id" => "addmodele_etape2_date_mes",
                         "type" => "number",
                         "placeholder" => "Date mise en service",
+                        "classparent" => "w-full mb-3"
+                    ])-->
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_etape2_categoriederisque",
+                        "type" => "text",
+                        "placeholder" => "Catégorie de risque",
+                        "classparent" => "w-full mb-3"
+                    ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_etape2_DMS",
+                        "type" => "text",
+                        "placeholder" => "DMS",
+                        "classparent" => "w-full mb-3"
+                    ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_etape2_volume",
+                        "type" => "text",
+                        "placeholder" => "Volume",
+                        "classparent" => "w-full mb-3"
+                    ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_etape2_dn",
+                        "type" => "text",
+                        "placeholder" => "Diamètre nominal",
                         "classparent" => "w-full mb-3"
                     ])
 

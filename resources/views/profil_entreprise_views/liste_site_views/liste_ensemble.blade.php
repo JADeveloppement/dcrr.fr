@@ -79,11 +79,13 @@
                     <th>Date de mise en service</th>
                     <th>Catégorie fluide frigorigène</th>
                     <th>Numéro de série</th>-->
-                    <th>Marque</th>
+                    <th>Fabricant</th>
                     <th>Désignation</th>
                     <th>Date de mise en service</th>
                     <th>Fluide frigorigène</th>
-                    <th></th>
+                    <th>Désignation client</th>
+                    <th>Périodicité IP</th>
+                    <th>Périodicité RQ</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,8 +93,9 @@
                     <tr class="@if($i->id == $ensemble_selected) bg-dcrr-green/50 font-extrabold @endif" data-toggle="ensemble" data-id="{{$i->id}}" data-userparent="{{$i->user_parent}}" data-siteparent="{{$i->site_parent}}">
                         <td data-toggle="action" class="data-action">
                             <div class="data-action flex items-center justify-center">
+                                <i class="text-[1.5rem] bi bi-info-circle mr-3"></i>
                                 <i class="data-action text-[1.5rem] bi bi-pen mr-3"></i>
-                                <i class="data-action text-[1.5rem] bi bi-trash mr-3"></i>
+                                <i class="data-action text-[1.5rem] bi bi-trash"></i>
                             </div>
                         </td>
                         <!--<td>{{$i->nature}}</td>
@@ -102,15 +105,13 @@
                         <td>{{$i->date_mes}}</td>
                         <td>{{$i->categorie_fluide_frigorigene}}</td>
                         <td>{{$i->numero_de_serie}}</td>-->
-                        <td><span class="badge bg-secondary">NC</span></td>
+                        <td>{{$i->fabricant}}</td>
+                        <td>{{$i->designation_client}}</td>
                         <td>{{$i->designation}}</td>
                         <td>{{$i->date_mes}}</td>
-                        <td>{{$i->categorie_fluide_frigorigene}}</td>
-                        <td>
-                            <div class="flex items-center justify-center">
-                                <i class="text-[1.5rem] bi bi-info-circle"></i>
-                            </div>
-                        </td>
+                        <td>{{$i->fluide_frigorigene}}</td>
+                        <td>{{$i->periodicite_ip}}</td>
+                        <td>{{$i->periodicite_rq}}</td>
                     </tr>
                 @endforeach
             </tbody>
