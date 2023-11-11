@@ -104,13 +104,12 @@
                             </tr>
                         </tbody>
                     </table>-->
-                    <!--@include("components.floatinginput", [
+                    @include("components.floatinginput", [
                         "id" => "addmodele_etape2_tarage",
                         "type" => "text",
                         "placeholder" => "Tarage",
-                        "disabled" => "disabled",
-                        "classparent" => "w-full mb-3"
-                    ])-->
+                        "classparent" => "w-full mb-3 addmodele_tarage"
+                    ])
                     
                     <!--@include("components.floatinginput", [
                         "id" => "addmodele_etape2_categorie_ff",
@@ -215,6 +214,13 @@
                         "placeholder" => "Année",
                         "classparent" => "w-full mb-3"
                     ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_etape2_annee_mes",
+                        "type" => "number",
+                        "placeholder" => "Année mise en service",
+                        "classparent" => "w-full mb-3"
+                    ])
                     <button class="btn-cancel addmodele_prev_etape w-fit" data-target="etape1">Précédent</button>
                     <button class="nextetape" data-target='etape3' disabled>Valider</button>
                 </div>
@@ -269,7 +275,7 @@
                         "type" => "text",
                         "placeholder" => "Tarage",
                         "disabled" => "disabled",
-                        "classparent" => "w-full mb-3"
+                        "classparent" => "w-full mb-3 addmodele_recap_tarage_container"
                     ])
                     
                     @include("components.floatinginput", [
@@ -280,7 +286,7 @@
                         "classparent" => "w-full mb-3"
                     ])
 
-                    <table class="addmodele_table mb-3">
+                    <!--<table class="addmodele_table mb-3">
                         <thead>
                             <tr>
                                 <th>P_max Constructeur</th>
@@ -316,7 +322,7 @@
                                 <td class="addmodele_recap_tminr"></td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>-->
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_recap_date_mes",
@@ -338,6 +344,14 @@
                         "id" => "addmodele_recap_annee",
                         "type" => "number",
                         "placeholder" => "Année",
+                        "disabled" => "disabled",
+                        "classparent" => "w-full mb-3"
+                    ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_recap_annee_mes",
+                        "type" => "number",
+                        "placeholder" => "Année mise en service",
                         "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
                     ])

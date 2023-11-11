@@ -9,15 +9,18 @@
                                             "data_modele_designation.modele_designation as designation",
                                             "data_modele_fabricant.modele_fabricant as fabricant",
                                             "listeModele.date_mes as date_mes",
+                                            "listeModele.designation_client as designation_client",
                                             "listeModele.categorie_fluide_frigorigene as categorie_fluide_frigorigene",
                                             "listeModele.numero_de_serie as numero_de_serie",
                                             "listeModele.user_parent as user_parent",
+                                            "liste_fluides.nom_fluide as fluide_frigorigene",
                                             "listeModele.site_parent as site_parent")
                                             // "liste_marques.marque as marque")
                                 ->join("data_modele_nature","data_modele_nature.id", "=", "listeModele.nature")
                                 ->join("data_modele_reference","data_modele_reference.id", "=", "listeModele.complement_reference")
                                 ->join("data_modele_designation","data_modele_designation.id", "=", "listeModele.designation")
                                 ->join("data_modele_fabricant","data_modele_fabricant.id", "=", "listeModele.fabricant")
+                                ->join("liste_fluides","liste_fluides.id", "=", "listeModele.fluide_frigorigene")
                                 // ->join("liste_marques","liste_marques.id", "=", "listeModele.marquename")
                                 ->where("user_parent", intval($userId))
                                 ->where("site_parent", intval(request()->displaySite))
@@ -106,10 +109,10 @@
                         <td>{{$i->categorie_fluide_frigorigene}}</td>
                         <td>{{$i->numero_de_serie}}</td>-->
                         <td>{{$i->fabricant}}</td>
-                        <td>{{$i->designation_client}}</td>
                         <td>{{$i->designation}}</td>
                         <td>{{$i->date_mes}}</td>
                         <td>{{$i->fluide_frigorigene}}</td>
+                        <td>{{$i->designation_client}}</td>
                         <td>{{$i->periodicite_ip}}</td>
                         <td>{{$i->periodicite_rq}}</td>
                     </tr>

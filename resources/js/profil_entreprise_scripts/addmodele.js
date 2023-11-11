@@ -37,7 +37,8 @@ const addmodele_etape2_reference = document.querySelector("#addmodele_etape2_ref
 // const addmodele_pmaxc = document.querySelector(".addmodele_pmaxc");
 // const addmodele_tminc = document.querySelector(".addmodele_tminc");
 // const addmodele_tmaxc = document.querySelector(".addmodele_tmaxc");
-// const addmodele_etape2_tarage = document.querySelector("#addmodele_etape2_tarage");
+const addmodele_etape2_tarage = document.querySelector("#addmodele_etape2_tarage");
+const addmodele_tarage_container = document.querySelector(".addmodele_tarage");
 // // const addmodele_etape2_categorie_ff = document.querySelector("#addmodele_etape2_categorie_ff");
 // const addmodele_etape2_pminr = document.querySelector("#addmodele_etape2_pminr");
 // const addmodele_etape2_pmaxr = document.querySelector("#addmodele_etape2_pmaxr");
@@ -53,18 +54,19 @@ const addmodele_recap_designation = document.querySelector("#addmodele_recap_des
 const addmodele_recap_reference = document.querySelector("#addmodele_recap_reference")
 const addmodele_recap_fabricant = document.querySelector("#addmodele_recap_fabricant")
 const addmodele_recap_tarage = document.querySelector("#addmodele_recap_tarage")
-const addmodele_recap_categorie_ff = document.querySelector("#addmodele_recap_categorie_ff")
-const addmodele_recap_pmaxc = document.querySelector(".addmodele_recap_pmaxc")
-const addmodele_recap_pminc = document.querySelector(".addmodele_recap_pminc")
-const addmodele_recap_tmaxc = document.querySelector(".addmodele_recap_tmaxc")
-const addmodele_recap_tminc = document.querySelector(".addmodele_recap_tminc")
-const addmodele_recap_pmaxr = document.querySelector(".addmodele_recap_pmaxr")
-const addmodele_recap_pminr = document.querySelector(".addmodele_recap_pminr")
-const addmodele_recap_tmaxr = document.querySelector(".addmodele_recap_tmaxr")
-const addmodele_recap_tminr = document.querySelector(".addmodele_recap_tminr")
+// const addmodele_recap_categorie_ff = document.querySelector("#addmodele_recap_categorie_ff")
+// const addmodele_recap_pmaxc = document.querySelector(".addmodele_recap_pmaxc")
+// const addmodele_recap_pminc = document.querySelector(".addmodele_recap_pminc")
+// const addmodele_recap_tmaxc = document.querySelector(".addmodele_recap_tmaxc")
+// const addmodele_recap_tminc = document.querySelector(".addmodele_recap_tminc")
+// const addmodele_recap_pmaxr = document.querySelector(".addmodele_recap_pmaxr")
+// const addmodele_recap_pminr = document.querySelector(".addmodele_recap_pminr")
+// const addmodele_recap_tmaxr = document.querySelector(".addmodele_recap_tmaxr")
+// const addmodele_recap_tminr = document.querySelector(".addmodele_recap_tminr")
 const addmodele_recap_date_mes = document.querySelector("#addmodele_recap_date_mes")
 const addmodele_recap_numerodeserie = document.querySelector("#addmodele_recap_numerodeserie")
 const addmodele_recap_annee = document.querySelector("#addmodele_recap_annee")
+const addmodele_recap_annee_mes = document.querySelector("#addmodele_recap_annee")
 
 const save_addmodele = document.querySelector(".save-addmodele");
 
@@ -96,15 +98,15 @@ function resetEtape3(){
     addmodele_recap_reference.value = "..";
     addmodele_recap_fabricant.value = "..";
     addmodele_recap_tarage.value = "";
-    addmodele_recap_pmaxc.innerHTML = span_loading
-    addmodele_recap_pminc.innerHTML = span_loading
-    addmodele_recap_tmaxc.innerHTML = span_loading
-    addmodele_recap_tminc.innerHTML = span_loading
-    addmodele_recap_categorie_ff.value = "..";
-    addmodele_recap_pmaxr.innerHTML = span_loading
-    addmodele_recap_pminr.innerHTML = span_loading
-    addmodele_recap_tmaxr.innerHTML = span_loading
-    addmodele_recap_tminr.innerHTML = span_loading
+    // addmodele_recap_pmaxc.innerHTML = span_loading
+    // addmodele_recap_pminc.innerHTML = span_loading
+    // addmodele_recap_tmaxc.innerHTML = span_loading
+    // addmodele_recap_tminc.innerHTML = span_loading
+    // addmodele_recap_categorie_ff.value = "..";
+    // addmodele_recap_pmaxr.innerHTML = span_loading
+    // addmodele_recap_pminr.innerHTML = span_loading
+    // addmodele_recap_tmaxr.innerHTML = span_loading
+    // addmodele_recap_tminr.innerHTML = span_loading
     addmodele_recap_date_mes.value = "";
     addmodele_recap_numerodeserie.value = "";
     addmodele_recap_annee.value = "";
@@ -127,7 +129,7 @@ function resetEtape2(){
     // // addmodele_pmaxc.innerHTML = "";
     // // addmodele_tminc.innerHTML = "";
     // // addmodele_tmaxc.innerHTML = "";
-    // addmodele_etape2_tarage.innerHTML = "";
+    addmodele_etape2_tarage.innerHTML = "";
     // // addmodele_etape2_pminr.value = "";
     // // addmodele_etape2_pmaxr.value = "";
     // // addmodele_etape2_tminr.value = "";
@@ -215,6 +217,10 @@ btn_nextetape_to2.addEventListener("click", function(){
         }
     })
 
+    if (TYPE_CHOSEN !== "Accessoires de sécurité"){
+        addmodele_tarage_container.style.opacity = 0;
+    } else addmodele_tarage_container.style.opacity = 1;
+
 })
 
 async function get_modele_detail(id){
@@ -222,7 +228,7 @@ async function get_modele_detail(id){
     addmodele_etape2_nature.value = "...";
     addmodele_etape2_designation.value = "...";
     addmodele_etape2_reference.value = "...";
-    // addmodele_etape2_tarage.value = "...";
+    addmodele_etape2_tarage.value = "...";
     // addmodele_pminc.innerHTML = span_loading;
     // addmodele_pmaxc.innerHTML = span_loading;
     // addmodele_tminc.innerHTML = span_loading;
@@ -249,7 +255,7 @@ async function get_modele_detail(id){
         // addmodele_pmaxc.innerHTML = result.pmaxc;
         // addmodele_tminc.innerHTML = result.tminc;
         // addmodele_tmaxc.innerHTML = result.tmaxc;
-        // addmodele_etape2_tarage.value = result.tarage;
+        addmodele_etape2_tarage.value = result.tarage;
 
         addmodele_modele_loading.classList.add("hidden");
         addmodele_modele_loading.classList.remove("flex");
@@ -302,6 +308,13 @@ btn_nextetape_to3.addEventListener("click", async function(){
 
     const id = this.getAttribute("data-id");
 
+    const addmodele_recap_annee_mes = document.querySelector("#addmodele_recap_annee_mes");
+    const addmodele_recap_tarage_container = document.querySelector(".addmodele_recap_tarage_container");
+
+    if (TYPE_CHOSEN !== "Accessoires de sécurité"){
+        addmodele_recap_tarage_container.style.opacity = 0;
+    } else addmodele_recap_tarage_container.style.opacity = 1;
+
     try {
         const result = await fetch_result("/get_modele_detail", {
             _token: _token,
@@ -313,16 +326,17 @@ btn_nextetape_to3.addEventListener("click", async function(){
         addmodele_recap_designation.value = result.designation;
         addmodele_recap_reference.value = result.complement_reference;
         addmodele_recap_fabricant.value = result.fabricant;
-        addmodele_recap_tarage.value = result.tarage;
-        addmodele_recap_pmaxc.innerHTML = result.pmaxc;
-        addmodele_recap_pminc.innerHTML = result.pminc;
-        addmodele_recap_tmaxc.innerHTML = result.tmaxc;
-        addmodele_recap_tminc.innerHTML = result.tminc;
+        addmodele_recap_tarage.value = addmodele_etape2_tarage.value;
+        // addmodele_recap_pmaxc.innerHTML = result.pmaxc;
+        // addmodele_recap_pminc.innerHTML = result.pminc;
+        // addmodele_recap_tmaxc.innerHTML = result.tmaxc;
+        // addmodele_recap_tminc.innerHTML = result.tminc;
+        addmodele_recap_annee_mes.value = addmodele_etape2_annee_mes.value;
         // addmodele_recap_categorie_ff.value = addmodele_etape2_categorie_ff.value;
-        // // addmodele_recap_pmaxr.innerHTML = addmodele_etape2_pminr.value;
-        // // addmodele_recap_pminr.innerHTML = addmodele_etape2_pmaxr.value;
-        // // addmodele_recap_tmaxr.innerHTML = addmodele_etape2_tminr.value;
-        // // addmodele_recap_tminr.innerHTML = addmodele_etape2_tmaxr.value;
+        // addmodele_recap_pmaxr.innerHTML = addmodele_etape2_pminr.value;
+        // addmodele_recap_pminr.innerHTML = addmodele_etape2_pmaxr.value;
+        // addmodele_recap_tmaxr.innerHTML = addmodele_etape2_tminr.value;
+        // addmodele_recap_tminr.innerHTML = addmodele_etape2_tmaxr.value;
         // addmodele_recap_date_mes.value = addmodele_etape2_date_mes.value;
         addmodele_recap_numerodeserie.value = addmodele_etape2_numerodeserie.value;
         addmodele_recap_annee.value = addmodele_etape2_annee.value;
@@ -343,10 +357,10 @@ save_addmodele.addEventListener("click", async function(){
     const ensemble_parent = this.getAttribute("data-ensembleparent");
     
     const categorie_ff = addmodele_recap_categorie_ff.value;
-    const pmaxr = addmodele_recap_pmaxr.innerText;
-    const pminr = addmodele_recap_pminr.innerText;
-    const tmaxr = addmodele_recap_tmaxr.innerText;
-    const tminr = addmodele_recap_tminr.innerText;
+    // const pmaxr = addmodele_recap_pmaxr.innerText;
+    // const pminr = addmodele_recap_pminr.innerText;
+    // const tmaxr = addmodele_recap_tmaxr.innerText;
+    // const tminr = addmodele_recap_tminr.innerText;
     const date_mes = addmodele_recap_date_mes.value;
     const numerodeserie = addmodele_recap_numerodeserie.value;
     const annee = addmodele_recap_annee.value;
@@ -355,13 +369,14 @@ save_addmodele.addEventListener("click", async function(){
         _token: _token,
         id: id,
         categorie_ff : categorie_ff,
-        pmaxr : pmaxr,
-        pminr : pminr,
-        tmaxr : tmaxr,
-        tminr : tminr,
+        // pmaxr : pmaxr,
+        // pminr : pminr,
+        // tmaxr : tmaxr,
+        // tminr : tminr,
         date_mes : date_mes,
         numerodeserie : numerodeserie,
         annee : annee,
+        annee_mes: addmodele_recap_annee_mes.value,
         user_parent: user_parent,
         site_parent: site_parent,
         ensemble_parent: ensemble_parent,

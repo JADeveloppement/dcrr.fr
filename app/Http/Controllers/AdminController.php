@@ -123,6 +123,7 @@ class AdminController extends Controller
         $tminbp = request()->tminbp;
         $ff = request()->ff;
         $designation_client = request()->designation_client;
+        $datevi = request()->datevi;
     
         $model_generic = DataModele::where("id", intval($modele_to_add))->first();
         $model = new ListeModele;
@@ -165,6 +166,7 @@ class AdminController extends Controller
         $model->tmin_bp = $tminbp;
         $model->fluide_frigorigene = $ff;
         $model->designation_client = $designation_client;
+        $model->date_vi = $datevi;
         // MISS ANNEE_MES
     
         if ($model->save())
@@ -174,13 +176,14 @@ class AdminController extends Controller
 
     public function add_modele(Request $r){
         $id = request()->id;
-        $pmaxr = request()->pmaxr;
-        $pminr = request()->pminr;
-        $tmaxr = request()->tmaxr;
-        $tminr = request()->tminr;
+        // $pmaxr = request()->pmaxr;
+        // $pminr = request()->pminr;
+        // $tmaxr = request()->tmaxr;
+        // $tminr = request()->tminr;
         $date_mes = request()->date_mes;
         $numerodeserie = request()->numerodeserie;
         $annee = request()->annee;
+        $annee_mes = request()->annee_mes;
         $user_parent = request()->user_parent;
         $site_parent = request()->site_parent;
         $ensemble_parent = request()->ensemble_parent;
@@ -218,11 +221,12 @@ class AdminController extends Controller
         $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
         $listeModele->date_mes = $date_mes ? $date_mes : null;
         $listeModele->categorie_fluide_frigorigene = $categorie_equipement;
-        $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
-        $listeModele->p_min_reel = $pminr ? $pminr : null;
-        $listeModele->t_max_reel = $tmaxr ? $tmaxr : null;
-        $listeModele->t_min_reel = $tminr ? $tminr : null;
+        // $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
+        // $listeModele->p_min_reel = $pminr ? $pminr : null;
+        // $listeModele->t_max_reel = $tmaxr ? $tmaxr : null;
+        // $listeModele->t_min_reel = $tminr ? $tminr : null;
         $listeModele->annee = $annee ? $annee : null;
+        $listeModele->annee_mes = $annee_mes ? $annee_mes : null;
         $listeModele->user_parent = $user_parent;
         $listeModele->site_parent = $site_parent;
         $listeModele->modele_parent = $ensemble_parent;

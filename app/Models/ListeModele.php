@@ -57,7 +57,8 @@ class ListeModele extends Model
         'fluide_frigorigene',
         'designation_client',
         'periodicite_ip',
-        'periodicite_rq'
+        'periodicite_rq',
+        'date_vi'
     ];
 
     public function siteParent(){

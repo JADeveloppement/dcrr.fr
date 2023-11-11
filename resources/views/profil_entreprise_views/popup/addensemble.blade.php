@@ -132,6 +132,13 @@
             ])
         </div>
 
+        @include("components.floatinginput", [
+            "id" => "field_addensemble_datevi",
+            "type" => "text",
+            "placeholder" => "Date VI",
+            "classparent" => "w-full mr-3"
+        ])
+
         <hr>
 
         <div class="flex w-full flex-col mb-3">

@@ -66,6 +66,9 @@ btn_save_addensemble.addEventListener("click", async function(){
         const addensemble_fieldtminbp = document.querySelector("#addensemble_fieldtminbp");
         const addensemble_designationclient = document.querySelector("#addensemble_designationclient");
 
+        const field_addensemble_datevi = document.querySelector("#field_addensemble_datevi");
+        const datevi = field_addensemble_datevi.value;
+        
         const ff = addensemble_ff.value;
         
         const data = {
@@ -89,6 +92,7 @@ btn_save_addensemble.addEventListener("click", async function(){
             tmaxbp: addensemble_fieldtmaxbp.value,
             tminbp: addensemble_fieldtminbp.value,
             ff: ff,
+            datevi: datevi,
             designation_client: addensemble_designationclient.value
         };
 
