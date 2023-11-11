@@ -106,7 +106,7 @@
                     </table>-->
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_tarage",
-                        "type" => "text",
+                        "type" => "number",
                         "placeholder" => "Tarage",
                         "classparent" => "w-full mb-3 addmodele_tarage"
                     ])
@@ -114,7 +114,7 @@
                     <!--@include("components.floatinginput", [
                         "id" => "addmodele_etape2_categorie_ff",
                         "type" => "text",
-                        "placeholder" => "Catégorie",
+                        "placeholder" => "Catégorie fluide frigorigène",
                         "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
                     ])-->
@@ -166,6 +166,7 @@
                             </tr>
                         </tbody>
                     </table>-->
+
                     <!--@include("components.floatinginput", [
                         "id" => "addmodele_etape2_date_mes",
                         "type" => "number",
@@ -177,26 +178,35 @@
                         "id" => "addmodele_etape2_categoriederisque",
                         "type" => "text",
                         "placeholder" => "Catégorie de risque",
+                        "disabled" => "disabled",
+                        "classparent" => "w-full mb-3"
+                    ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_etape2_chapitre",
+                        "type" => "text",
+                        "placeholder" => "Chapitre",
+                        "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
                     ])
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_DMS",
-                        "type" => "text",
+                        "type" => "number",
                         "placeholder" => "DMS",
                         "classparent" => "w-full mb-3"
                     ])
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_volume",
-                        "type" => "text",
+                        "type" => "number",
                         "placeholder" => "Volume",
                         "classparent" => "w-full mb-3"
                     ])
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_dn",
-                        "type" => "text",
+                        "type" => "number",
                         "placeholder" => "Diamètre nominal",
                         "classparent" => "w-full mb-3"
                     ])
@@ -279,6 +289,22 @@
                     ])
                     
                     @include("components.floatinginput", [
+                        "id" => "addmodele_recap_volume",
+                        "type" => "text",
+                        "placeholder" => "Volume",
+                        "disabled" => "disabled",
+                        "classparent" => "w-full mb-3 addmodele_recap_tarage_container"
+                    ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_recap_dn",
+                        "type" => "text",
+                        "placeholder" => "Diamètre nominal",
+                        "disabled" => "disabled",
+                        "classparent" => "w-full mb-3 addmodele_recap_tarage_container"
+                    ])
+                    
+                    @include("components.floatinginput", [
                         "id" => "addmodele_recap_categorie_ff",
                         "type" => "text",
                         "placeholder" => "Catégorie fluide frigorigène",
@@ -324,13 +350,13 @@
                         </tbody>
                     </table>-->
 
-                    @include("components.floatinginput", [
+                    <!--@include("components.floatinginput", [
                         "id" => "addmodele_recap_date_mes",
                         "type" => "number",
                         "placeholder" => "Date mise en service",
                         "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
-                    ])
+                    ])-->
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_recap_numerodeserie",

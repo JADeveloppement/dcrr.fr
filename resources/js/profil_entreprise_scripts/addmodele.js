@@ -47,6 +47,7 @@ const addmodele_tarage_container = document.querySelector(".addmodele_tarage");
 // const addmodele_etape2_date_mes = document.querySelector("#addmodele_etape2_date_mes");
 const addmodele_etape2_numerodeserie = document.querySelector("#addmodele_etape2_numerodeserie");
 const addmodele_etape2_annee = document.querySelector("#addmodele_etape2_annee");
+const addmodele_etape2_dn = document.querySelector("#addmodele_etape2_dn");
 
 const addmodele_recap_type = document.querySelector("#addmodele_recap_type")
 const addmodele_recap_nature = document.querySelector("#addmodele_recap_nature")
@@ -63,10 +64,11 @@ const addmodele_recap_tarage = document.querySelector("#addmodele_recap_tarage")
 // const addmodele_recap_pminr = document.querySelector(".addmodele_recap_pminr")
 // const addmodele_recap_tmaxr = document.querySelector(".addmodele_recap_tmaxr")
 // const addmodele_recap_tminr = document.querySelector(".addmodele_recap_tminr")
-const addmodele_recap_date_mes = document.querySelector("#addmodele_recap_date_mes")
+// const addmodele_recap_date_mes = document.querySelector("#addmodele_recap_date_mes")
 const addmodele_recap_numerodeserie = document.querySelector("#addmodele_recap_numerodeserie")
 const addmodele_recap_annee = document.querySelector("#addmodele_recap_annee")
 const addmodele_recap_annee_mes = document.querySelector("#addmodele_recap_annee")
+const addmodele_etape2_volume = document.querySelector("#addmodele_etape2_volume");
 
 const save_addmodele = document.querySelector(".save-addmodele");
 
@@ -107,7 +109,7 @@ function resetEtape3(){
     // addmodele_recap_pminr.innerHTML = span_loading
     // addmodele_recap_tmaxr.innerHTML = span_loading
     // addmodele_recap_tminr.innerHTML = span_loading
-    addmodele_recap_date_mes.value = "";
+    // addmodele_recap_date_mes.value = "";
     addmodele_recap_numerodeserie.value = "";
     addmodele_recap_annee.value = "";
 
@@ -125,15 +127,15 @@ function resetEtape2(){
     addmodele_etape2_nature.value = "";
     addmodele_etape2_designation.value = "";
     addmodele_etape2_reference.value = "";
-    // // addmodele_pminc.innerHTML = "";
-    // // addmodele_pmaxc.innerHTML = "";
-    // // addmodele_tminc.innerHTML = "";
-    // // addmodele_tmaxc.innerHTML = "";
+    // addmodele_pminc.innerHTML = "";
+    // addmodele_pmaxc.innerHTML = "";
+    // addmodele_tminc.innerHTML = "";
+    // addmodele_tmaxc.innerHTML = "";
     addmodele_etape2_tarage.innerHTML = "";
-    // // addmodele_etape2_pminr.value = "";
-    // // addmodele_etape2_pmaxr.value = "";
-    // // addmodele_etape2_tminr.value = "";
-    // // addmodele_etape2_tmaxr.value = "";
+    // addmodele_etape2_pminr.value = "";
+    // addmodele_etape2_pmaxr.value = "";
+    // addmodele_etape2_tminr.value = "";
+    // addmodele_etape2_tmaxr.value = "";
     // addmodele_etape2_date_mes.value = "";
     addmodele_etape2_numerodeserie.value = "";
     addmodele_etape2_annee.value = "";
@@ -340,6 +342,11 @@ btn_nextetape_to3.addEventListener("click", async function(){
         // addmodele_recap_date_mes.value = addmodele_etape2_date_mes.value;
         addmodele_recap_numerodeserie.value = addmodele_etape2_numerodeserie.value;
         addmodele_recap_annee.value = addmodele_etape2_annee.value;
+        const addmodele_recap_volume = document.querySelector("#addmodele_recap_volume");
+        const addmodele_recap_dn = document.querySelector("#addmodele_recap_dn");
+
+        addmodele_recap_volume.value = addmodele_etape2_volume.value; 
+        addmodele_recap_dn.value = addmodele_etape2_dn.value;
         
         save_addmodele.setAttribute("data-id", id);
     } catch(error){
@@ -361,26 +368,29 @@ save_addmodele.addEventListener("click", async function(){
     // const pminr = addmodele_recap_pminr.innerText;
     // const tmaxr = addmodele_recap_tmaxr.innerText;
     // const tminr = addmodele_recap_tminr.innerText;
-    const date_mes = addmodele_recap_date_mes.value;
+    // const date_mes = addmodele_recap_date_mes.value;
     const numerodeserie = addmodele_recap_numerodeserie.value;
     const annee = addmodele_recap_annee.value;
 
     const data = {
-        _token: _token,
-        id: id,
-        categorie_ff : categorie_ff,
         // pmaxr : pmaxr,
         // pminr : pminr,
         // tmaxr : tmaxr,
         // tminr : tminr,
-        date_mes : date_mes,
+        // date_mes : date_mes,
+        _token: _token,
+        id: id,
+        categorie_ff : categorie_ff,
         numerodeserie : numerodeserie,
         annee : annee,
         annee_mes: addmodele_recap_annee_mes.value,
         user_parent: user_parent,
         site_parent: site_parent,
         ensemble_parent: ensemble_parent,
+        dn: addmodele_etape2_dn.value,
+        volume: addmodele_etape2_volume.value,
     }
+    console.log(data);
 
     let url = "";
     for (let item in data)
@@ -395,9 +405,9 @@ save_addmodele.addEventListener("click", async function(){
         console.log(result);
         if (result.r){
             do_popup("bg-dcrr-green", "bi-info-circle", "Modèle rajouté avec succès. La page va se rafraichir");
-            setTimeout(() => {
+            /*setTimeout(() => {
                 location.reload(true);
-            }, 2000);
+            }, 2000);*/
         } else {
             do_popup("bg-orange-600", "bi-info-circle", "Une erreur est survenue, veuillez réessayer.");
         }

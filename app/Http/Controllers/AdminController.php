@@ -175,18 +175,20 @@ class AdminController extends Controller
     }
 
     public function add_modele(Request $r){
-        $id = request()->id;
         // $pmaxr = request()->pmaxr;
         // $pminr = request()->pminr;
         // $tmaxr = request()->tmaxr;
         // $tminr = request()->tminr;
-        $date_mes = request()->date_mes;
+        // $date_mes = request()->date_mes;
+        $id = request()->id;
         $numerodeserie = request()->numerodeserie;
         $annee = request()->annee;
         $annee_mes = request()->annee_mes;
         $user_parent = request()->user_parent;
         $site_parent = request()->site_parent;
         $ensemble_parent = request()->ensemble_parent;
+        $diametre_nominal = request()->dn;
+        $volume = request()->volumen;
                 
         $type = (DataModeleType::find(DataModele::find(request()->id)->type))->id;
         
@@ -208,18 +210,19 @@ class AdminController extends Controller
         $listeModele->designation = $datasource->designation ? $datasource->designation : null;
         $listeModele->complement_reference = $datasource->complement_reference ? $datasource->complement_reference : null;
         $listeModele->fabricant = $datasource->fabricant ? $datasource->fabricant : null;
-        $listeModele->volume = $datasource->volume ? $datasource->volume : null;
+        // $listeModele->volume = $datasource->volume ? $datasource->volume : null;
+        $listeModele->volume = $volume;
         $listeModele->p_max_constructeur = $datasource->p_max_constructeur ? $datasource->p_max_constructeur : null;
         $listeModele->p_min_constructeur = $datasource->p_min_constructeur ? $datasource->p_min_constructeur : null;
         $listeModele->p_test = $datasource->p_test ? $datasource->p_test : null;
         $listeModele->t_max_constructeur = $datasource->t_max_constructeur ? $datasource->t_max_constructeur : null;
         $listeModele->t_min_constructeur = $datasource->t_min_constructeur ? $datasource->t_min_constructeur : null;
         $listeModele->tarage = $datasource->tarage ? $datasource->tarage : null;
-        $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
+        // $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
         $listeModele->categorie_de_risque = $datasource->categorie_de_risque ? $datasource->categorie_de_risque : null;
         $listeModele->periodicite_inspection = $datasource->periodicite_inspection ? $datasource->periodicite_inspection : null;
         $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
-        $listeModele->date_mes = $date_mes ? $date_mes : null;
+        // $listeModele->date_mes = $date_mes ? $date_mes : null;
         $listeModele->categorie_fluide_frigorigene = $categorie_equipement;
         // $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
         // $listeModele->p_min_reel = $pminr ? $pminr : null;
@@ -230,6 +233,7 @@ class AdminController extends Controller
         $listeModele->user_parent = $user_parent;
         $listeModele->site_parent = $site_parent;
         $listeModele->modele_parent = $ensemble_parent;
+        $listeModele->diametre_nominal = $diametre_nominal;
         
         $pmax = $datasource->p_max_constructeur ? intval($datasource->p_max_constructeur) : 0;
         $listeModele->chapitre = $this->get_chap($type, $pmax, $p);
