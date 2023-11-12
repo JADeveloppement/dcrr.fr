@@ -254,6 +254,12 @@ async function get_modele_detail(id){
     // addmodele_tminc.innerHTML = span_loading;
     // addmodele_tmaxc.innerHTML = span_loading;
 
+    addmodele_etape2_categoriederisque.value = "...";
+    addmodele_etape2_chapitre.value = "...";
+    addmodele_etape2_volume.value = "...";
+    addmodele_etape2_dn.value = "...";
+    addmodele_etape2_DMS.checked = 0;
+
     addmodele_etape2_type.classList.add("animate-pulse");
     addmodele_etape2_nature.classList.add("animate-pulse");
     addmodele_etape2_designation.classList.add("animate-pulse");
@@ -276,6 +282,9 @@ async function get_modele_detail(id){
         // addmodele_tminc.innerHTML = result.tminc;
         // addmodele_tmaxc.innerHTML = result.tmaxc;
         addmodele_etape2_tarage.value = result.tarage;
+
+        addmodele_etape2_volume.value = result.volume;
+        addmodele_etape2_dn.value = result.dn;
 
         addmodele_modele_loading.classList.add("hidden");
         addmodele_modele_loading.classList.remove("flex");

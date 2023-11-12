@@ -82,6 +82,13 @@ Route::post("get_modele_detail", function(Request $r):String
     $tminc = $modele->t_min_constructeur;
     $tmaxc = $modele->t_max_constructeur;
     $tarage = $modele->tarage;
+
+    $volume = $modele->volume ? $modele->volume : "";
+    $dn = $modele->diametre_nominal ? $modele->diametre_nominal : "";
+    $chapitre = $modele->chapitre ? $modele->chapitre : "";
+    $categorierisque = $modele->categorie_de_risque ? $modele->categorie_de_risque : "";
+    $dms = $modele->declaration_MES ? $modele->declaration_MES : 0;
+
     return json_encode([
         "type" => $type,
         "nature" => $nature,
@@ -93,6 +100,11 @@ Route::post("get_modele_detail", function(Request $r):String
         "tminc" => $tminc,
         "tmaxc" => $tmaxc,
         "tarage" => $tarage,
+        "volume" => $volume,
+        "dn" => $dn,
+        "chapitre" => $chapitre,
+        "categorierisque" => $categorierisque,
+        "dms" => $dms,
     ]);
 });
 
