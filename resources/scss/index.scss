@@ -4,6 +4,10 @@
 
 
 @layer components {
+    .logo-green {
+        @apply w-[479px] h-[212px] object-cover;
+    }
+
     .screen-loading {
         @apply flex w-full h-screen fixed z-[100] items-center justify-center bg-black ;
         left: 0; 

@@ -90,7 +90,12 @@ btn_dosignin.addEventListener("click", async function(){
             if (result.r !== true){
                 if (result.r == -1) do_popup ("bg-orange-500", "bi-info-circle", "E-mail déjà utilisée.");
             } 
-            else if (result.r) do_popup ("bg-dcrr-green", "bi-info-circle", "Inscription effectuée.");;
+            else if (result.r){
+                do_popup ("bg-dcrr-green", "bi-info-circle", "Inscription effectuée, la page va se rafraichir.");
+                setTimeout(function(){
+                    location.reload(true);
+                }, 1000)
+            }
         } catch(error){
             do_popup ("bg-red-500", "bi-x-circle", "ERREUR : "+e);
         }
