@@ -63,6 +63,9 @@ Route::controller(AdminController::class)->group(function(){
     Route::post("/add_ensemble", "add_ensemble");
     Route::post("/add_modele", "add_modele");
     Route::get("/test_commande", "test_commande");
+    Route::post("/calc_categorierisque", "calc_categorierisque");
+    Route::post("/calc_chapitre", "calc_chapitre");
+    Route::post("/calc_dms", "calc_dms");
 });
 
 //get detail of generic modele

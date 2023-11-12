@@ -70,6 +70,16 @@ const addmodele_recap_annee = document.querySelector("#addmodele_recap_annee")
 const addmodele_recap_annee_mes = document.querySelector("#addmodele_recap_annee")
 const addmodele_etape2_volume = document.querySelector("#addmodele_etape2_volume");
 
+const addmodele_etape2_categoriederisque = document.querySelector("#addmodele_etape2_categoriederisque");
+const addmodele_etape2_chapitre = document.querySelector("#addmodele_etape2_chapitre");
+const addmodele_etape2_DMS = document.querySelector("#addmodele_etape2_DMS");
+
+const addmodele_recap_categoriederisque = document.querySelector("#addmodele_recap_categoriederisque");
+const addmodele_recap_chapitre = document.querySelector("#addmodele_recap_chapitre");
+const addmodele_recap_dms = document.querySelector("#addmodele_recap_dms");
+const addmodele_recap_volume = document.querySelector("#addmodele_recap_volume");
+const addmodele_recap_dn = document.querySelector("#addmodele_recap_dn");
+
 const save_addmodele = document.querySelector(".save-addmodele");
 
 let LAST_TYPE_CLICKED = null, 
@@ -123,6 +133,7 @@ function resetEtape2(){
         item.classList.remove("actif")
     })
 
+
     addmodele_etape2_type.value = "";
     addmodele_etape2_nature.value = "";
     addmodele_etape2_designation.value = "";
@@ -137,6 +148,13 @@ function resetEtape2(){
     // addmodele_etape2_tminr.value = "";
     // addmodele_etape2_tmaxr.value = "";
     // addmodele_etape2_date_mes.value = "";
+    addmodele_etape2_categoriederisque.value = "";
+    addmodele_etape2_chapitre.value = "";
+    addmodele_etape2_DMS.checked = false;
+    addmodele_etape2_dn.value = "";
+    addmodele_etape2_volume.value = "";
+    addmodele_etape2_annee_mes.value = "";
+
     addmodele_etape2_numerodeserie.value = "";
     addmodele_etape2_annee.value = "";
     LAST_MODELE_CLICKED = null;
@@ -271,17 +289,72 @@ async function get_modele_detail(id){
 
 }
 
+async function get_categorie_risque(id){
+    const data = {
+        _token: _token,
+        id: id,
+        ensemble_parent: (new URLSearchParams(window.location.search)).get("displayEnsemble")
+    }
+    
+    try {
+        const result = await fetch_result("/calc_categorierisque", data);
+        console.log(result);
+        result.categorie ? addmodele_etape2_categoriederisque.value = result.categorie : "";
+        // addmodele_etape2_categoriederisque.value = result.categorie;
+    } catch(error){
+        console.log("Error categorie de risque : ", error);
+    }
+}
+
+async function get_chapitre(id){
+    const data = {
+        _token: _token,
+        id: id,
+        ensemble_parent: (new URLSearchParams(window.location.search)).get("displayEnsemble")
+    }
+    
+    try {
+        const result = await fetch_result("/calc_chapitre", data);
+        console.log(result);
+        result.chapitre ? addmodele_etape2_chapitre.value = result.chapitre : "";
+        // addmodele_etape2_categoriederisque.value = result.categorie;
+    } catch(error){
+        console.log("Error categorie de risque : ", error);
+    }
+}
+
+async function get_dms(id){
+    const data = {
+        _token: _token,
+        id: id,
+        ensemble_parent: (new URLSearchParams(window.location.search)).get("displayEnsemble")
+    }
+    
+    try {
+        console.log("DATA DMS : ", data);
+        const result = await fetch_result("/calc_dms", data);
+        console.log(result);
+        addmodele_etape2_DMS.checked = result.dms;
+    } catch(error){
+        console.log("Error categorie de risque : ", error);
+    }
+}
+
 etape2_choice.forEach((p) => {
-    p.addEventListener("click", function(){
+    p.addEventListener("click", async function(){
         if (LAST_MODELE_CLICKED !== null && LAST_MODELE_CLICKED !== this){
             LAST_MODELE_CLICKED.classList.remove("actif")
         }
         if (!this.classList.contains("actif")){
+            const id = this.getAttribute("data-id");
             this.classList.add("actif")
             MODELE_CHOSEN = this.innerText;
             btn_nextetape_to3.removeAttribute("disabled");
-            get_modele_detail(this.getAttribute("data-id"));
-            btn_nextetape_to3.setAttribute("data-id", this.getAttribute("data-id"));
+            get_modele_detail(id);
+            get_categorie_risque(id);
+            get_chapitre(id);
+            get_dms(id);
+            btn_nextetape_to3.setAttribute("data-id", id);
         }
         else{
             this.classList.remove("actif");
@@ -327,7 +400,7 @@ btn_nextetape_to3.addEventListener("click", async function(){
         addmodele_recap_nature.value = result.nature;
         addmodele_recap_designation.value = result.designation;
         addmodele_recap_reference.value = result.complement_reference;
-        addmodele_recap_fabricant.value = result.fabricant;
+        // addmodele_recap_fabricant.value = result.fabricant;
         addmodele_recap_tarage.value = addmodele_etape2_tarage.value;
         // addmodele_recap_pmaxc.innerHTML = result.pmaxc;
         // addmodele_recap_pminc.innerHTML = result.pminc;
@@ -342,8 +415,10 @@ btn_nextetape_to3.addEventListener("click", async function(){
         // addmodele_recap_date_mes.value = addmodele_etape2_date_mes.value;
         addmodele_recap_numerodeserie.value = addmodele_etape2_numerodeserie.value;
         addmodele_recap_annee.value = addmodele_etape2_annee.value;
-        const addmodele_recap_volume = document.querySelector("#addmodele_recap_volume");
-        const addmodele_recap_dn = document.querySelector("#addmodele_recap_dn");
+
+        addmodele_recap_categoriederisque.value = addmodele_etape2_categoriederisque.value;
+        addmodele_recap_chapitre.value = addmodele_etape2_chapitre.value;
+        addmodele_recap_dms.checked = addmodele_etape2_DMS.checked;
 
         addmodele_recap_volume.value = addmodele_etape2_volume.value; 
         addmodele_recap_dn.value = addmodele_etape2_dn.value;
@@ -363,14 +438,21 @@ save_addmodele.addEventListener("click", async function(){
     const site_parent = this.getAttribute("data-siteparent");
     const ensemble_parent = this.getAttribute("data-ensembleparent");
     
-    const categorie_ff = addmodele_recap_categorie_ff.value;
+    // const categorie_ff = addmodele_recap_categorie_ff.value;
     // const pmaxr = addmodele_recap_pmaxr.innerText;
     // const pminr = addmodele_recap_pminr.innerText;
     // const tmaxr = addmodele_recap_tmaxr.innerText;
     // const tminr = addmodele_recap_tminr.innerText;
     // const date_mes = addmodele_recap_date_mes.value;
+    const categoriederisque = addmodele_recap_categoriederisque.value;
+    const chapitre = addmodele_recap_chapitre.value;
+    const dms = addmodele_recap_dms.checked;
+    const volume = addmodele_recap_volume.value;
+    const diametre_nominal = addmodele_recap_dn.value;
+
     const numerodeserie = addmodele_recap_numerodeserie.value;
     const annee = addmodele_recap_annee.value;
+    const annee_mes = addmodele_recap_annee_mes.value;
 
     const data = {
         // pmaxr : pmaxr,
@@ -378,17 +460,20 @@ save_addmodele.addEventListener("click", async function(){
         // tmaxr : tmaxr,
         // tminr : tminr,
         // date_mes : date_mes,
+        // categorie_ff : categorie_ff,
         _token: _token,
         id: id,
-        categorie_ff : categorie_ff,
         numerodeserie : numerodeserie,
         annee : annee,
-        annee_mes: addmodele_recap_annee_mes.value,
         user_parent: user_parent,
         site_parent: site_parent,
         ensemble_parent: ensemble_parent,
-        dn: addmodele_etape2_dn.value,
-        volume: addmodele_etape2_volume.value,
+        categoriederisque : categoriederisque,
+        chapitre : chapitre,
+        dms : dms,
+        volume : volume,
+        dn : diametre_nominal,
+        annee_mes : annee_mes
     }
     console.log(data);
 
@@ -405,9 +490,9 @@ save_addmodele.addEventListener("click", async function(){
         console.log(result);
         if (result.r){
             do_popup("bg-dcrr-green", "bi-info-circle", "Modèle rajouté avec succès. La page va se rafraichir");
-            /*setTimeout(() => {
+            setTimeout(() => {
                 location.reload(true);
-            }, 2000);*/
+            }, 2000);
         } else {
             do_popup("bg-orange-600", "bi-info-circle", "Une erreur est survenue, veuillez réessayer.");
         }

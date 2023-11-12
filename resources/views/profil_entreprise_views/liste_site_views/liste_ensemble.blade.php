@@ -83,10 +83,10 @@
                     <th>Catégorie fluide frigorigène</th>
                     <th>Numéro de série</th>-->
                     <th>Fabricant</th>
+                    <th>Désignation client</th>
                     <th>Désignation</th>
                     <th>Date de mise en service</th>
                     <th>Fluide frigorigène</th>
-                    <th>Désignation client</th>
                     <th>Périodicité IP</th>
                     <th>Périodicité RQ</th>
                 </tr>
@@ -109,10 +109,10 @@
                         <td>{{$i->categorie_fluide_frigorigene}}</td>
                         <td>{{$i->numero_de_serie}}</td>-->
                         <td>{{$i->fabricant}}</td>
-                        <td>{{$i->designation}}</td>
-                        <td>{{$i->date_mes}}</td>
-                        <td>{{$i->fluide_frigorigene}}</td>
                         <td>{{$i->designation_client}}</td>
+                        <td>{{$i->designation}}</td>
+                        <td>{{$i->annee_mes}}</td>
+                        <td>{{$i->fluide_frigorigene}}</td>
                         <td>{{$i->periodicite_ip}}</td>
                         <td>{{$i->periodicite_rq}}</td>
                     </tr>

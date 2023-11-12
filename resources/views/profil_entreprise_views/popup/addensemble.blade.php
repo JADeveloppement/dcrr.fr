@@ -25,9 +25,9 @@
             @include("components.floatinginput", [
                 "id" => "field_addensemble_type",
                 "type" => "text",
-                "placeholder" => "Ensemble",
+                "placeholder" => "Type d'installation",
                 "disabled" => "disabled",
-                "value" => "Type d'installation",
+                "value" => "Ensemble",
                 "classparent" => "w-full"
             ])
         </div>

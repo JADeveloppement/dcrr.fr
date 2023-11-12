@@ -177,36 +177,38 @@
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_categoriederisque",
                         "type" => "text",
-                        "placeholder" => "Catégorie de risque",
                         "disabled" => "disabled",
+                        "placeholder" => "Catégorie de risque",
                         "classparent" => "w-full mb-3"
                     ])
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_chapitre",
                         "type" => "text",
-                        "placeholder" => "Chapitre",
                         "disabled" => "disabled",
+                        "placeholder" => "Chapitre",
                         "classparent" => "w-full mb-3"
                     ])
 
-                    @include("components.floatinginput", [
+                    @include("components.checkbutton", [
                         "id" => "addmodele_etape2_DMS",
-                        "type" => "number",
-                        "placeholder" => "DMS",
-                        "classparent" => "w-full mb-3"
+                        "label" => "Déclaration de mise en service",
+                        "disabled" => true,
+                        "classparent" => "my-3"
                     ])
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_volume",
                         "type" => "number",
                         "placeholder" => "Volume",
+                        "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
                     ])
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_etape2_dn",
                         "type" => "number",
+                        "disabled" => "disabled",
                         "placeholder" => "Diamètre nominal",
                         "classparent" => "w-full mb-3"
                     ])
@@ -272,13 +274,13 @@
                             "classparent" => "w-full"
                         ])
                     </div>
-                    @include("components.floatinginput", [
+                    <!--@include("components.floatinginput", [
                         "id" => "addmodele_recap_fabricant",
                         "type" => "text",
                         "placeholder" => "Type",
                         "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
-                    ])
+                    ])-->
 
                     @include("components.floatinginput", [
                         "id" => "addmodele_recap_tarage",
@@ -289,11 +291,34 @@
                     ])
                     
                     @include("components.floatinginput", [
+                        "id" => "addmodele_recap_categoriederisque",
+                        "type" => "text",
+                        "placeholder" => "Categorie de risque",
+                        "disabled" => "disabled",
+                        "classparent" => "w-full mb-3"
+                    ])
+
+                    @include("components.floatinginput", [
+                        "id" => "addmodele_recap_chapitre",
+                        "type" => "text",
+                        "placeholder" => "Chapitre",
+                        "disabled" => "disabled",
+                        "classparent" => "w-full mb-3"
+                    ])
+
+                    @include("components.checkbutton", [
+                        "id" => "addmodele_recap_dms",
+                        "label" => "Déclaration de mise en service",
+                        "disabled" => true,
+                        "classparent" => "my-3"
+                    ])
+
+                    @include("components.floatinginput", [
                         "id" => "addmodele_recap_volume",
                         "type" => "text",
                         "placeholder" => "Volume",
                         "disabled" => "disabled",
-                        "classparent" => "w-full mb-3 addmodele_recap_tarage_container"
+                        "classparent" => "w-full mb-3"
                     ])
 
                     @include("components.floatinginput", [
@@ -304,13 +329,13 @@
                         "classparent" => "w-full mb-3 addmodele_recap_tarage_container"
                     ])
                     
-                    @include("components.floatinginput", [
+                    <!--@include("components.floatinginput", [
                         "id" => "addmodele_recap_categorie_ff",
                         "type" => "text",
                         "placeholder" => "Catégorie fluide frigorigène",
                         "disabled" => "disabled",
                         "classparent" => "w-full mb-3"
-                    ])
+                    ])-->
 
                     <!--<table class="addmodele_table mb-3">
                         <thead>

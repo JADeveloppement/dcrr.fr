@@ -15,7 +15,8 @@ use Cookie;
 
 class AdminController extends Controller
 {
-    private function get_cat($categorie_ff, $dn, $v, $p, $type):String
+
+    public function get_cat($categorie_ff, $dn, $v, $p, $type):String
     {
         if ($type == 2)
             return "";
@@ -55,8 +56,136 @@ class AdminController extends Controller
         else return "C";
     }
 
+    public function get_dms($type, $p, $v, $dn, $ptest, $cat_ff):int
+    {
+        $categorie = $this->get_cat($cat_ff, $dn, $v, $p, $type);
+        $chapitre = $this->get_chap($type, $p, $ptest);
+        $dms = 0;
+
+        if ($chapitre == "D"){
+            if ($categorie == 1)
+                if ($dn >= 350) $dms = 1;
+                else if ($dn >= 100 && $p*$dn >= 3500) $dms = 1;
+                else if ($dn <= 100 && $p*$dn <= 3500 || $dn <= 350) $dms = 0;
+            else if ($categorie == 2){
+                if ($dn >= 250 && $p*$dn >= 5000) $dms = 1;
+                else if ($dn <= 250 && $p*$dn <= 5000) $dms = 0;
+            }
+        } else if ($chapitre == "C" || $chapitre == "B"){
+            if ($p*$v >= 10000) $dms = 1;
+            else if ($p*$v <= 10000) $dms = 0;
+        } else {
+            if ($categorie == ""){
+                $dms = 0;
+            }
+        }
+
+        return $dms;
+    }
+
+    public function calc_chapitre(Request $r)
+    {
+        $id = $r->id;
+        $ensemble_parent = $r->ensemble_parent;
+
+        $model_generic = DataModele::find($id);
+        $type = $model_generic->type;
+        $pmax = $model_generic->p_max_constructeur;
+        $ptest = $model_generic->p_test;
+
+        return json_encode([
+            "chapitre" => $this->get_chap($type, $pmax, $ptest)
+        ]);
+
+    }
+
+    public function calc_categorierisque(Request $r){
+        $modele_generic = DataModele::where("id", $r->id)->first();
+        $ensemble_parent = ListeModele::where("id" , $r->ensemble_parent)->first();
+        $fluide_frigorigène = Fluides::find($ensemble_parent->fluide_frigorigene);
+        $type = $modele_generic->type;
+        $cat_ff = $fluide_frigorigène->categorie;
+        $dn = $modele_generic->diametre_nominal ? $modele_generic->diametre_nominal : 0;
+        $p = $modele_generic->p_test ? $modele_generic->p_test : 0;
+        $v = $modele_generic->volume ? $modele_generic->volume : 0;
+
+        $cat = $this->get_cat($cat_ff, $dn, $v, $p, $type);
+
+        return json_encode([
+            "categorie" => $cat
+        ]);
+    }
+
+    public function calc_dms(Request $r){
+        $id = request()->id;
+        $ensemble_parent = request()->ensemble_parent;
+
+        $model_generic = DataModele::find($id);
+        $ensemble_parent = ListeModele::find($ensemble_parent);
+        $type = intval($model_generic->type);
+        $p = intval($model_generic->p_max_constructeur);
+        $v = intval($model_generic->volume);
+        $dn = intval($model_generic->diametre_nominal);
+        $ptest = intval($model_generic->p_test);
+        $cat_ff = Fluides::find($ensemble_parent->fluide_frigorigene)->categorie;
+
+        return json_encode([
+            "dms" => $this->get_dms($type, $p, $v, $dn, $ptest, $cat_ff)
+        ]);
+    }
+
     public function test_commande(Request $r){
-        // EMPTY
+        $id = request()->id;
+        $numerodeserie = request()->numerodeserie;
+        $annee = request()->annee;
+        $annee_mes = request()->annee_mes;
+        $user_parent = request()->user_parent;
+        $site_parent = request()->site_parent;
+        $ensemble_parent = request()->ensemble_parent;
+        $diametre_nominal = request()->dn;
+        $volume = request()->volume;
+
+        $categoriederisque = request()->categoriederisque;
+        $chapitre = request()->chapitre;
+        $dms = request()->dms;
+                
+        $datasource = DataModele::find($id);
+        $listeModele = new ListeModele;
+        $listeModele->type = $datasource->type ? $datasource->type : null;
+        $listeModele->nature = $datasource->nature ? $datasource->nature : null;
+        $listeModele->designation = $datasource->designation ? $datasource->designation : null;
+        $listeModele->complement_reference = $datasource->complement_reference ? $datasource->complement_reference : null;
+        $listeModele->fabricant = $datasource->fabricant ? $datasource->fabricant : null;
+        $listeModele->p_max_constructeur = $datasource->p_max_constructeur ? $datasource->p_max_constructeur : null;
+        $listeModele->p_min_constructeur = $datasource->p_min_constructeur ? $datasource->p_min_constructeur : null;
+        $listeModele->p_test = $datasource->p_test ? $datasource->p_test : null;
+        $listeModele->t_max_constructeur = $datasource->t_max_constructeur ? $datasource->t_max_constructeur : null;
+        $listeModele->t_min_constructeur = $datasource->t_min_constructeur ? $datasource->t_min_constructeur : null;
+        $listeModele->tarage = $datasource->tarage ? $datasource->tarage : null;
+        $listeModele->periodicite_inspection = $datasource->periodicite_inspection ? $datasource->periodicite_inspection : null;
+        $listeModele->categorie_fluide_frigorigene = Fluides::find(ListeModele::find($ensemble_parent)->fluide_frigorigene)->categorie;
+        // $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
+        // $listeModele->date_mes = $date_mes ? $date_mes : null;
+        // $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
+        // $listeModele->p_min_reel = $pminr ? $pminr : null;
+        // $listeModele->t_max_reel = $tmaxr ? $tmaxr : null;
+        // $listeModele->t_min_reel = $tminr ? $tminr : null;
+        
+        $listeModele->categorie_de_risque = $categoriederisque ? $categoriederisque : null;
+        $listeModele->DMS = $dms ? 1 : 0;
+        $listeModele->chapitre = $chapitre ? $chapitre : null;
+        $listeModele->diametre_nominal = $diametre_nominal ? $diametre_nominal : null;
+        $listeModele->annee = $annee ? $annee : null;
+        $listeModele->annee_mes = $annee_mes ? $annee_mes : null;
+        $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
+        $listeModele->volume = $volume ? intval($volume) : null;
+        $listeModele->user_parent = $user_parent;
+        $listeModele->site_parent = $site_parent;
+        $listeModele->modele_parent = $ensemble_parent;
+        
+        return json_encode([
+            "r" => $listeModele->save(),
+        ]);
     }
 
     public function add_site(Request $r){
@@ -180,6 +309,7 @@ class AdminController extends Controller
         // $tmaxr = request()->tmaxr;
         // $tminr = request()->tminr;
         // $date_mes = request()->date_mes;
+
         $id = request()->id;
         $numerodeserie = request()->numerodeserie;
         $annee = request()->annee;
@@ -188,21 +318,12 @@ class AdminController extends Controller
         $site_parent = request()->site_parent;
         $ensemble_parent = request()->ensemble_parent;
         $diametre_nominal = request()->dn;
-        $volume = request()->volumen;
+        $volume = request()->volume;
+
+        $categoriederisque = request()->categoriederisque;
+        $chapitre = request()->chapitre;
+        $dms = request()->dms;
                 
-        $type = (DataModeleType::find(DataModele::find(request()->id)->type))->id;
-        
-        $categorie_ff = intval((ListeSites::select("listeSites.id as id",
-                                            "liste_fluides.categorie as cat")
-                                    ->join("liste_fluides", "liste_fluides.id", "=", "listeSites.fluide_frigorigène")
-                                    ->where("listeSites.id", request()->site_parent)->first())->cat);
-
-        $dn = intval(DataModele::find(request()->id)->diametre_nominal);
-        $v = intval(DataModele::find(request()->id)->volume);
-        $p = intval(DataModele::find(request()->id)->p_test);
-
-        $categorie_equipement = $this->get_cat($categorie_ff, $dn, $v, $p, $type);
-
         $datasource = DataModele::find($id);
         $listeModele = new ListeModele;
         $listeModele->type = $datasource->type ? $datasource->type : null;
@@ -210,34 +331,33 @@ class AdminController extends Controller
         $listeModele->designation = $datasource->designation ? $datasource->designation : null;
         $listeModele->complement_reference = $datasource->complement_reference ? $datasource->complement_reference : null;
         $listeModele->fabricant = $datasource->fabricant ? $datasource->fabricant : null;
-        // $listeModele->volume = $datasource->volume ? $datasource->volume : null;
-        $listeModele->volume = $volume;
         $listeModele->p_max_constructeur = $datasource->p_max_constructeur ? $datasource->p_max_constructeur : null;
         $listeModele->p_min_constructeur = $datasource->p_min_constructeur ? $datasource->p_min_constructeur : null;
         $listeModele->p_test = $datasource->p_test ? $datasource->p_test : null;
         $listeModele->t_max_constructeur = $datasource->t_max_constructeur ? $datasource->t_max_constructeur : null;
         $listeModele->t_min_constructeur = $datasource->t_min_constructeur ? $datasource->t_min_constructeur : null;
         $listeModele->tarage = $datasource->tarage ? $datasource->tarage : null;
-        // $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
-        $listeModele->categorie_de_risque = $datasource->categorie_de_risque ? $datasource->categorie_de_risque : null;
         $listeModele->periodicite_inspection = $datasource->periodicite_inspection ? $datasource->periodicite_inspection : null;
-        $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
+        $listeModele->categorie_fluide_frigorigene = Fluides::find(ListeModele::find($ensemble_parent)->fluide_frigorigene)->categorie;
+        // $listeModele->diametre_nominal = $datasource->diametre_nominal ? $datasource->diametre_nominal : null;
         // $listeModele->date_mes = $date_mes ? $date_mes : null;
-        $listeModele->categorie_fluide_frigorigene = $categorie_equipement;
         // $listeModele->p_max_reel = $pmaxr ? $pmaxr : null;
         // $listeModele->p_min_reel = $pminr ? $pminr : null;
         // $listeModele->t_max_reel = $tmaxr ? $tmaxr : null;
         // $listeModele->t_min_reel = $tminr ? $tminr : null;
+        
+        $listeModele->categorie_de_risque = $categoriederisque ? $categoriederisque : null;
+        $listeModele->DMS = $dms ? 1 : 0;
+        $listeModele->chapitre = $chapitre ? $chapitre : null;
+        $listeModele->diametre_nominal = $diametre_nominal ? $diametre_nominal : null;
         $listeModele->annee = $annee ? $annee : null;
         $listeModele->annee_mes = $annee_mes ? $annee_mes : null;
+        $listeModele->numero_de_serie = $numerodeserie ? $numerodeserie : null;
+        $listeModele->volume = $volume ? intval($volume) : null;
         $listeModele->user_parent = $user_parent;
         $listeModele->site_parent = $site_parent;
         $listeModele->modele_parent = $ensemble_parent;
-        $listeModele->diametre_nominal = $diametre_nominal;
         
-        $pmax = $datasource->p_max_constructeur ? intval($datasource->p_max_constructeur) : 0;
-        $listeModele->chapitre = $this->get_chap($type, $pmax, $p);
-
         return json_encode([
             "r" => $listeModele->save(),
         ]);
