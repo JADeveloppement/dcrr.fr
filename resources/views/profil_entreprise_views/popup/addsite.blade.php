@@ -8,7 +8,9 @@
 
     if (request()->has('userId')){
         if (User::where("id", request()->userId)->exists()){
-            $proprio = User::where("id", request()->userId)->first()->nomprenom;
+            // $proprio = User::where("id", request()->userId)->first()->nomprenom;
+            //#1111202310CN
+            $proprio = User::where("id", request()->userId)->first()->entreprise;
             $id_proprio = User::where("id", request()->userId)->first()->id;
         }
     }
