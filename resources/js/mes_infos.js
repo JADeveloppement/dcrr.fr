@@ -3,7 +3,7 @@ import {fetch_result, toggleButtonClick, do_popup} from "./utils.js";
 const _token = document.querySelector("meta[name='_token']").getAttribute("content");
 
 const popup_save_infos_container = document.querySelector(".saveinfos-container");
-// stashing
+
 const btn_save_infos = document.querySelector(".save-mesinfos-infos");
 const btn_save_infospasword = document.querySelector(".save-mesinfos-password");
 const popup_save_infos = document.querySelector(".saveinfos-container");
