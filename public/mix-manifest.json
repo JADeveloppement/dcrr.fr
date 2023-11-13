@@ -2,6 +2,7 @@
     "/js/utils.js": "/js/utils.js",
     "/js/index.js": "/js/index.js",
     "/js/signin.js": "/js/signin.js",
+    "/js/mes_infos.js": "/js/mes_infos.js",
     "/js/profil_entreprise_scripts/liste_site.js": "/js/profil_entreprise_scripts/liste_site.js",
     "/js/profil_entreprise_scripts/liste_ensemble.js": "/js/profil_entreprise_scripts/liste_ensemble.js",
     "/js/profil_entreprise_scripts/liste_modele.js": "/js/profil_entreprise_scripts/liste_modele.js",

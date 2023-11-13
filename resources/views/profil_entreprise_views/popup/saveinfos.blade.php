@@ -1,7 +1,7 @@
 <div class="container justify-start saveinfos-container" style="top: -100vh;">
     <div class="box relative">
         <h2>Confirmation mot de passe</h2>
-        <p class="w-full my-4 text-left">Un administrateur devra valider vos modifiations au préalable. <br>Vous serez notifié lorsque les modifications auront été acceptées.</p>
+        <!--<p class="w-full my-4 text-left">Un administrateur devra valider vos modifiations au préalable. <br>Vous serez notifié lorsque les modifications auront été acceptées.</p>-->
         @include("components.floatinginput", [
             "id" => "field_mesinfos_password",
             "type" => "password",
@@ -20,4 +20,4 @@
     btn_close_save_mesinfos.addEventListener("click", function(){
         popup_save_infos_container.style.top = "-100vh";
     })
-</script>
+</script> 

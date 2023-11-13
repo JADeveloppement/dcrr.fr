@@ -16,6 +16,7 @@
 @endsection
 
 @section("content")
+    @include("components.popup")
     @include("profil_client_views.components.header")
 
     @if($displayMenu == 0)

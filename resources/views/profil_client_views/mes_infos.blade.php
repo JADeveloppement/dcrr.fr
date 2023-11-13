@@ -73,30 +73,4 @@
     <button class="save-mesinfos-password">Enregistrer</button>
 </div>
 
-<script>
-    const field_mesinfos_name = document.querySelector("#field_mesinfos_name");
-    const field_mesinfos_email = document.querySelector("#field_mesinfos_email");
-    const field_mesinfos_entreprise = document.querySelector("#field_mesinfos_entreprise");
-    const field_mesinfos_poste = document.querySelector("#field_mesinfos_poste");
-    const field_mesinfos_newsletter = document.querySelector("#field_mesinfos_newsletter");
-
-    const field_mesinfos_oldpassword = document.querySelector("#field_mesinfos_oldpassword");
-    const field_mesinfos_newpassword = document.querySelector("#field_mesinfos_newpassword");
-    const field_mesinfos_confirmpassword = document.querySelector("#field_mesinfos_confirmpassword");
-
-    const save_mesinfos_infos = document.querySelector(".save-mesinfos-infos");
-    const save_mesinfos_password = document.querySelector(".save-mesinfos-password");
-
-    const saveinfos_container = document.querySelector(".saveinfos-container");
-
-    save_mesinfos_infos.addEventListener("click", function(){
-        field_mesinfos_name.value.length == 0 ? field_mesinfos_name.classList.add("is-invalid") : field_mesinfos_name.classList.remove("is-invalid");
-        field_mesinfos_email.value.length == 0 ? field_mesinfos_email.classList.add("is-invalid") : field_mesinfos_email.classList.remove("is-invalid");
-        field_mesinfos_entreprise.value.length == 0 ? field_mesinfos_entreprise.classList.add("is-invalid") : field_mesinfos_entreprise.classList.remove("is-invalid");
-        field_mesinfos_poste.value.length == 0 ? field_mesinfos_poste.classList.add("is-invalid") : field_mesinfos_poste.classList.remove("is-invalid");
-
-        if (!field_mesinfos_name.classList.contains("is-invalid") && !field_mesinfos_email.classList.contains("is-invalid") && !field_mesinfos_entreprise.classList.contains("is-invalid") && !field_mesinfos_poste.classList.contains("is-invalid")){
-            saveinfos_container.style.top = "0";
-        }
-    })
-</script>
+<script src="{{asset('js/mes_infos.js')}}"></script>
