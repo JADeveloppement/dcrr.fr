@@ -174,3 +174,50 @@ Route::post("/get_user", function(Request $r):String {
         ]);
     }
 });
+
+Route::post("/save_mesinfos", function(Request $r){
+    $user = User::where("email", Cookie::get("dcrr_login"))->first();
+    $password = $r->password;
+
+    if ($user->password !== $password) return json_encode(["r" => -1]);
+    else {
+        $name = $r->name;
+        $email = $r->email;
+        $entreprise = $r->entreprise;
+        $poste = $r->poste;
+        $newsletter = $r->newsletter;
+
+        $user->nomprenom = $name;
+        $user->email = $email;
+        $user->entreprise = $entreprise;
+        $user->poste = $poste;
+        $user->newsletter = $newsletter;
+
+        $user->save();
+
+        return json_encode([
+            "r" => 1
+        ]);
+    }
+
+    return json_encode([
+        "r" => $r->password,
+        "user" => $user,
+        "password" => $user->password
+    ]);
+});
+
+Route::post("/savepwd", function(Request $r){
+    $user = User::where("email", Cookie::get("dcrr_login"))->first();
+    $password = $r->password;
+    $oldpassword = $r->oldpassword;
+    $newpassword = $r->newpassword;
+
+    if ($oldpassword != $user->password || $password != $user->password){
+        return json_encode(["r" => -1]);
+    } else {
+        $user->password = $newpassword;
+        $user->save();
+        return json_encode(["r" => 1]);
+    }
+});
